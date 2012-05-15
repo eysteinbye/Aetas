@@ -6,55 +6,7 @@ www
 </name>
 </assembly>
 <members>
-<member name="F:www.Site.HeadContent">
-	<summary>
-HeadContent control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:www.Site.MasterPageScriptManager">
-	<summary>
-MasterPageScriptManager control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:www.Site.HeadLoginView">
-	<summary>
-HeadLoginView control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:www.Site.HeadHomeLink">
-	<summary>
-HeadHomeLink control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:www.Site.HeadAboutLink">
-	<summary>
-HeadAboutLink control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:www.Site.MainContent">
-	<summary>
-MainContent control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:www.ChangePassword.ChangeUserPassword">
+<member name="F:www.ChangePassword.ChangeUserPassword">
 	<summary>
 ChangeUserPassword control.
 </summary>

@@ -90,24 +90,22 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
     <Content Include="Account\ChangePassword.aspx" />
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
-    <Content Include="demo.htm" />
-    <Content Include="index.htm" />
+    <Content Include="demo1.htm" />
+    <Content Include="demo2.htm" />
     <Content Include="Styles\Site.css" />
-    <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
-    <Content Include="timeline-embed.js" />
-    <Content Include="timeline-min.js" />
-    <Content Include="timeline.css" />
-    <Content Include="TimeLine.htm" />
-    <Content Include="timeline.png" />
+    <Content Include="Scripts\timeline-embed.js" />
+    <Content Include="Scripts\timeline-min.js" />
+    <Content Include="Styles\timeline.css" />
+    <Content Include="demo3.htm" />
+    <Content Include="Styles\timeline.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -118,13 +116,6 @@
     <Content Include="WebService.asmx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.aspx.designer.vb">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="About.aspx.vb">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
     <Compile Include="Account\ChangePassword.aspx.designer.vb">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
     </Compile>
@@ -153,13 +144,6 @@
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.vb">
-      <SubType>ASPXCodeBehind</SubType>
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Default.aspx.designer.vb">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -181,13 +165,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Site.Master.designer.vb">
-      <DependentUpon>Site.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Site.Master.vb">
-      <DependentUpon>Site.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebService.asmx.vb">
       <DependentUpon>WebService.asmx</DependentUpon>
@@ -214,7 +191,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
