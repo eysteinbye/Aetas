@@ -1,0 +1,13 @@
+c:\Aetas\Aetas\www\bin\www.dll
+c:\Aetas\Aetas\www\bin\www.pdb
+c:\Aetas\Aetas\www\bin\www.xml
+c:\Aetas\Aetas\www\obj\Debug\ResolveAssemblyReference.cache
+c:\Aetas\Aetas\www\obj\Debug\www.Resources.resources
+c:\Aetas\Aetas\www\obj\Debug\GenerateResource.read.1.tlog
+c:\Aetas\Aetas\www\obj\Debug\GenerateResource.write.1.tlog
+c:\Aetas\Aetas\www\obj\Debug\www.dll
+c:\Aetas\Aetas\www\obj\Debug\www.xml
+c:\Aetas\Aetas\www\obj\Debug\www.pdb
+c:\Aetas\Aetas\www\bin\Newtonsoft.Json.dll
+c:\Aetas\Aetas\www\bin\Newtonsoft.Json.pdb
+c:\Aetas\Aetas\www\bin\Newtonsoft.Json.xml

@@ -1,0 +1,196 @@
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="Integrity.aspx.vb" Inherits="WebView.Integrity1" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+	<title>Integrity input</title>
+	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+	<script type='text/javascript' src='https://github.com/downloads/SteveSanderson/knockout/knockout-2.1.0.js'></script>
+	<script type='text/javascript' src='https://github.com/SteveSanderson/knockout.mapping/tree/master/build/output'></script>
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<style type="text/css">
+		h1
+		{
+			font-size: 14px;
+		}
+		h2
+		{
+			font-size: 12px;
+		}
+		h3
+		{
+			display:inline;
+			font-size:11px;
+		}
+	</style>
+	<script type="text/javascript">
+		var viewModel
+		function getData(url, wellId, id) {
+			if (!wellId) wellId = getQueryString("wellId");
+			if (!id) id = getQueryString("id");
+
+			if (wellId == "") return "";
+			if (id == "") id = 0;
+
+			var qs = "?wellId=" + wellId + "&id=" + id
+			url += qs;
+
+			ajaxWrapper(url, null, "GET");
+		}
+
+		function deleteData(url) {
+			var wellId = getQueryString("wellId");
+			var Id = getQueryString("id");
+
+			if (wellId == "") return "";
+			if (Id == "") return "";
+
+			var qs = "?wellId=" + wellId + "&id=" + Id
+			url += qs;
+
+			ajaxWrapper(url, null, "GET");
+		}
+
+		function postData(url, data) {
+			ajaxWrapper(url, data, "POST");
+		}
+
+		function ajaxWrapper(url, data, type, callback) {
+			$.ajax({
+				type: type,
+				url: url,
+				data: "{jsonObj : '" + data + "'}",
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				dataFilter: function (data) {
+					return filterData(data);
+				},
+				success: function (json) {
+					if (!callback) callback = bindViewModel;
+					callback(json)
+				},
+				error: function (res, status) {
+					errorHandling(res, status);
+				}
+			});
+		}
+
+		function bindViewModel(json) {
+			if (json != null) {
+				if (!viewModel) {
+					// Create a viewModel
+					viewModel = ko.mapping.fromJS(json);
+					ko.applyBindings(viewModel);
+				} else {
+					// Update the viewModel
+					ko.mapping.fromJS(json, viewModel);
+				}
+			}
+		}
+
+		function filterData(data) {
+			var response;
+
+			if (typeof (JSON) !== "undefined" && typeof (JSON.parse) === "function")
+				response = $.parseJSON(data);
+			else
+				response = eval("(" + data + ")");
+
+			if (response.hasOwnProperty("d"))
+				return response.d;
+			else
+				return response;
+		}
+
+		function errorHandling(res, status) {
+			if (status === "error") {
+				// errorMessage can be an object with 3 string properties: ExceptionType, Message and StackTrace
+				var errorMessage = $.parseJSON(res.responseText);
+				alert(errorMessage.Message);
+			}
+			if (status === "systemException") alert(res);
+		}
+
+		function getQueryString(name) {
+			name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+			var regexS = "[\\?&]" + name + "=([^&#]*)";
+			var regex = new RegExp(regexS);
+			var results = regex.exec(window.location.search);
+			if (results == null)
+				return "";
+			else
+				return decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+	
+	</script>
+
+	<script type="text/javascript">
+		$(function () {
+			viewModel = getData("../WS.asmx/IntegrityGet");
+			loadControls();
+			self.save = function () {
+				var obj = ko.toJSON(this);
+				postData("../WS.asmx/IntegritySet", obj);
+				$("#statusMsg").text("Status saved");
+			};
+			self.remove = function () {
+				deleteData("../WS.asmx/IntegrityDelete");
+			};
+		});
+
+		function loadNewId(wellId, id) {
+			getData("../WS.asmx/IntegrityGet", wellId, id);
+		}
+
+		function AddFile(ee) {
+			var fileForUpload = document.getElementById("txtAttachment");
+			var fileName = fileForUpload.value;
+
+			if (fileForUpload.files) {
+				var fileContents = fileForUpload.files.item(0).getAsBinary();
+				//document.forms[0].fileContents.innerHTML = fileContents;
+			} else {
+				// try the IE method
+			}
+		}
+
+	</script>
+
+</head>
+<body>
+	<form id="form1" runat="server">
+	<div class="boxShadow statusBox">
+		<div class="popMainContent">
+
+			<table style="border:1px solid white">
+			<tr>
+				<td>&nbsp;</td>
+				<td><h1 data-bind="text:Header"></h1></td>
+			</tr><tr>
+				<td><h2 data-bind="text:DateNameHeader"></h2></td>	
+				<td><input type="text" id="txtSetDate" data-bind="value:SetDate" /></td>
+			</tr><tr>
+				<td><h2 data-bind="text:StatusHeader"></h2></td>	
+				<td><select data-bind="options: IntegrityStatus, value: StatusId, optionsValue: 'Id', optionsText: 'Description', optionsCaption: 'Select status'" style="width:100%"></select></td>
+			</tr><tr>
+				<td><h2 data-bind="text:RemarkHeader"></h2></td>	
+				<td><textarea name="txtRemark" id="txtRemark" data-bind="value:Remark" style="width:99%; height:50px"></textarea></td>
+			</tr><tr>
+				<td style="vertical-align:top"><h2 data-bind="text:AttachmentsHeader"></h2></td>	
+				<td id="attachmentInclude"></td>
+			</tr>
+			</table>
+
+			<span data-bind="foreach: StatusArray">
+				<a data-bind="attr: {href: href}, text: Id"></a>
+			</span>
+
+		</div>
+		<button data-bind="click: save" disabled="disabled">Save</button>
+		<button data-bind="click: remove" disabled="disabled">Delete</button>
+
+		<div id="statusMsg"></div>
+	</div>
+	</form>
+</body>
+</html>
