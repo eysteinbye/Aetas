@@ -1,12 +1,41 @@
 ﻿<!DOCTYPE html>
-<html>
-<head runat="server">
-	<title>Integrity input</title>
+<html lang="en">
+	<head>
 	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 	<script type='text/javascript' src='https://github.com/downloads/SteveSanderson/knockout/knockout-2.1.0.js'></script>
 	<script type='text/javascript' src='https://github.com/SteveSanderson/knockout.mapping/tree/master/build/output'></script>
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	
+		<meta charset="utf-8">
+		<title>Timeline JSON Template</title>
+		<meta name="description" content="Template Description">
+		
+		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<style>
+			html, body {
+				height:100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			#timeline-embed{
+				margin:0px !important;
+				border:0px solid #CCC !important;
+				padding:0px !important;
+				-webkit-border-radius:0px !important;
+				-moz-border-radius:0px !important;
+				border-radius:0px !important;
+				-moz-box-shadow:0 0px 0px rgba(0, 0, 0, 0.25) !important;
+				-webkit-box-shadow:0 0px 0px rgba(0, 0, 0, 0.25) !important;
+				box-shadow:0px 0px 0px rgba(0, 0, 0, 0.25) !important;
+			}
+			
+		</style>
+		
 	
 	<script type="text/javascript">
 		var viewModel
@@ -37,7 +66,7 @@
 				}
 			});
 		}
-			
+
 		function filterData(data) {
 			var response;
 
@@ -65,7 +94,7 @@
 
 
 		function whatToDo(json) {
-			//viewModel = json;
+			viewModel = json;
 		}
 
 
@@ -73,35 +102,25 @@
 
 	<script type="text/javascript">
 		$(function () {
-		//	getData("WebService.asmx/getStaticJSON");
+				getData("WebService.asmx/getStaticJSON");
 		});
 
 	</script>
 
 </head>
-<body>
-	<form id="form1" runat="server">
-	
 
- <div id="timeline-embed"></div>
-    <script type="text/javascript">
-    	var timeline_config = {
-    		width: "100%",
-    		height: "100%",
-    		source: 'data.json',
-    		start_at_end: false,                          //OPTIONAL
-    		hash_bookmark: true,                           //OPTIONAL
-    		font: 'Bevan-PotanoSans',             //OPTIONAL
-    		maptype: 'watercolor',                   //OPTIONAL
-    		css: 'Styles/timeline.css' //OPTIONAL
-    	}
-    </script>
+	<body>
+		
+		<div id="timeline-embed"></div>
+		<script type="text/javascript">
+			var timeline_config = {
+				width: "100%",
+				height: "100%",
+				source: 'data.json' 
+			}
+		</script>
 		<script type="text/javascript" src="Scripts/timeline-embed.js"></script>
-
-
-
-	</form>
-</body>
+		
+	</body>
 </html>
-
-									
+			
