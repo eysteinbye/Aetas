@@ -11,3 +11,5 @@ c:\Aetas\Aetas\www\obj\Debug\www.pdb
 c:\Aetas\Aetas\www\bin\Newtonsoft.Json.dll
 c:\Aetas\Aetas\www\bin\Newtonsoft.Json.pdb
 c:\Aetas\Aetas\www\bin\Newtonsoft.Json.xml
+c:\Aetas\Aetas\www\obj\Debug\ResGen.read.1.tlog
+c:\Aetas\Aetas\www\obj\Debug\ResGen.write.1.tlog
