@@ -2,8 +2,7 @@
 Imports System.Web.Services.Protocols
 Imports System.ComponentModel
 Imports System.Web.Script.Services
-Imports Newtonsoft.Json
-Imports Newtonsoft.Json.Linq
+
 
 ' To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
 <System.Web.Script.Services.ScriptService()> _
@@ -31,7 +30,12 @@ Public Class WebService
 	<WebMethod()> _
 	<ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
 	Public Function getDynaminJSON() As String
-		Return JsonConvert.SerializeObject(_TestObject, Formatting.Indented)
+
+		Dim aa As New System.Web.Script.Serialization.JavaScriptSerializer
+		Dim ee As StringBuilder = Nothing
+		aa.Serialize(_TestObject, ee)
+
+		Return ee.ToString
 	End Function
 
 End Class
