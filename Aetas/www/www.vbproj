@@ -97,6 +97,7 @@
     <Content Include="demo1.htm" />
     <Content Include="demo2.htm" />
     <Content Include="index.html" />
+    <Content Include="Scripts\timeline.js" />
     <Content Include="Styles\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
