@@ -1,3 +1,4 @@
 # git ignore file
-*.dll
-*.pdb
+www.dll
+www.pdb
+www.xml
