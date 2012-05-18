@@ -64,7 +64,7 @@ Public Class WebService
       myCommand.Parameters("@media").Value = media
       myCommand.Parameters.Add(New SqlParameter("@credit", SqlDbType.Char, 100))
       myCommand.Parameters("@credit").Value = credit
-      myCommand.Parameters.Add(New SqlParameter("@caption", SqlDbType.VarChar, 100
+      myCommand.Parameters.Add(New SqlParameter("@caption", SqlDbType.VarChar, 100))
       myCommand.Parameters("@caption").Value = caption
       myCommand.Parameters.Add(New SqlParameter("@startdate", SqlDbType.Date))
       myCommand.Parameters("@startdate").Value = dtmStart
