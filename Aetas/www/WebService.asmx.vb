@@ -41,11 +41,11 @@ Public Class WebService
       Dim insertCmd As String
       ' Check that four of the input values are not empty. If any of them
       '  is empty, show a message to the user and rebind the DataGrid.
-      If (au_id.Value = "" Or au_fname.Value = "" Or au_lname.Value = "" _
-         Or phone.Value = "") Then
-         msg = "ERROR: Null values not allowed for Author ID, Name or Phone"
-         Exit Sub
-      End If
+      ' If (au_id.Value = "" Or au_fname.Value = "" Or au_lname.Value = "" _
+       '   Or phone.Value = "") Then
+        '  msg = "ERROR: Null values not allowed for Author ID, Name or Phone"
+         ' Exit Sub
+      ' End If
       
       
       
