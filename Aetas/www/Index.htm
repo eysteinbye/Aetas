@@ -4,9 +4,11 @@
     <title>Input</title>
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">
 		$(function () {
 			$("#startDate").datepicker();
+			$("#endDate").datepicker();
 		});
 	</script>
 </head>
@@ -14,14 +16,23 @@
     <form>
     <div>
     
-	    Headline: <input type="text" name="headline" maxlength="100" /><br />
-	    Text: <input type="text" name="text" maxlength="255" /><br />
-	    Media url: <input type="text" name="media" maxlength="255" /><br />
-	    Credit: <input type="text" name="credit" maxlength="100" /><br />
-	    Caption: <input type="text" name="caption" maxlength="100" /><br />
-	    Start date: <input type="text" id="startDate" /><br />
-	    End date: <input type="text" id="endDate" /><br />
-	    
+    <table>
+	<tr>
+		<td>Headline</td><td><input type="text" name="headline" maxlength="100" /></td>
+	</tr><tr>
+		<td>Text</td><td><input type="text" name="text" maxlength="255" /></td>
+	</tr><tr>
+		<td>Media url</td><td><input type="text" name="media" maxlength="255" /></td>
+	</tr><tr>
+		<td>Credit</td><td><input type="text" name="credit" maxlength="100" /></td>
+	</tr><tr>
+		<td>Caption</td><td><input type="text" name="caption" maxlength="100" /></td>
+	</tr><tr>
+		<td>Start date</td><td><input type="text" id="startDate" /></td>
+	</tr><tr>
+		<td>End date</td><td><input type="text" id="endDate" /></td>
+	</tr></table>
+    
 	    <input type="submit" name="save" value="save">
 
 
