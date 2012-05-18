@@ -67,9 +67,9 @@ Public Class WebService
       myCommand.Parameters.Add(New SqlParameter("@caption", SqlDbType.VarChar, 100
       myCommand.Parameters("@caption").Value = caption
       myCommand.Parameters.Add(New SqlParameter("@startdate", SqlDbType.Date))
-      myCommand.Parameters("@startdate").Value = dtmStart.Value
+      myCommand.Parameters("@startdate").Value = dtmStart
       myCommand.Parameters.Add(New SqlParameter("@enddate", SqlDbType.Date ))
-      myCommand.Parameters("@enddate").Value = dtmEnd.Value
+      myCommand.Parameters("@enddate").Value = dtmEnd
  
       myCommand.Connection.Open()
       ' Test whether the new row can be added and  display the 
