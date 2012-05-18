@@ -24,7 +24,7 @@ Public Class WebService
 	<WebMethod()> _
 	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
 	Public Function postJSONandReturn(jsonObj As String) As String
-		Return _TestJSON
+		Return jsonObj
 	End Function
 
 	'<WebMethod()> _
