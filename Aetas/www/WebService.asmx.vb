@@ -57,19 +57,19 @@ Public Class WebService
       ' Create new parameters for the SqlCommand object and
       ' initialize them to the input-form field values.
       myCommand.Parameters.Add(New SqlParameter("@headline", SqlDbType.VarChar, 100))
-      myCommand.Parameters("@headline").Value = headline.Value
+      myCommand.Parameters("@headline").Value = headline
       myCommand.Parameters.Add(New SqlParameter("@text", SqlDbType.VarChar, 255))
-      myCommand.Parameters("@text").Value = text.Value
+      myCommand.Parameters("@text").Value = text
       myCommand.Parameters.Add(New SqlParameter("@media", SqlDbType.VarChar, 255))
-      myCommand.Parameters("@media").Value = media.Value
+      myCommand.Parameters("@media").Value = media
       myCommand.Parameters.Add(New SqlParameter("@credit", SqlDbType.Char, 100))
-      myCommand.Parameters("@credit").Value = credit.Value
+      myCommand.Parameters("@credit").Value = credit
       myCommand.Parameters.Add(New SqlParameter("@caption", SqlDbType.VarChar, 100
-      myCommand.Parameters("@caption").Value = caption.Value
+      myCommand.Parameters("@caption").Value = caption
       myCommand.Parameters.Add(New SqlParameter("@startdate", SqlDbType.Date))
-      myCommand.Parameters("@startdate").Value = startdate.Value
+      myCommand.Parameters("@startdate").Value = dtmStart.Value
       myCommand.Parameters.Add(New SqlParameter("@enddate", SqlDbType.Date ))
-      myCommand.Parameters("@enddate").Value = enddate.Value
+      myCommand.Parameters("@enddate").Value = dtmEnd.Value
  
       myCommand.Connection.Open()
       ' Test whether the new row can be added and  display the 
