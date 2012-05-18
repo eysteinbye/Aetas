@@ -2,7 +2,8 @@
 Imports System.Web.Services.Protocols
 Imports System.ComponentModel
 Imports System.Web.Script.Services
-
+Imports System.Data.SqlClient
+Imports System.Data
 
 ' To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
 <System.Web.Script.Services.ScriptService()> _
@@ -18,7 +19,8 @@ Public Class WebService
 	<WebMethod()> _
 	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
 	Public Function getStaticJSON() As String
-		Return _TestJSON
+		Return ConnectToSQL()
+		'Return _TestJSON
 	End Function
 
 	<WebMethod()> _
@@ -37,6 +39,80 @@ Public Class WebService
 
 	'	Return ee.ToString
 	'End Function
+
+
+
+	Private Sub WriteDataReader(sb As StringBuilder, reader As IDataReader)
+		If reader Is Nothing OrElse reader.FieldCount = 0 Then
+			sb.Append("null")
+			Return
+		End If
+
+		Dim rowCount As Integer = 0
+
+		sb.Append("{""Row"":[")
+
+		While reader.Read()
+			sb.Append("{")
+
+			For i As Integer = 0 To reader.FieldCount - 1
+				sb.Append("""" + reader.GetName(i) + """:")
+				sb.Append("""" + reader(i).ToString + """")
+
+
+				sb.Append(If(i = reader.FieldCount - 1, "", ","))
+			Next
+
+			sb.Append("},")
+
+			rowCount += 1
+		End While
+
+		If rowCount > 0 Then
+			Dim index As Integer = sb.ToString().LastIndexOf(",")
+			sb.Remove(index, 1)
+		End If
+
+		sb.Append("]}")
+	End Sub
+
+
+
+	Private Function ConnectToSQL() As String
+		Dim myConnection As New SqlConnection
+		Dim myCommand As New SqlCommand
+
+		Dim str As New StringBuilder
+		myConnection = New SqlConnection("Server=1368afe0-ea03-44c6-88b9-a0520079ab2a.sqlserver.sequelizer.com;Database=db1368afe0ea0344c688b9a0520079ab2a;User ID=dpyhzkuagfdrqrot;Password=2hRRrXv7Faoy7Rn6ofphEdckVHH7GgY7kkzFEhnqqaS6kxdEakBHzApXfF5Qpxxz;")
+		'establishing connection. you need to provide password for sql server
+		Try
+			myConnection.Open()
+			'opening the connection
+			myCommand = New SqlCommand("Select * from Events", myConnection)
+			'executing the command and assigning it to connection 
+			Dim dr As IDataReader = myCommand.ExecuteReader()
+
+			While dr.Read()
+
+				WriteDataReader(str, dr)
+
+				''reading from the datareader
+				'MessageBox.Show("discounttype" & dr(0).ToString())
+				'MessageBox.Show("stor_id" & dr(1).ToString())
+				'MessageBox.Show("lowqty" & dr(2).ToString())
+				'MessageBox.Show("highqty" & dr(3).ToString())
+				'MessageBox.Show("discount" & dr(4).ToString())
+				'displaying the data from the table
+			End While
+			dr.Close()
+			myConnection.Close()
+		Catch e As Exception
+		End Try
+		Return str.ToString
+	End Function
+
+
+
 
 End Class
 
