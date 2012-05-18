@@ -31,7 +31,70 @@ Public Class WebService
                 Dim dtmEnd as date
                 date.TryParse(endDate, dtmEnd)
                 
-                Return dtmEnd.Year
+                Dim msg as string
+                
+                
+                	Dim myConnection As New SqlConnection("Server=1368afe0-ea03-44c6-88b9-a0520079ab2a.sqlserver.sequelizer.com;Database=db1368afe0ea0344c688b9a0520079ab2a;User ID=dpyhzkuagfdrqrot;Password=2hRRrXv7Faoy7Rn6ofphEdckVHH7GgY7kkzFEhnqqaS6kxdEakBHzApXfF5Qpxxz;")
+	
+                
+        Dim myCommand As SqlCommand
+      Dim insertCmd As String
+      ' Check that four of the input values are not empty. If any of them
+      '  is empty, show a message to the user and rebind the DataGrid.
+      If (au_id.Value = "" Or au_fname.Value = "" Or au_lname.Value = "" _
+         Or phone.Value = "") Then
+         msg = "ERROR: Null values not allowed for Author ID, Name or Phone"
+         Exit Sub
+      End If
+      
+      
+      
+      ' Build a SQL INSERT statement string for all the input-form
+      ' field values.
+      insertCmd = "insert into Events values (@headline, @text, @media, @credit, @caption, @startdate, @enddate);"
+      ' Initialize the SqlCommand with the new SQL string.
+      myCommand = New SqlCommand(insertCmd, myConnection)
+      ' Create new parameters for the SqlCommand object and
+      ' initialize them to the input-form field values.
+      myCommand.Parameters.Add(New SqlParameter("@headline", SqlDbType.VarChar, 100))
+      myCommand.Parameters("@headline").Value = headline.Value
+      myCommand.Parameters.Add(New SqlParameter("@text", SqlDbType.VarChar, 255))
+      myCommand.Parameters("@text").Value = text.Value
+      myCommand.Parameters.Add(New SqlParameter("@media", SqlDbType.VarChar, 255))
+      myCommand.Parameters("@media").Value = media.Value
+      myCommand.Parameters.Add(New SqlParameter("@credit", SqlDbType.Char, 100))
+      myCommand.Parameters("@credit").Value = credit.Value
+      myCommand.Parameters.Add(New SqlParameter("@caption", SqlDbType.VarChar, 100
+      myCommand.Parameters("@caption").Value = caption.Value
+      myCommand.Parameters.Add(New SqlParameter("@startdate", SqlDbType.Date))
+      myCommand.Parameters("@startdate").Value = startdate.Value
+      myCommand.Parameters.Add(New SqlParameter("@enddate", SqlDbType.Date ))
+      myCommand.Parameters("@enddate").Value = enddate.Value
+ 
+      myCommand.Connection.Open()
+      ' Test whether the new row can be added and  display the 
+      ' appropriate message box to the user.
+      Try 
+         myCommand.ExecuteNonQuery()
+         msg = "<b>Record Added</b><br>" & insertCmd
+      Catch ex As SqlException
+         If ex.Number = 2627 Then
+            msg = "ERROR: A record already exists with the same primary key"
+         Else
+            msg = "ERROR: Could not add record, please ensure the fields are correctly filled out"
+         End If
+     End Try
+
+     myCommand.Connection.Close()
+                
+                
+                
+                
+                
+                
+                
+                Return msg
+                
 		
 	End Function
 
