@@ -24,7 +24,7 @@ Public Class WebService
 	<WebMethod()> _
 	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
 	Public Function postJSONandReturn(headline as string, text as string) As String
-                Return "2"
+                Return headline
 		
 	End Function
 
