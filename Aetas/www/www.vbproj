@@ -87,11 +87,6 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Account\ChangePassword.aspx" />
-    <Content Include="Account\ChangePasswordSuccess.aspx" />
-    <Content Include="Account\Login.aspx" />
-    <Content Include="Account\Register.aspx" />
-    <Content Include="koDemo.htm" />
     <Content Include="Scripts\timeline.js" />
     <Content Include="Styles\Site.css" />
     <Content Include="Global.asax" />
@@ -112,34 +107,6 @@
     <Content Include="WebService.asmx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\ChangePassword.aspx.designer.vb">
-      <DependentUpon>ChangePassword.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Account\ChangePassword.aspx.vb">
-      <DependentUpon>ChangePassword.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Account\ChangePasswordSuccess.aspx.designer.vb">
-      <DependentUpon>ChangePasswordSuccess.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Account\ChangePasswordSuccess.aspx.vb">
-      <DependentUpon>ChangePasswordSuccess.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Account\Login.aspx.designer.vb">
-      <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Account\Login.aspx.vb">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Account\Register.aspx.designer.vb">
-      <DependentUpon>Register.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Account\Register.aspx.vb">
-      <DependentUpon>Register.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -176,7 +143,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Account\Web.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
