@@ -23,8 +23,8 @@ Public Class WebService
 
 	<WebMethod()> _
 	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
-	Public Function postJSONandReturn() As String
-                Return Request.form("headline")
+	Public Function postJSONandReturn(form as object) As String
+                Return form.toString()
 		
 	End Function
 
