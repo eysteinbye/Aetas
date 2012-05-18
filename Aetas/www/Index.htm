@@ -2,6 +2,13 @@
 <html>
 <head>
     <title>Input</title>
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$("#startDate").datepicker();
+		});
+	</script>
 </head>
 <body>
     <form>
@@ -12,8 +19,8 @@
 	    Media url: <input type="text" name="media" maxlength="255" /><br />
 	    Credit: <input type="text" name="credit" maxlength="100" /><br />
 	    Caption: <input type="text" name="caption" maxlength="100" /><br />
-	    Start date: <input type="text" name="startDate" /><br />
-	    End date: <input type="text" name="endDate" /><br />
+	    Start date: <input type="text" id="startDate" /><br />
+	    End date: <input type="text" id="endDate" /><br />
 	    
 	    <input type="submit" name="save" value="save">
 
