@@ -23,8 +23,15 @@ Public Class WebService
 
 	<WebMethod()> _
 	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
-	Public Function postJSONandReturn(headline as string, text as string) As String
-                Return headline
+	Public Function postJSONandReturn(headline as string, text as string, media as string, credit as string, caption as string, startDate as string, endDate as string) As String
+                
+                Dim dtmStart as date
+                date.TryParse(startDate, dtmStart)
+                
+                Dim dtmEnd as date
+                date.TryParse(endDate, dtmEnd)
+                
+                Return dtmEnd.Year
 		
 	End Function
 
