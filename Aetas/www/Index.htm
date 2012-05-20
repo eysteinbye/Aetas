@@ -28,16 +28,13 @@
 		}
 	</style>
 	<script type="text/javascript">
-	
-		function whatToDo(json) {
+		function loadTimeline(json) {
 			var timeline = new VMM.Timeline();
 			timeline.init(json);
 		}
-	</script>
 
-	<script type="text/javascript">
 		$(function () {
-			getData("WebService.asmx/getStaticJSON");
+			getData("WebService.asmx/getStaticJSON",loadTimeline);
 		});
 	</script>
 
