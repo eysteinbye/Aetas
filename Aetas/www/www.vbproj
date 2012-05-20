@@ -63,11 +63,19 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Xml.Linq" />
     
-    <Reference Include="System.Web.Mvc" />
-    <Reference Include="System.Web.Routing" />
-    <Reference Include="Raven.Client.Lightweight" />
-   
-
+ <Reference Include="Raven.Abstractions">
+      <HintPath>..\packages\RavenDB.1.0.616\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Debug">
+      <HintPath>..\packages\RavenDB.1.0.616\lib\net40\Raven.Client.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\packages\RavenDB.1.0.616\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.MvcIntegration">
+      <HintPath>..\packages\RavenDB.1.0.616\lib\net40\Raven.Client.MvcIntegration.dll</HintPath>
+    </Reference>
+    
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
