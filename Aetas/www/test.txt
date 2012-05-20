@@ -1,4 +1,34 @@
-﻿{
+﻿
+GIT
+
+#Init
+#Create an empty git repository or reinitialize an existing one
+git init
+
+
+#Status
+git status
+
+#Add file
+git add .
+
+#Commit all changes
+git commit -a -m 'my hola mundo changes'
+
+#PUSH
+git push
+
+#Create tag
+git tag -a MsSQL_Version -m MsSQL
+#Push tag
+git push --tags
+
+#Clone
+git clone git@github.com:eysteinbye/Aetas.git .
+#The "." at the end specifies the current folder as the checkout folder.
+
+
+{
 "timeline":
 {
 "headline":"Eystein was born",
