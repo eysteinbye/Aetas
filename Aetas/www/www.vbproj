@@ -65,9 +65,8 @@
     
     <Reference Include="System.Web.Mvc" />
     <Reference Include="System.Web.Routing" />
-    <Reference Include="Raven.Abstractions.Data" />
-    <Reference Include="Raven.Client.Document" />
-    
+    <Reference Include="Raven.Client.Lightweight" />
+   
 
   </ItemGroup>
   <ItemGroup>
