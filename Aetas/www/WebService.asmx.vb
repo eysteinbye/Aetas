@@ -8,6 +8,8 @@ Imports Raven.Client.Connection
 Imports Raven.Client.Connection.Profiling
 Imports Raven.Client.Document
 Imports System.Transactions
+Imports Raven.Client
+
 
 <System.Web.Script.Services.ScriptService()> _
 <System.Web.Services.WebService(Namespace:="http://tempuri.org/")> _
