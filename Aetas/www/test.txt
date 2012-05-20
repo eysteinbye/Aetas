@@ -46,25 +46,16 @@
 ---
 Events
 
-events/112
-from album in docs.Events
-select new { album.Events.headline, album.Events.text }
 
-
-from artist in results
-group artist by new { artist.headline, artist.text } into g
-select new { g.Key.headline, g.Key.text }
-
-
-from album in docs.Events
-select new { }
-
-events/11
+events/12
 
 {
+  "Content-Type": "application/json; charset=utf-8",
   "Raven-Entity-Name": "Events",
-  "Content-Type": "application/json; charset=utf-8"
+  "Category": "Art"
 }
+
+War
 
 
 {
@@ -144,4 +135,15 @@ End Class
 
 ---
 
+--Events
+from album in docs.Events
+select new { }
 
+--EventsWhere
+from doc in docs.Events 
+let Tag = doc["@metadata"]["Category"]
+where  Tag == "War" 
+select new { };
+
+
+https://1.ravenhq.com/databases/AppHarbor_0c9d6757-e342-4494-abde-ea634062980f/docs/events/12

@@ -26,12 +26,12 @@
 		}
 	</style>
 	<script type="text/javascript">
-		function getData(url) {
-			ajaxWrapper(url, null, "GET");
+		function getData(url, callback) {
+			ajaxWrapper(url, null, "GET", callback);
 		}
 
-		function postData(url, data) {
-			ajaxWrapper(url, data, "POST");
+		function postData(url, data, callback) {
+			ajaxWrapper(url, data, "POST", callback);
 		}
 
 		function ajaxWrapper(url, data, type, callback) {
