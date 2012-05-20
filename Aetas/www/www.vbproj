@@ -62,6 +62,13 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Xml.Linq" />
+    
+    <Reference Include="System.Web.Mvc" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="Raven.Abstractions.Data" />
+    <Reference Include="Raven.Client.Document" />
+    
+
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
