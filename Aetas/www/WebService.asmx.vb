@@ -4,6 +4,9 @@ Imports System.ComponentModel
 Imports System.Web.Script.Services
 Imports System.Data.SqlClient
 Imports System.Data
+Imports Raven.Client.Connection
+Imports Raven.Client.Connection.Profiling
+Imports Raven.Client.Document
 
 <System.Web.Script.Services.ScriptService()> _
 <System.Web.Services.WebService(Namespace:="http://tempuri.org/")> _
