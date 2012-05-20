@@ -189,7 +189,7 @@ Public Class WebService
 	<ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
 	Public Function RavendbSave() As String
 	
-            Dim store As IDocumentStore = New DocumentStore() With { .ConnectionStringName = "https://1.ravenhq.com/databases/AppHarbor_0c9d6757-e342-4494-abde-ea634062980f" }
+            Dim store As New DocumentStore() With { .ConnectionStringName = "https://1.ravenhq.com/databases/AppHarbor_0c9d6757-e342-4494-abde-ea634062980f" }
             store.Initialize()
             
             Dim assets as New Assets
