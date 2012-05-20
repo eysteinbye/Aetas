@@ -48,7 +48,7 @@
 					return filterData(data);
 				},
 				success: function (json) {
-					if (!callback) callback = loadTimeline;
+					if (!callback) callback = defaultAction;
 					callback(json);
 				},
 				error: function (res, status) {
@@ -93,7 +93,7 @@
 		}
 
 		$(function () {
-			getData("WebService.asmx/getStaticJSON");
+			getData("WebService.asmx/getStaticJSON", loadTimeline);
 		});
 	</script>
 
