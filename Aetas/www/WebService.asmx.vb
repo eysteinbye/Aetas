@@ -10,7 +10,7 @@ Imports Raven.Client.Document
 Imports System.Transactions
 Imports Raven.Client
 Imports Raven.Client.Client
-Imports Raven
+Imports Raven.Abstractions.Data
 
 <System.Web.Script.Services.ScriptService()> _
 <System.Web.Services.WebService(Namespace:="http://tempuri.org/")> _
