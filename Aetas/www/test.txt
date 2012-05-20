@@ -1,33 +1,19 @@
-﻿{"timeline":{"headline":"Eystein was born","text":"<p>Intro body text goes here, some HTML is ok</p>","asset":{"media":"http://www.exprosoft.com/Staff/EysteinBye.jpg","credit":"Eystein Bye","caption":"Lets get started"},"startDate":"1978","type":"default","date":[{
-
-"headline":"Pablo Picasso",
-"text":"a Spanish painter, sculptor, printmaker, ceramicist, and stage designer who spent most of his adult life in France",
+﻿{
+"timeline":
+{
+"headline":"Eystein was born",
+"text":"<p>Intro body text goes here, some HTML is ok</p>",
 "asset":
 {
-"media":"http://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg",
-"credit":"Eystein Bye.",
-"caption":"from Wikipedia"
-}#,#
-"startDate":"1881,10,25",
-"endDate":"1973,04,08"
-},{
-"headline":"French Revolution",
-"text":"A watershed event in modern European history",
-"asset":
+"media":"http://www.exprosoft.com/Staff/EysteinBye.jpg",
+"credit":"Eystein Bye",
+"caption":"Lets get started"
+},
+"startDate":"1978",
+"type":"default",
+"date":
+[
 {
-"media":"http://wiki.theplaz.com/w/images/French_Revolution_Napoleon-peque.jpg",
-"credit":"Eystein Bye.",
-"caption":"from Wikipedia"
-}#,#
-"startDate":"1789,12,10",
-"endDate":"1790,07,11"
-}
-]
-}
-#}#
-
-{"timeline":{"headline":"Eystein was born","text":"<p>Intro body text goes here, some HTML is ok</p>","asset":{"media":"http://www.exprosoft.com/Staff/EysteinBye.jpg","credit":"Eystein Bye","caption":"Lets get started"},"startDate":"1978","type":"default","date":[{
-
 "headline":"French Revolution",
 "text":"<p>A watershed event in modern European history</p>",
 "asset":
@@ -53,3 +39,50 @@
 ]
 }
 }
+
+
+
+
+---
+Events
+
+events/112
+from album in docs.Events
+select new { album.Events.headline, album.Events.text }
+
+
+from artist in results
+group artist by new { artist.headline, artist.text } into g
+select new { g.Key.headline, g.Key.text }
+
+
+from album in docs.Events
+select new { }
+
+events/11
+
+{
+  "Raven-Entity-Name": "Events",
+  "Content-Type": "application/json; charset=utf-8"
+}
+
+
+{
+"headline":"Pablo Picasso",
+"text":"<p>a Spanish painter, sculptor, printmaker, ceramicist, and stage designer who spent most of his adult life in France</p>",
+"asset":
+{
+"media":"http://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg",
+"credit":"Eystein Bye",
+"caption":"from Wikipedia"
+},
+"startDate":"1881,10,25",
+"endDate":"1973,04,08"
+}
+
+
+https://1.ravenhq.com/databases/AppHarbor_0c9d6757-e342-4494-abde-ea634062980f
+
+
+
+
