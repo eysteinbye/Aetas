@@ -4,13 +4,10 @@ Imports System.ComponentModel
 Imports System.Web.Script.Services
 Imports System.Data.SqlClient
 Imports System.Data
-Imports Raven.Client.Connection
-Imports Raven.Client.Connection.Profiling
-Imports Raven.Client.Document
-Imports System.Transactions
-Imports Raven.Client
-Imports Raven.Client.Client
+Imports System.Web.Mvc
+Imports System.Web.Routing
 Imports Raven.Abstractions.Data
+Imports Raven.Client.Document
 
 <System.Web.Script.Services.ScriptService()> _
 <System.Web.Services.WebService(Namespace:="http://tempuri.org/")> _
@@ -192,8 +189,14 @@ Public Class WebService
 	<ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
 	Public Function RavendbSave() As String
 	
+        
+  
+        
             Dim store As New DocumentStore() With { .ConnectionStringName = "https://1.ravenhq.com/databases/AppHarbor_0c9d6757-e342-4494-abde-ea634062980f" }
             store.Initialize()
+            
+            
+            
             
             Dim assets as New Assets
             assets.media = "http://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg"
