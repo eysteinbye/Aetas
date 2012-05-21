@@ -31,7 +31,7 @@ Public Class RavenDB
     
             
             'Dim wawel as Events = nothing
-            Dim ss as List(Of Events) = nothing
+            Dim ss as icollection(Of Events) = nothing
             Using session As IDocumentSession = store.OpenSession()
               '   wawel  = session.Load(Of Events)("events/65")
                  ss  = session.Load(Of Events)("Events")
@@ -45,11 +45,11 @@ Public Class RavenDB
             Dim s = New System.Web.Script.Serialization.JavaScriptSerializer()
             
             Dim gg as string = ""
-            for each aa as Events in ss
+            for each bbb as Events in ss
                 if gg = "" then
-                    gg = s.Serialize(aa)
+                    gg = s.Serialize(bbb)
                 else
-                    gg = gg & "," & s.Serialize(aa)
+                    gg = gg & "," & s.Serialize(bbb)
                 end if
                 
             next
