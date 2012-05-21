@@ -6,7 +6,6 @@ Imports Raven.Client.Document
 Imports Raven.Abstractions.Data
 Imports Raven.Client
 
-' To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
 <System.Web.Script.Services.ScriptService()> _
 <System.Web.Services.WebService(Namespace:="http://tempuri.org/")> _
 <System.Web.Services.WebServiceBinding(ConformsTo:=WsiProfiles.BasicProfile1_1)> _
@@ -19,39 +18,46 @@ Public Class RavenDB
         <WebMethod()> _
 	<ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
 	Public Function getJSON() As String
+            
+            Dim parser = ConnectionStringParser(Of RavenConnectionStringOptions).FromConnectionStringName("RavenDB")
+            parser.Parse()
+    
+            Dim store As New DocumentStore() With { _
+             .ApiKey = parser.ConnectionStringOptions.ApiKey, _
+             .Url = parser.ConnectionStringOptions.Url _
+            }
+    
+            store.Initialize()
+    
+            
+            'Dim wawel as Events = nothing
+            Dim ss as List(Of Events) = nothing
+            Using session As IDocumentSession = store.OpenSession()
+              '   wawel  = session.Load(Of Events)("events/65")
+                 ss  = session.Load(Of Events)("Events")
+                 
+            End Using
+            
         
-        Dim parser = ConnectionStringParser(Of RavenConnectionStringOptions).FromConnectionStringName("RavenDB")
-		parser.Parse()
-
-		Dim store As New DocumentStore() With { _
-		 .ApiKey = parser.ConnectionStringOptions.ApiKey, _
-		 .Url = parser.ConnectionStringOptions.Url _
-		}
-
-		store.Initialize()
-        
-        
-        Dim wawel as Events = nothing
-        'GetJSON from RAVEN index
-        Using session As IDocumentSession = store.OpenSession()
-             wawel  = session.Load(Of Events)("events/65")
-        End Using
-        
-        
-        		Dim aa as string ="{""timeline"":{""headline"":""Eystein was born"",""text"":""<p>Intro body text goes here, some HTML is ok</p>"",""asset"":{""media"":""http://www.exprosoft.com/Staff/EysteinBye.jpg"",""credit"":""Eystein Bye"",""caption"":""Lets get started""},""startDate"":""1978"",""type"":""default"",""date"":["
-
-
-
-Dim bb as string = "]}}"
-
-
-
-
-Dim s = New System.Web.Script.Serialization.JavaScriptSerializer()
-
-Dim resultJs As String = s.Serialize(wawel)
-        
-		Return aa & resultJs & bb
+            Dim aa as string ="{""timeline"":{""headline"":""Eystein was born"",""text"":""<p>Intro body text goes here, some HTML is ok</p>"",""asset"":{""media"":""http://www.exprosoft.com/Staff/EysteinBye.jpg"",""credit"":""Eystein Bye"",""caption"":""Lets get started""},""startDate"":""1978"",""type"":""default"",""date"":["
+            Dim bb as string = "]}}"
+            
+            Dim s = New System.Web.Script.Serialization.JavaScriptSerializer()
+            
+            Dim gg as string = ""
+            for each aa as Events in ss
+                if gg = "" then
+                    gg = s.Serialize(aa)
+                else
+                    gg = gg & "," & s.Serialize(aa)
+                end if
+                
+            next
+            
+            'Dim resultJs As String = s.Serialize(wawel)
+    
+            'Return aa & resultJs & bb
+            Return aa & gg & bb
 	End Function
 
 
@@ -92,11 +98,11 @@ Dim resultJs As String = s.Serialize(wawel)
 			session.SaveChanges()
 		End Using
 
-                'Dim aa As New System.Web.Script.Serialization.JavaScriptSerializer
-		'Dim ee As New StringBuilder = Nothing
-		'aa.Serialize(events, ee)
-		'Return ee.ToString
-                Return "{""Svar"":{""status"":""Yes""}"
+                Dim s = New System.Web.Script.Serialization.JavaScriptSerializer()
+
+                Dim resultJs As String = s.Serialize(events)
+                
+                Return resultJs
 	End Function
 End Class
 
