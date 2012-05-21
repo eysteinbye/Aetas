@@ -4,6 +4,8 @@ Imports System.ComponentModel
 Imports System.Web.Script.Services
 Imports System.Data.SqlClient
 Imports System.Data
+Imports Raven.Client.Document
+Imports Raven.Client
 
 
 <System.Web.Script.Services.ScriptService()> _
@@ -105,68 +107,68 @@ Public Class WebService
 		reader.Close()
 		sb.Append("]}}")
 	End Sub
-    
+
 
 	<WebMethod()> _
 	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
-	Public Function postJSONandReturn(headline as string, text as string, media as string, credit as string, caption as string, startDate as string, endDate as string) As String
-            Dim msg as string
-            
-            Dim dtmStart as date
-            date.TryParse(startDate, dtmStart)
-            
-            Dim dtmEnd as date
-            date.TryParse(endDate, dtmEnd)
-            
-            Dim myConnection As New SqlConnection("Server=1368afe0-ea03-44c6-88b9-a0520079ab2a.sqlserver.sequelizer.com;Database=db1368afe0ea0344c688b9a0520079ab2a;User ID=dpyhzkuagfdrqrot;Password=2hRRrXv7Faoy7Rn6ofphEdckVHH7GgY7kkzFEhnqqaS6kxdEakBHzApXfF5Qpxxz;")
-            
-            Dim myCommand As SqlCommand
-            Dim insertCmd As String
-            ' Check that four of the input values are not empty. If any of them
-            '  is empty, show a message to the user and rebind the DataGrid.
-            ' If (au_id.Value = "" Or au_fname.Value = "" Or au_lname.Value = "" _
-            '   Or phone.Value = "") Then
-            '  msg = "ERROR: Null values not allowed for Author ID, Name or Phone"
-            ' Exit Sub
-            ' End If
-            
-            ' Build a SQL INSERT statement string for all the input-form
-            insertCmd = "insert into Events values (@headline, @text, @media, @credit, @caption, @startdate, @enddate);"
-            ' Initialize the SqlCommand with the new SQL string.
-            myCommand = New SqlCommand(insertCmd, myConnection)
-            ' Create new parameters for the SqlCommand object and
-            ' initialize them to the input-form field values.
-            myCommand.Parameters.Add(New SqlParameter("@headline", SqlDbType.VarChar, 100))
-            myCommand.Parameters("@headline").Value = headline
-            myCommand.Parameters.Add(New SqlParameter("@text", SqlDbType.VarChar, 255))
-            myCommand.Parameters("@text").Value = text
-            myCommand.Parameters.Add(New SqlParameter("@media", SqlDbType.VarChar, 255))
-            myCommand.Parameters("@media").Value = media
-            myCommand.Parameters.Add(New SqlParameter("@credit", SqlDbType.Char, 100))
-            myCommand.Parameters("@credit").Value = credit
-            myCommand.Parameters.Add(New SqlParameter("@caption", SqlDbType.VarChar, 100))
-            myCommand.Parameters("@caption").Value = caption
-            myCommand.Parameters.Add(New SqlParameter("@startdate", SqlDbType.Date))
-            myCommand.Parameters("@startdate").Value = dtmStart
-            myCommand.Parameters.Add(New SqlParameter("@enddate", SqlDbType.Date ))
-            myCommand.Parameters("@enddate").Value = dtmEnd
-            
-            myCommand.Connection.Open()
-            ' Test whether the new row can be added and  display the 
-            ' appropriate message box to the user.
-            Try 
-                myCommand.ExecuteNonQuery()
-                msg = "<b>Record Added</b><br>" & insertCmd
-            Catch ex As SqlException
-                If ex.Number = 2627 Then
-                    msg = "ERROR: A record already exists with the same primary key"
-                Else
-                    msg = "ERROR: Could not add record, please ensure the fields are correctly filled out"
-                End If
-            End Try
-            
-            myCommand.Connection.Close()
-            Return msg
+	Public Function postJSONandReturn(headline As String, text As String, media As String, credit As String, caption As String, startDate As String, endDate As String) As String
+		Dim msg As String
+
+		Dim dtmStart As Date
+		Date.TryParse(startDate, dtmStart)
+
+		Dim dtmEnd As Date
+		Date.TryParse(endDate, dtmEnd)
+
+		Dim myConnection As New SqlConnection("Server=1368afe0-ea03-44c6-88b9-a0520079ab2a.sqlserver.sequelizer.com;Database=db1368afe0ea0344c688b9a0520079ab2a;User ID=dpyhzkuagfdrqrot;Password=2hRRrXv7Faoy7Rn6ofphEdckVHH7GgY7kkzFEhnqqaS6kxdEakBHzApXfF5Qpxxz;")
+
+		Dim myCommand As SqlCommand
+		Dim insertCmd As String
+		' Check that four of the input values are not empty. If any of them
+		'  is empty, show a message to the user and rebind the DataGrid.
+		' If (au_id.Value = "" Or au_fname.Value = "" Or au_lname.Value = "" _
+		'   Or phone.Value = "") Then
+		'  msg = "ERROR: Null values not allowed for Author ID, Name or Phone"
+		' Exit Sub
+		' End If
+
+		' Build a SQL INSERT statement string for all the input-form
+		insertCmd = "insert into Events values (@headline, @text, @media, @credit, @caption, @startdate, @enddate);"
+		' Initialize the SqlCommand with the new SQL string.
+		myCommand = New SqlCommand(insertCmd, myConnection)
+		' Create new parameters for the SqlCommand object and
+		' initialize them to the input-form field values.
+		myCommand.Parameters.Add(New SqlParameter("@headline", SqlDbType.VarChar, 100))
+		myCommand.Parameters("@headline").Value = headline
+		myCommand.Parameters.Add(New SqlParameter("@text", SqlDbType.VarChar, 255))
+		myCommand.Parameters("@text").Value = text
+		myCommand.Parameters.Add(New SqlParameter("@media", SqlDbType.VarChar, 255))
+		myCommand.Parameters("@media").Value = media
+		myCommand.Parameters.Add(New SqlParameter("@credit", SqlDbType.Char, 100))
+		myCommand.Parameters("@credit").Value = credit
+		myCommand.Parameters.Add(New SqlParameter("@caption", SqlDbType.VarChar, 100))
+		myCommand.Parameters("@caption").Value = caption
+		myCommand.Parameters.Add(New SqlParameter("@startdate", SqlDbType.Date))
+		myCommand.Parameters("@startdate").Value = dtmStart
+		myCommand.Parameters.Add(New SqlParameter("@enddate", SqlDbType.Date))
+		myCommand.Parameters("@enddate").Value = dtmEnd
+
+		myCommand.Connection.Open()
+		' Test whether the new row can be added and  display the 
+		' appropriate message box to the user.
+		Try
+			myCommand.ExecuteNonQuery()
+			msg = "<b>Record Added</b><br>" & insertCmd
+		Catch ex As SqlException
+			If ex.Number = 2627 Then
+				msg = "ERROR: A record already exists with the same primary key"
+			Else
+				msg = "ERROR: Could not add record, please ensure the fields are correctly filled out"
+			End If
+		End Try
+
+		myCommand.Connection.Close()
+		Return msg
 	End Function
 
 	'<WebMethod()> _
@@ -180,4 +182,56 @@ Public Class WebService
 
 
 
+
+	<WebMethod()> _
+	<ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
+	Public Function RavendbSave() As String
+
+
+
+
+		Dim store As New DocumentStore() With {.ConnectionStringName = "https://1.ravenhq.com/databases/AppHarbor_0c9d6757-e342-4494-abde-ea634062980f"}
+		store.Initialize()
+
+
+
+
+		Dim assets As New Assets
+		assets.media = "http://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg"
+		assets.credit = "Eystein Bye"
+		assets.caption = "from Wikipedia"
+
+		Dim events As New Events
+		events.headline = "Pablo Picasso"
+		events.text = "<p>a Spanish painter, sculptor, printmaker, ceramicist, and stage designer who spent most of his adult life in France</p>"
+		events.asset = assets
+		events.startDate = "1881,10,25"
+		events.endDate = "1973,04,08"
+
+
+		Using session As IDocumentSession = store.OpenSession()
+			session.Store(events)
+			session.SaveChanges()
+		End Using
+
+		Return ""
+
+	End Function
+
+
+
+End Class
+
+Public Class Events
+	Public Property headline() As String
+	Public Property text() As String
+	Public Property asset() As Assets
+	Public Property startDate() As String
+	Public Property endDate() As String
+End Class
+
+Public Class Assets
+	Public Property media() As String
+	Public Property credit() As String
+	Public Property caption() As String
 End Class

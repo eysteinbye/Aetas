@@ -27,6 +27,8 @@ git push --tags
 git clone git@github.com:eysteinbye/Aetas.git .
 #The "." at the end specifies the current folder as the checkout folder.
 
+#Update
+git pull
 
 {
 "timeline":
