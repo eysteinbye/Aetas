@@ -8,3 +8,14 @@ c:\Aetas\Aetas\www\obj\Debug\GenerateResource.write.1.tlog
 c:\Aetas\Aetas\www\obj\Debug\www.dll
 c:\Aetas\Aetas\www\obj\Debug\www.xml
 c:\Aetas\Aetas\www\obj\Debug\www.pdb
+c:\Aetas\Aetas\www\bin\Newtonsoft.Json.dll
+c:\Aetas\Aetas\www\bin\NLog.dll
+c:\Aetas\Aetas\www\bin\Raven.Abstractions.dll
+c:\Aetas\Aetas\www\bin\Raven.Client.Lightweight.dll
+c:\Aetas\Aetas\www\bin\Newtonsoft.Json.pdb
+c:\Aetas\Aetas\www\bin\Newtonsoft.Json.xml
+c:\Aetas\Aetas\www\bin\NLog.xml
+c:\Aetas\Aetas\www\bin\Raven.Abstractions.pdb
+c:\Aetas\Aetas\www\bin\Raven.Abstractions.xml
+c:\Aetas\Aetas\www\bin\Raven.Client.Lightweight.pdb
+c:\Aetas\Aetas\www\bin\Raven.Client.Lightweight.xml
