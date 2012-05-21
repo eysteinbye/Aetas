@@ -42,7 +42,7 @@ Public Class RavenDB
                  'Dim ss  = session.Load(Of Events)("Events/")
                  
                  
-                 Dim ss = session.Query(Of Events)("Events").ToArray();
+                 Dim ss = session.Query(Of Events)("Events").ToArray()
                  
                         
                   for each bbb as Events in ss
