@@ -30,9 +30,11 @@ Public Class RavenDB
 
 		store.Initialize()
         
+        
+        Dim wawel as Events = nothing
         'GetJSON from RAVEN index
         Using session As IDocumentSession = store.OpenSession()
-            Dim wawel = session.Load(Of Events)("events/65")
+             wawel  = session.Load(Of Events)("events/65")
         End Using
         
         
