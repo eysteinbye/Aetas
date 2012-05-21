@@ -30,11 +30,27 @@ Public Class RavenDB
             store.Initialize()
     
             
+            Dim gg as string = ""
+            
+          
+            
+            
             'Dim wawel as Events = nothing
-            Dim ss as icollection(Of Events) = nothing
+            
             Using session As IDocumentSession = store.OpenSession()
               '   wawel  = session.Load(Of Events)("events/65")
-                 ss  = session.Load(Of Events)("Events")
+                 Dim ss  = session.Load(Of Events)("Events")
+                 
+                        
+                  for each bbb as Events in ss
+                      if gg = "" then
+                          gg = s.Serialize(bbb)
+                      else
+                          gg = gg & "," & s.Serialize(bbb)
+                      end if
+                      
+                  next
+                  
                  
             End Using
             
@@ -44,16 +60,7 @@ Public Class RavenDB
             
             Dim s = New System.Web.Script.Serialization.JavaScriptSerializer()
             
-            Dim gg as string = ""
-            for each bbb as Events in ss
-                if gg = "" then
-                    gg = s.Serialize(bbb)
-                else
-                    gg = gg & "," & s.Serialize(bbb)
-                end if
-                
-            next
-            
+           
             'Dim resultJs As String = s.Serialize(wawel)
     
             'Return aa & resultJs & bb
