@@ -54,10 +54,11 @@ Public Class RavenDB
 			session.SaveChanges()
 		End Using
 
-                Dim aa As New System.Web.Script.Serialization.JavaScriptSerializer
-		Dim ee As New StringBuilder = Nothing
-		aa.Serialize(events, ee)
-		Return ee.ToString
+                'Dim aa As New System.Web.Script.Serialization.JavaScriptSerializer
+		'Dim ee As New StringBuilder = Nothing
+		'aa.Serialize(events, ee)
+		'Return ee.ToString
+                Return "{""Svar"":{""status"":""Yes""}"
 	End Function
 End Class
 
