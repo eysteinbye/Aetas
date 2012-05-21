@@ -29,10 +29,10 @@
 		$(function () {
 			//getData("WebService/RavenDB.asmx/SaveDummy", callBack);
 			alert("Ready");
-			getData("WebService/RavenDB.asmx/HelloWorld", callBack);
+			getData("WebService/RavenDB.asmx/HelloWorld", newstrangename);
 		});
 
-		function callBack(json) {
+		function newstrangename(json) {
 			$("#timeline").text(json);
 			alert("This is callback");
 		}
