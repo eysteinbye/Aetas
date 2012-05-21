@@ -64,7 +64,7 @@ Public Class RavenDB
 		'	session.SaveChanges()
 		'End Using
 
-		Return msg
+		Return _TestJSON
 
 	End Function
 End Class
