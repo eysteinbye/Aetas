@@ -100,9 +100,12 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Input.aspx" />
-    <Content Include="RavenWS.asmx" />
+    <Content Include="Delete\Input.aspx" />
+    <Content Include="Delete\demo.htm" />
+    <Content Include="Input.htm" />
+    <Content Include="WebService\Raven.asmx" />
     <Content Include="Readme.txt" />
+    <Content Include="Scripts\ajaxWrapper.js" />
     <Content Include="Scripts\timeline.js" />
     <Content Include="Styles\Site.css" />
     <Content Include="Global.asax" />
@@ -121,16 +124,16 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="WebService.asmx" />
+    <Content Include="WebService\MsSql.asmx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Input.aspx.designer.vb">
+    <Compile Include="Delete\Input.aspx.designer.vb">
       <DependentUpon>Input.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Input.aspx.vb">
+    <Compile Include="Delete\Input.aspx.vb">
       <DependentUpon>Input.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
@@ -153,12 +156,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="RavenWS.asmx.vb">
-      <DependentUpon>RavenWS.asmx</DependentUpon>
+    <Compile Include="WebService\Raven.asmx.vb">
+      <DependentUpon>Raven.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WebService.asmx.vb">
-      <DependentUpon>WebService.asmx</DependentUpon>
+    <Compile Include="WebService\MsSql.asmx.vb">
+      <DependentUpon>MsSql.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
