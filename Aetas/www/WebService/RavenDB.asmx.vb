@@ -36,7 +36,8 @@ Public Class RavenDB
             
             
             'Dim wawel as Events = nothing
-            
+             Dim s = New System.Web.Script.Serialization.JavaScriptSerializer()
+           
             Using session As IDocumentSession = store.OpenSession()
               '   wawel  = session.Load(Of Events)("events/65")
                  'Dim ss  = session.Load(Of Events)("Events/")
@@ -61,7 +62,6 @@ Public Class RavenDB
             Dim aa as string ="{""timeline"":{""headline"":""Eystein was born"",""text"":""<p>Intro body text goes here, some HTML is ok</p>"",""asset"":{""media"":""http://www.exprosoft.com/Staff/EysteinBye.jpg"",""credit"":""Eystein Bye"",""caption"":""Lets get started""},""startDate"":""1978"",""type"":""default"",""date"":["
             Dim bb as string = "]}}"
             
-            Dim s = New System.Web.Script.Serialization.JavaScriptSerializer()
             
            
             'Dim resultJs As String = s.Serialize(wawel)
