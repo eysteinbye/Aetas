@@ -15,6 +15,7 @@ Public Class RavenDB
 	Inherits System.Web.Services.WebService
 
 	<WebMethod()> _
+	<ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
 	Public Function HelloWorld() As String
 		Return "Hello World"
 	End Function
