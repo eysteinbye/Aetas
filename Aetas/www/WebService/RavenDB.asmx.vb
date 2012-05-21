@@ -40,7 +40,7 @@ Public Class RavenDB
            
             Using session As IDocumentSession = store.OpenSession()
               '   wawel  = session.Load(Of Events)("events/65")
-                 'Dim ss  = session.Load(Of Events)("Events/")
+     
                  
                  
                  Dim ss = session.Query(Of Events)("Events").ToArray()
