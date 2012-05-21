@@ -16,6 +16,36 @@ Public Class RavenDB
 
 	Private _TestJSON As String = "{""timeline"":{""headline"":""Eystein was born"",""text"":""<p>Intro body text goes here, some HTML is ok</p>"",""asset"":{""media"":""http://www.exprosoft.com/Staff/EysteinBye.jpg"",""credit"":""Eystein Bye"",""caption"":""Lets get started""},""startDate"":""1978"",""type"":""default"",""date"":[{""headline"":""French Revolution"",""text"":""<p>A watershed event in modern European history</p>"",""asset"":{""media"":""http://wiki.theplaz.com/w/images/French_Revolution_Napoleon-peque.jpg"",""credit"":""Eystein Bye"",""caption"":""from Wikipedia""},""startDate"":""1789,12,10"",""endDate"":""1790,07,11""},{""headline"":""Pablo Picasso"",""text"":""<p>a Spanish painter, sculptor, printmaker, ceramicist, and stage designer who spent most of his adult life in France</p>"",""asset"":{""media"":""http://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg"",""credit"":""Eystein Bye"",""caption"":""from Wikipedia""},""startDate"":""1881,10,25"",""endDate"":""1973,04,08""}]}}"
 
+        <WebMethod()> _
+	<ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
+	Public Function getJSON() As String
+        
+        Dim parser = ConnectionStringParser(Of RavenConnectionStringOptions).FromConnectionStringName("RavenDB")
+		parser.Parse()
+
+		Dim store As New DocumentStore() With { _
+		 .ApiKey = parser.ConnectionStringOptions.ApiKey, _
+		 .Url = parser.ConnectionStringOptions.Url _
+		}
+
+		store.Initialize()
+        
+        'GetJSON from RAVEN index
+        Using session As IDocumentSession = store.OpenSession()
+            Dim wawel = session.Load(Of Location)("events/65")
+        End Using
+        
+        
+        		Dim aa as string ="{""timeline"":{""headline"":""Eystein was born"",""text"":""<p>Intro body text goes here, some HTML is ok</p>"",""asset"":{""media"":""http://www.exprosoft.com/Staff/EysteinBye.jpg"",""credit"":""Eystein Bye"",""caption"":""Lets get started""},""startDate"":""1978"",""type"":""default"",""date"":["
+
+
+
+Dim bb as string = "]}}"
+
+        
+		Return aa & wawel.tostring & bb
+	End Function
+
 
 	<WebMethod()> _
 	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>

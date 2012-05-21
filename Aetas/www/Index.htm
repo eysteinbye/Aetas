@@ -29,7 +29,9 @@
 	</style>
 	<script type="text/javascript">
 		$(function () {
-			getData("WebService/MsSql.asmx/getStaticJSON", loadTimeline);
+			//getData("WebService/MsSql.asmx/getStaticJSON", loadTimeline);
+			getData("WebService/RavenDB.asmx/getJSON", loadTimeline);
+			
 		});
 
 		function loadTimeline(json) {
