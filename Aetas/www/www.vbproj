@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Input.htm" />
+    <Content Include="RavenTest.htm" />
     <Content Include="Scripts\ajaxWrapper.js" />
     <Content Include="Scripts\timeline.js" />
     <Content Include="Styles\Site.css" />
