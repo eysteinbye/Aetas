@@ -32,7 +32,7 @@ Public Class RavenDB
         
         'GetJSON from RAVEN index
         Using session As IDocumentSession = store.OpenSession()
-            Dim wawel = session.Load(Of Location)("events/65")
+            Dim wawel = session.Load(Of Events)("events/65")
         End Using
         
         
@@ -42,8 +42,14 @@ Public Class RavenDB
 
 Dim bb as string = "]}}"
 
+
+
+
+Dim s = New System.Web.Script.Serialization.JavaScriptSerializer()
+
+Dim resultJs As String = s.Serialize(wawel)
         
-		Return aa & wawel.tostring & bb
+		Return aa & resultJs & bb
 	End Function
 
 
