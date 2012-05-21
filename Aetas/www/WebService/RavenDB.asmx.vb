@@ -40,8 +40,8 @@ Public Class RavenDB
 		store.Initialize()
 
 		msg = store.Identifier.ToString
-		Dim store As New DocumentStore() With {.ConnectionStringName = "https://1.ravenhq.com/databases/AppHarbor_0c9d6757-e342-4494-abde-ea634062980f"}
-		store.Initialize()
+		'Dim store As New DocumentStore() With {.ConnectionStringName = "https://1.ravenhq.com/databases/AppHarbor_0c9d6757-e342-4494-abde-ea634062980f"}
+		'store.Initialize()
 
 
 
