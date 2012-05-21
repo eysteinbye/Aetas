@@ -49,6 +49,3 @@ function loadTimeline(json) {
 	var timeline = new VMM.Timeline();
 	timeline.init(json);
 }
-function demodemo() {
-	alert("DEMO");
-}

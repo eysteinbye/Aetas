@@ -29,12 +29,12 @@
 		$(function () {
 			//getData("WebService/RavenDB.asmx/SaveDummy", callBack);
 			alert("Ready");
-			getData("WebService/RavenDB.asmx/HelloWorld");
+			getData("WebService/RavenDB.asmx/HelloWorld", callBack);
 		});
 
 		function callBack(json) {
+			$("#timeline").text(json);
 			alert("This is callback");
-			alert(json);
 		}
              
 	</script>
