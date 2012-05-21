@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -100,10 +100,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="demo.htm" />
-    <Content Include="Input.aspx" />
     <Content Include="Input.htm" />
-    <Content Include="Scripts\ajax.js" />
     <Content Include="Scripts\ajaxWrapper.js" />
     <Content Include="Scripts\timeline.js" />
     <Content Include="Styles\Site.css" />
@@ -129,13 +126,6 @@
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Input.aspx.designer.vb">
-      <DependentUpon>Input.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Input.aspx.vb">
-      <DependentUpon>Input.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -154,10 +144,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="WebService.asmx.vb">
-      <DependentUpon>WebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
