@@ -21,8 +21,9 @@ Public Class RavenWS
 
 
 	<WebMethod()> _
-	<ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
 	Public Function SaveDummy() As String
+
+		Dim msg As String = "Start"
 
 		Dim parser = ConnectionStringParser(Of RavenConnectionStringOptions).FromConnectionStringName("RavenDB")
 		parser.Parse()
@@ -34,7 +35,7 @@ Public Class RavenWS
 
 		store.Initialize()
 
-
+		msg = store.Identifier.ToString
 		'Dim store As New DocumentStore() With {.ConnectionStringName = "https://1.ravenhq.com/databases/AppHarbor_0c9d6757-e342-4494-abde-ea634062980f"}
 		'store.Initialize()
 
@@ -59,7 +60,7 @@ Public Class RavenWS
 			session.SaveChanges()
 		End Using
 
-		Return ""
+		Return msg
 
 	End Function
 End Class
