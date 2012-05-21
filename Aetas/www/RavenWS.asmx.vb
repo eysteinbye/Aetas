@@ -42,23 +42,23 @@ Public Class RavenWS
 
 
 
-		Dim assets As New Assets
-		assets.media = "http://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg"
-		assets.credit = "Eystein Bye"
-		assets.caption = "from Wikipedia"
+		'Dim assets As New Assets
+		'assets.media = "http://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg"
+		'assets.credit = "Eystein Bye"
+		'assets.caption = "from Wikipedia"
 
-		Dim events As New Events
-		events.headline = "Pablo Picasso"
-		events.text = "<p>a Spanish painter, sculptor, printmaker, ceramicist, and stage designer who spent most of his adult life in France</p>"
-		events.asset = assets
-		events.startDate = "1881,10,25"
-		events.endDate = "1973,04,08"
+		'Dim events As New Events
+		'events.headline = "Pablo Picasso"
+		'events.text = "<p>a Spanish painter, sculptor, printmaker, ceramicist, and stage designer who spent most of his adult life in France</p>"
+		'events.asset = assets
+		'events.startDate = "1881,10,25"
+		'events.endDate = "1973,04,08"
 
 
-		Using session As IDocumentSession = store.OpenSession()
-			session.Store(events)
-			session.SaveChanges()
-		End Using
+		'Using session As IDocumentSession = store.OpenSession()
+		'	session.Store(events)
+		'	session.SaveChanges()
+		'End Using
 
 		Return msg
 
