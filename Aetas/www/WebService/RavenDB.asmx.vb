@@ -19,8 +19,8 @@ Public Class RavenDB
 		Return "Hello World"
 	End Function
 
-
 	<WebMethod()> _
+	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
 	Public Function SaveDummy() As String
 
 		Dim msg As String = "Start"
