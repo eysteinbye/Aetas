@@ -45,7 +45,3 @@ function errorHandling(res, status) {
 function defaultAction(json) {
 	alert("You need to send a callback");
 }
-function loadTimeline(json) {
-	var timeline = new VMM.Timeline();
-	timeline.init(json);
-}
