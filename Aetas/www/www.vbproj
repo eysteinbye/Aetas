@@ -100,8 +100,6 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Delete\Input.aspx" />
-    <Content Include="Delete\demo.htm" />
     <Content Include="Input.htm" />
     <Content Include="WebService\Raven.asmx" />
     <Content Include="Readme.txt" />
@@ -129,13 +127,6 @@
   <ItemGroup>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Delete\Input.aspx.designer.vb">
-      <DependentUpon>Input.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Delete\Input.aspx.vb">
-      <DependentUpon>Input.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -187,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Delete\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
