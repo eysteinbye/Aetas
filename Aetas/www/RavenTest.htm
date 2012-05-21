@@ -27,14 +27,11 @@
 	</style>
 	<script type="text/javascript">
 		$(function () {
-			//getData("WebService/RavenDB.asmx/SaveDummy", callBack);
-			//alert("Ready");
 			getData("WebService/RavenDB.asmx/SaveDummy", newstrangename);
 		});
 
 		function newstrangename(json) {
-			//$("#timeline").text(json);
-			alert("This is callback");
+			$("#timeline").text(json);
 		}
              
 	</script>
