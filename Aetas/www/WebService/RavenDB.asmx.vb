@@ -39,7 +39,7 @@ Public Class RavenDB
             
             Using session As IDocumentSession = store.OpenSession()
               '   wawel  = session.Load(Of Events)("events/65")
-                 Dim ss  = session.Load(Of Events)("Events")
+                 Dim ss  = session.Load(Of Events)("Events/")
                  
                         
                   for each bbb as Events in ss
