@@ -11,7 +11,7 @@ Imports Raven.Client
 <System.Web.Services.WebService(Namespace:="http://tempuri.org/")> _
 <System.Web.Services.WebServiceBinding(ConformsTo:=WsiProfiles.BasicProfile1_1)> _
 <ToolboxItem(False)> _
-Public Class RavenWS
+Public Class Raven
 	Inherits System.Web.Services.WebService
 
 	<WebMethod()> _
