@@ -24,9 +24,8 @@ Public Class RavenDB
 	End Function
 
 	<WebMethod()> _
-	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
-	Public Function SaveDummy() As String
-
+	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
+	Public Function SaveDummy(headline As String, text As String, media As String, credit As String, caption As String, startDate As String, endDate As String) As String
 		Dim parser = ConnectionStringParser(Of RavenConnectionStringOptions).FromConnectionStringName("RavenDB")
 		parser.Parse()
 
@@ -37,19 +36,17 @@ Public Class RavenDB
 
 		store.Initialize()
 
-
-
 		Dim assets As New Assets
-		assets.media = "http://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg"
-		assets.credit = "Eystein Bye"
-		assets.caption = "from Wikipedia"
+		assets.media = media
+		assets.credit = credit
+		assets.caption = caption
 
 		Dim events As New Events
-		events.headline = "Pablo Picasso"
-		events.text = "<p>a Spanish painter, sculptor, printmaker, ceramicist, and stage designer who spent most of his adult life in France</p>"
+		events.headline = headline
+		events.text = text
 		events.asset = assets
-		events.startDate = "1881,10,25"
-		events.endDate = "1973,04,08"
+		events.startDate = startDate
+		events.endDate = endDate
 
 
 		Using session As IDocumentSession = store.OpenSession()
@@ -57,13 +54,10 @@ Public Class RavenDB
 			session.SaveChanges()
 		End Using
 
-
                 Dim aa As New System.Web.Script.Serialization.JavaScriptSerializer
-		Dim ee As StringBuilder = Nothing
+		Dim ee As New StringBuilder = Nothing
 		aa.Serialize(events, ee)
 		Return ee.ToString
-
-
 	End Function
 End Class
 
