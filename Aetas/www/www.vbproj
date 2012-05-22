@@ -125,6 +125,8 @@
     <Content Include="WebService\RavenDB.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BEO\Assets.vb" />
+    <Compile Include="BEO\Events.vb" />
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

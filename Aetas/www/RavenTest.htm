@@ -32,15 +32,22 @@
 
 		function newstrangename(json) {
 			//$("#timeline").text(json);
+			alert("Yes");
 		}
-             
+
+
+		function save() {
+			postData("WebService/RavenDB.asmx/Save",this, newstrangename);
+
+		}
+
 	</script>
 
 	</head>
 
 	<body>
 
-		<form method="post" action="WebService/RavenDB.asmx/Save">
+		<form>
     <div>
     
      <table>
@@ -61,7 +68,7 @@
 	</tr></table>
     
     
-	    <input type="submit" name="save" value="save">
+	    <input type="button" name="save" value="save" onclick="save()">
 
 
     </div>
