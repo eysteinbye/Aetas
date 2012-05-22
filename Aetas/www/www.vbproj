@@ -147,6 +147,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UoW\Raven.vb" />
     <Compile Include="WebService\MsSql.asmx.vb">
       <DependentUpon>MsSql.asmx</DependentUpon>
       <SubType>Component</SubType>

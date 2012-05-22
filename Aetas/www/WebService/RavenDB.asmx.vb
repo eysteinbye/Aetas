@@ -2,8 +2,6 @@
 Imports System.Web.Services.Protocols
 Imports System.ComponentModel
 Imports System.Web.Script.Services
-Imports Raven.Client.Document
-Imports Raven.Abstractions.Data
 Imports Raven.Client
 
 <System.Web.Script.Services.ScriptService()> _
@@ -14,62 +12,8 @@ Public Class RavenDB
 	Inherits System.Web.Services.WebService
 
 	Private _TestJSON As String = "{""timeline"":{""headline"":""Eystein was born"",""text"":""<p>Intro body text goes here, some HTML is ok</p>"",""asset"":{""media"":""http://www.exprosoft.com/Staff/EysteinBye.jpg"",""credit"":""Eystein Bye"",""caption"":""Lets get started""},""startDate"":""1978"",""type"":""default"",""date"":[{""headline"":""French Revolution"",""text"":""<p>A watershed event in modern European history</p>"",""asset"":{""media"":""http://wiki.theplaz.com/w/images/French_Revolution_Napoleon-peque.jpg"",""credit"":""Eystein Bye"",""caption"":""from Wikipedia""},""startDate"":""1789,12,10"",""endDate"":""1790,07,11""},{""headline"":""Pablo Picasso"",""text"":""<p>a Spanish painter, sculptor, printmaker, ceramicist, and stage designer who spent most of his adult life in France</p>"",""asset"":{""media"":""http://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg"",""credit"":""Eystein Bye"",""caption"":""from Wikipedia""},""startDate"":""1881,10,25"",""endDate"":""1973,04,08""}]}}"
-
-        <WebMethod()> _
-	<ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
-	Public Function getJSON() As String
-            
-            Dim parser = ConnectionStringParser(Of RavenConnectionStringOptions).FromConnectionStringName("RavenDB")
-            parser.Parse()
-    
-            Dim store As New DocumentStore() With { _
-             .ApiKey = parser.ConnectionStringOptions.ApiKey, _
-             .Url = parser.ConnectionStringOptions.Url _
-            }
-    
-            store.Initialize()
-    
-            
-            Dim gg as string = ""
-            
-          
-            
-            
-            'Dim wawel as Events = nothing
-             Dim s = New System.Web.Script.Serialization.JavaScriptSerializer()
-           
-            Using session As IDocumentSession = store.OpenSession()
-              '   wawel  = session.Load(Of Events)("events/65")
-     
-                 
-                 
-                 Dim ss = session.Query(Of Events)("Events").ToArray()
-                 
-                        
-                  for each bbb as Events in ss
-                      if gg = "" then
-                          gg = s.Serialize(bbb)
-                      else
-                          gg = gg & "," & s.Serialize(bbb)
-                      end if
-                      
-                  next
-                  
-                 
-            End Using
-            
-        
-            Dim aa as string ="{""timeline"":{""headline"":""Eystein was born"",""text"":""<p>Intro body text goes here, some HTML is ok</p>"",""asset"":{""media"":""http://www.exprosoft.com/Staff/EysteinBye.jpg"",""credit"":""Eystein Bye"",""caption"":""Lets get started""},""startDate"":""1978"",""type"":""default"",""date"":["
-            Dim bb as string = "]}}"
-            
-            
-           
-            'Dim resultJs As String = s.Serialize(wawel)
-    
-            'Return aa & resultJs & bb
-            Return aa & gg & bb
-	End Function
-
+	Private _JSONHead As String = "{""timeline"":{""headline"":""Eystein was born"",""text"":""<p>Intro body text goes here, some HTML is ok</p>"",""asset"":{""media"":""http://www.exprosoft.com/Staff/EysteinBye.jpg"",""credit"":""Eystein Bye"",""caption"":""Lets get started""},""startDate"":""1978"",""type"":""default"",""date"":["
+	Private _JSONFotter As String = "]}}"
 
 	<WebMethod()> _
 	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
@@ -78,18 +22,29 @@ Public Class RavenDB
 	End Function
 
 	<WebMethod()> _
+	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
+	Public Function GetEvents() As String
+		Dim serialize = New System.Web.Script.Serialization.JavaScriptSerializer()
+
+		Dim jsonString As String = ""
+		Using session As IDocumentSession = Raven.Store.OpenSession()
+			Dim events = session.Query(Of Events)("Events").ToArray()
+			'session.Load(Of Events)("events/65")
+			For Each historyEvent As Events In events
+				If jsonString = "" Then
+					jsonString = serialize.Serialize(historyEvent)
+				Else
+					jsonString = jsonString & "," & serialize.Serialize(historyEvent)
+				End If
+			Next
+		End Using
+
+		Return _JSONHead & jsonString & _JSONFotter
+	End Function
+
+	<WebMethod()> _
 	  <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
-	Public Function SaveDummy(headline As String, text As String, media As String, credit As String, caption As String, startDate As String, endDate As String) As String
-		Dim parser = ConnectionStringParser(Of RavenConnectionStringOptions).FromConnectionStringName("RavenDB")
-		parser.Parse()
-
-		Dim store As New DocumentStore() With { _
-		 .ApiKey = parser.ConnectionStringOptions.ApiKey, _
-		 .Url = parser.ConnectionStringOptions.Url _
-		}
-
-		store.Initialize()
-
+	Public Function Save(headline As String, text As String, media As String, credit As String, caption As String, startDate As String, endDate As String) As String
 		Dim assets As New Assets
 		assets.media = media
 		assets.credit = credit
@@ -102,20 +57,18 @@ Public Class RavenDB
 		events.startDate = startDate
 		events.endDate = endDate
 
-
-		Using session As IDocumentSession = store.OpenSession()
+		Using session As IDocumentSession = Raven.Store.OpenSession()
 			session.Store(events)
 			session.SaveChanges()
 		End Using
 
-                Dim s = New System.Web.Script.Serialization.JavaScriptSerializer()
+		Dim serialize = New System.Web.Script.Serialization.JavaScriptSerializer()
 
-                Dim resultJs As String = s.Serialize(events)
-                
-                Return resultJs
+		Dim resultJs As String = serialize.Serialize(events)
+
+		Return resultJs
 	End Function
 End Class
-
 
 Public Class Events
 	Public Property headline() As String
@@ -130,4 +83,3 @@ Public Class Assets
 	Public Property credit() As String
 	Public Property caption() As String
 End Class
-
