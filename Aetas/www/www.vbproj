@@ -113,6 +113,7 @@
     <Content Include="Styles\timeline.css" />
     <Content Include="Index.htm" />
     <Content Include="Styles\timeline.png" />
+    <Content Include="test.htm" />
     <Content Include="test.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
