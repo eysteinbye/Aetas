@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+	<script type='text/javascript' src='https://github.com/downloads/SteveSanderson/knockout/knockout-2.1.0.js'></script>
+	<script type='text/javascript' src='https://github.com/SteveSanderson/knockout.mapping/tree/master/build/output'></script>
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	
+	<meta charset="utf-8">
+	<title>Timeline</title>
+	<meta name="description" content="Template Description">
+	
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link href="Styles/timeline.css" rel="stylesheet">
+	<script type="text/javascript" src="Scripts/timeline.js"></script>
+	<script type="text/javascript" src="Scripts/timeline-min.js"></script>
+	<script type="text/javascript" src="Scripts/ajaxWrapper.js"></script>
+	
+	<style>
+		html, body {
+			height:100%;
+			padding: 0px;
+			margin: 0px;
+		}
+	</style>
+	<script type="text/javascript">
+		$(function () {
+			//getData("WebService/MsSql.asmx/GetEvents", loadTimeline);
+			getData("WebService/RavenDB.asmx/GetEvents", loadTimeline);
+			
+		});
+
+		function loadTimeline(json) {
+			var timeline = new VMM.Timeline();
+			timeline.init(json);
+		}
+             
+	</script>
+
+	</head>
+
+	<body>
+
+		<div id="timeline">
+		</div>
+		
+	</body>
+</html>
+			

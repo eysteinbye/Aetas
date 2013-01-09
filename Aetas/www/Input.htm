@@ -1,1 +1,76 @@
-<!DOCTYPE><html><head>    <title>Input</title>	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />	<script type="text/javascript">		$(function () {			$("#startDate").datepicker();			$("#endDate").datepicker();		});	</script></head><body>    <form method="post" action="WebService/MsSql.asmx/Save">    <div>        <table>	<tr>		<td>Headline</td><td><input type="text" name="headline" maxlength="100" style="width:300px" /></td>	</tr><tr>		<td>Text</td><td><input type="text" name="text" maxlength="255" style="width:300px" /></td>	</tr><tr>		<td>Media url</td><td><input type="text" name="media" maxlength="255" style="width:300px" /></td>	</tr><tr>		<td>Credit</td><td><input type="text" name="credit" maxlength="100" style="width:300px" /></td>	</tr><tr>		<td>Caption</td><td><input type="text" name="caption" maxlength="100" style="width:300px" /></td>	</tr><tr>		<td>Start date</td><td><input type="text" name="startDate" id="startDate" /></td>	</tr><tr>		<td>End date</td><td><input type="text" name="endDate" id="endDate" /></td>	</tr></table>    	    <input type="submit" name="save" value="save">    </div>    </form></body></html>
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />	<script type="text/javascript">	    $(function () {
+	        $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });	        $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
+	    });	</script>	
+	<meta charset="utf-8">
+	<title>Raven test</title>
+	<meta name="description" content="Template Description">
+	
+	
+	<link href="Styles/Site.css" rel="stylesheet">
+    <script type="text/javascript">
+		$(function () {
+            // Loading for edit
+		    // postData("WebService/RavenDB.asmx/GetEvent", queryOptions(), populateForm);
+		});
+        /* 
+        // The ID of the one to edit (get back)
+		function queryOptions() {
+		    var myOptions =
+                    {
+                        "eventId": "1"
+                    };
+		    return myOptions;
+		}
+        */
+		function saveForm() {
+		    
+		    // Saver nå ved å sende serialized form
+		    // MEN jeg skal lage et JSON obj og sende dette med postData til en
+		    // save i WS som tar imot event obj og lager direkte
+
+			//var $form = $("#testform").serialize();
+		    //postData("WebService/RavenDB.asmx/Save", $form, writeDebug);
+		}
+
+		function writeDebug(json) {
+		    $("#testdiv").text(json);
+		}
+	</script>
+
+	</head>
+
+	<body>
+
+		<form method="post" action="WebService/RavenDB.asmx/Save">
+    <div>
+    
+     <table>
+	<tr>
+		<td>Headline</td><td><input type="text" name="headline" maxlength="100" style="width:300px" /></td>
+	</tr><tr>
+		<td>Text</td><td><input type="text" name="text" maxlength="255" style="width:300px" /></td>
+	</tr><tr>
+		<td>Media url</td><td><input type="text" name="media" maxlength="255" style="width:300px" /></td>
+	</tr><tr>
+		<td>Credit</td><td><input type="text" name="credit" maxlength="100" style="width:300px" /></td>
+	</tr><tr>
+		<td>Caption</td><td><input type="text" name="caption" maxlength="100" style="width:300px" /></td>
+	</tr><tr>
+		<td>Start date</td><td><input type="text" name="startDate" id="startDate" /></td>
+	</tr><tr>
+		<td>End date</td><td><input type="text" name="endDate" id="endDate" /></td>
+	</tr></table>
+    
+    
+	    <input type="submit" name="save" value="save">
+
+		<div id="testdiv"></div>
+    </div>
+    </form>
+	</body>
+</html>
+			

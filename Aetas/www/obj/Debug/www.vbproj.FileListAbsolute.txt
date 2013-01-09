@@ -19,3 +19,23 @@ c:\Aetas\Aetas\www\bin\Raven.Abstractions.pdb
 c:\Aetas\Aetas\www\bin\Raven.Abstractions.xml
 c:\Aetas\Aetas\www\bin\Raven.Client.Lightweight.pdb
 c:\Aetas\Aetas\www\bin\Raven.Client.Lightweight.xml
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\www.dll
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\www.pdb
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\www.xml
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\Newtonsoft.Json.dll
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\NLog.dll
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\Raven.Abstractions.dll
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\Raven.Client.Lightweight.dll
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\Newtonsoft.Json.pdb
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\Newtonsoft.Json.xml
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\NLog.xml
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\Raven.Abstractions.pdb
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\Raven.Abstractions.xml
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\Raven.Client.Lightweight.pdb
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\bin\Raven.Client.Lightweight.xml
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\obj\Debug\www.vbprojResolveAssemblyReference.cache
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\obj\Debug\www.Resources.resources
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\obj\Debug\www.vbproj.GenerateResource.Cache
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\obj\Debug\www.dll
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\obj\Debug\www.xml
+C:\Users\Eystein\Documents\Visual Studio 2012\Projects\Aetas\Aetas\www\obj\Debug\www.pdb
