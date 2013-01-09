@@ -2,7 +2,8 @@
 <html lang="en">
 	<head>
 	    <script type='text/javascript' src="Scripts/jquery-1.8.3.min.js"></script>
-        <script type='text/javascript' src="Scripts/jquery-ui-1.9.2.min.js"></script>
+	    <script type='text/javascript' src="Scripts/jquery-ui-1.9.2.min.js"></script>
+   	    <script src="Scripts/ajaxWrapper.js"></script>
     	<link rel="stylesheet" type="text/css" href="Styles/jquery-ui.css" />	    <link rel="stylesheet" type="text/css" href="Styles/Site.css" />
 	    <meta charset="utf-8">
 	    <title>Raven test</title>
@@ -30,20 +31,44 @@
 		        // MEN jeg skal lage et JSON obj og sende dette med postData til en
 		        // save i WS som tar imot event obj og lager direkte
 
-			    //var $form = $("#testform").serialize();
-		        //postData("WebService/RavenDB.asmx/Save", $form, writeDebug);
+		        var $form = $("form input:text"); //.serialize();
+		        
+                
+		        postData("WebService/RavenDB.asmx/Save", makeEventJson($form), writeDebug);
 		    }
 
 		    function writeDebug(json) {
 		        $("#testdiv").text(json);
 		    }
+		    
+
+		    function makeEventJson(data) {
+		        var jsonObj =
+		        {
+		            "headline": data[0].value,
+		            "text": data[1].value,
+		            "asset": {
+		                "media": data[2].value,
+		                "credit": data[3].value,
+		                "caption": data[4].value
+		            },
+		            "startDate": data[5].value,
+		            "endDate": data[6].value
+		        };
+		        return jsonObj;
+		    //    return JSON.stringify(jsonObj);
+            }
+
+
+
+
 	    </script>
 
     </head>
 
 	<body>
 
-		<form method="post" action="WebService/RavenDB.asmx/Save">
+		<form>
         <div>
     
          <table>
@@ -63,7 +88,7 @@
 		    <td>End date</td><td><input type="text" name="endDate" id="endDate" /></td>
 	    </tr></table>
     
-	        <input type="submit" name="save" value="save">
+	        <input type="button" name="save" value="save" onclick="saveForm()">
 
 		    <div id="testdiv"></div>
         </div>

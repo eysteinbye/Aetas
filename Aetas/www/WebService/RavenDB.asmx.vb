@@ -54,22 +54,41 @@ Public Class RavenDB
 
     End Function
 
+    '<WebMethod()> _
+    '<ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
+    'Public Function Save(headline As String, text As String, media As String, credit As String, caption As String, startDate As String, endDate As String) As String
+
+    '    Dim assets As New Assets With {.media = media, .credit = credit, .caption = caption}
+    '    Dim items As New Events With {.headline = headline, .text = text, .asset = assets, .startDate = startDate, .endDate = endDate}
+
+    '    Using docSession As IDocumentSession = Raven.Store.OpenSession()
+    '        docSession.Store(items)
+    '        docSession.SaveChanges()
+    '    End Using
+
+    '    Dim serialize As New Script.Serialization.JavaScriptSerializer()
+    '    Dim resultJs As String = serialize.Serialize(Events)
+    '    Return resultJs
+
+    'End Function
+
     <WebMethod()> _
     <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
-    Public Function Save(headline As String, text As String, media As String, credit As String, caption As String, startDate As String, endDate As String) As String
-
-        Dim assets As New Assets With {.media = media, .credit = credit, .caption = caption}
-        Dim items As New Events With {.headline = headline, .text = text, .asset = assets, .startDate = startDate, .endDate = endDate}
+    Public Function Save(jsonObj As Events) As String
+        'headline As String, text As String, media As String, credit As String, caption As String, startDate As String, endDate As String
+        'Dim assets As New Assets With {.media = media, .credit = credit, .caption = caption}
+        'Dim items As New Events With {.headline = headline, .text = text, .asset = assets, .startDate = startDate, .endDate = endDate}
 
         Using docSession As IDocumentSession = Raven.Store.OpenSession()
-            docSession.Store(items)
+            docSession.Store(jsonObj)
             docSession.SaveChanges()
         End Using
 
         Dim serialize As New Script.Serialization.JavaScriptSerializer()
         Dim resultJs As String = serialize.Serialize(Events)
         Return resultJs
-
+        'Return Nothing
     End Function
+
 
 End Class
