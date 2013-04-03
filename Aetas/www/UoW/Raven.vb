@@ -8,8 +8,12 @@ Public Module Raven
 	Public Property Store As DocumentStore
 
     Public Sub Initialize()
+
+        Dim dd As String = ConfigurationManager.AppSettings("RAVENHQ_CONNECTION_STRING")
+
         Try
-            Dim parser = ConnectionStringParser(Of RavenConnectionStringOptions).FromConnectionStringName("RAVENHQ_CONNECTION_STRING")
+            Dim parser = ConnectionStringParser(Of RavenConnectionStringOptions).FromConnectionString(dd)
+            'Dim parser = ConnectionStringParser(Of RavenConnectionStringOptions).FromConnectionStringName("RAVENHQ_CONNECTION_STRING")
             parser.Parse()
             Store = New DocumentStore() With { _
              .ApiKey = parser.ConnectionStringOptions.ApiKey, _
