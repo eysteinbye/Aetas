@@ -12,12 +12,14 @@ Imports System.Xml
 Public Class Wikipedia
     Inherits WebService
 
+    '{"Message":"Invalid web service call, missing value for parameter: \u0027searchString\u0027.","StackTrace":"   at System.Web.Script.Services.WebServiceMethodData.CallMethod(Object target, IDictionary`2 parameters)\r\n   at System.Web.Script.Services.WebServiceMethodData.CallMethodFromRawParams(Object target, IDictionary`2 parameters)\r\n   at System.Web.Script.Services.RestHandler.InvokeMethod(HttpContext context, WebServiceMethodData methodData, IDictionary`2 rawParams)\r\n   at System.Web.Script.Services.RestHandler.ExecuteWebServiceCall(HttpContext context, WebServiceMethodData methodData)","ExceptionType":"System.InvalidOperationException"}
+
     <WebMethod()> _
     <ScriptMethod(ResponseFormat:=ResponseFormat.Xml)>
-    Public Function Search(searchString As String) As String
+    Public Function Search(jsonObj As String) As String
         Dim xmlDoc As New XmlDocument
 
-        Dim wr As HttpWebRequest = DirectCast(WebRequest.Create("http://en.wikipedia.org/w/api.php?action=opensearch&limit=1&format=xml&search=" & searchString), HttpWebRequest)
+        Dim wr As HttpWebRequest = DirectCast(WebRequest.Create("http://en.wikipedia.org/w/api.php?action=opensearch&limit=1&format=xml&search=" & jsonObj), HttpWebRequest)
         wr.UserAgent = "Mozilla/5.0"
         wr.Credentials = CredentialCache.DefaultCredentials
         wr.Accept = "text/xml"
