@@ -46,7 +46,7 @@ Public Class RavenDB
         Dim jsonString As String = String.Empty
 
         Using docSession As IDocumentSession = Raven.Store.OpenSession()
-            Dim item As Events = docSession.Load(Of Events)("events/" & jsonObj.eventId)
+            Dim item As Events = docSession.Load(Of Events)(jsonObj.eventId)
             jsonString = serialize.Serialize(item)
         End Using
 

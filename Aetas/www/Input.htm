@@ -25,7 +25,8 @@
             $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });
             $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
             // Loading for edit
-            // postData("WebService/RavenDB.asmx/GetEvent", queryOptions(), populateForm);
+             getData("WebService/RavenDB.asmx/GetEvents",ShowAllEvents);
+           
 
             $('#headline').blur(function () {
                 var searchString = $('#headline').val();
@@ -39,6 +40,51 @@
             });
 
         });
+
+        function ShowAllEvents(data) {
+            var count = data.timeline.date.length;
+            for (var i = 0; i < count; i++) {
+                var name = data.timeline.date[i].headline;
+                var id = data.timeline.date[i].Id;
+                AddItemToDropDown(name, id);
+            }
+        }
+
+        function AddItemToDropDown(text, value) {
+            // Create an Option object
+            var opt = document.createElement("option");
+            // Add an Option object to Drop Down/List Box
+            document.getElementById("DropDownList").options.add(opt);
+            // Assign text and value to Option object
+            opt.text = text;
+            opt.value = value;
+        }
+
+        function ShowEvent(ddl) {
+            var index = ddl.selectedIndex;
+
+            var id = ddl[index].value;
+             postData("WebService/RavenDB.asmx/GetEvent", queryOptions(id), populateForm);
+        }
+
+        function populateForm(data) {
+            var headline = data.timeline.date[0].headline;
+            var text = data.timeline.date[0].text;
+            var startDate = data.timeline.date[0].startDate;
+            var endDate= data.timeline.date[0].endDate;
+            var media = data.timeline.date[0].asset.media;
+            var credit = data.timeline.date[0].asset.credit;
+            var caption = data.timeline.date[0].asset.caption;
+            
+            $("#headline").val(headline);
+            $("#text").val(text);
+            $("#startDate").val(startDate);
+            $("#endDate").val(endDate);
+            $("#media").val(media);
+            $("#credit").val(credit);
+            $("#caption").val(caption);
+        }
+
 
         function showWikiPicture(data) {
             $("#imgShow").attr('src', data);
@@ -66,16 +112,15 @@
             $("#output").text(json);
         }
 
-        /* 
               // The ID of the one to edit (get back)
-              function queryOptions() {
+              function queryOptions(id) {
                   var myOptions =
                           {
-                              "eventId": "1"
+                              "eventId":  id
                           };
                   return myOptions;
               }
-              */
+        
     </script>
 
 </head>
@@ -84,6 +129,8 @@
 
     <form>
         <div style="width: 800px">
+            
+            <select id="DropDownList" onchange="ShowEvent(this)"></select>
 
             <img src="#" id="imgShow" width="320" style="float: right" alt="Image from Wikipedia" />
 
