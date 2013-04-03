@@ -10,6 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code Style Enforcer", "Code
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "www", "www\www.vbproj", "{C3D11FF3-DEC1-4F90-AD8D-00A06C622EF1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{94D9E67A-BA79-417E-A927-459FA3C50B1F}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,7 +32,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		CodeStyleEnforcer_Active = -1
 		CodeStyleEnforcer_RulesLocation = 0
+		CodeStyleEnforcer_Active = -1
 	EndGlobalSection
 EndGlobal

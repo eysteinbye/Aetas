@@ -8,7 +8,6 @@ Public Module Raven
 	Public Property Store As DocumentStore
 
     Public Sub Initialize()
-
         Try
             Dim parser = ConnectionStringParser(Of RavenConnectionStringOptions).FromConnectionStringName("RAVENHQ_CONNECTION_STRING")
             parser.Parse()
@@ -20,7 +19,6 @@ Public Module Raven
         Catch ex As Exception
             Throw New Exception("Could not connect to RavenDB")
         End Try
-
     End Sub
 
     Public ReadOnly Property CurrentSession() As IDocumentSession
@@ -30,5 +28,4 @@ Public Module Raven
     End Property
 
 End Module
-
 

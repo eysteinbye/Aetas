@@ -5,6 +5,23 @@ function getData(url, callback) {
 function postData(url, data, callback) {
     ajaxWrapper(url, data, "POST", callback);
 }
+function postXmlData(url, data, callback) {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8", // sendes inn
+        url: url,
+        data: makeJSONString(data),
+        dataType: "xml",  // get back
+      success: function (dd) {
+            callback(dd);
+        },
+        error: function (res, status) {
+            // alert(res.responseText);
+            callback(res.responseText);
+        }
+    });
+
+}
 
 function ajaxWrapper(url, data, type, callback) {
     $.ajax({

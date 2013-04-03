@@ -1,99 +1,147 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-	<head>
-	    <meta charset="utf-8">
-	    <title>Raven test</title>
-	    <meta name="description" content="Template Description">
+<head>
+    <meta charset="utf-8">
+    <title>Save events</title>
+    <meta name="description" content="Template Description">
 
-	    <script src="Scripts/jquery-1.8.3.min.js"></script>
-	    <script src="Scripts/jquery-ui-1.9.2.min.js"></script>
-   	    <script src="Scripts/ajaxWrapper.js"></script>
-    	<link rel="stylesheet" type="text/css" href="Styles/jquery-ui.css" />
-	    <link rel="stylesheet" type="text/css" href="Styles/Site.css" />
+    <script src="Scripts/jquery-1.8.3.min.js"></script>
+    <script src="Scripts/jquery-ui-1.9.2.min.js"></script>
+    <script src="Scripts/ajaxWrapper.js"></script>
+    <link rel="stylesheet" type="text/css" href="Styles/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/Site.css" />
+
+    <!--
         
-        
-	    <!--
-            
-	        Lag edit
-	        html 5 semantic tags
+        Det er en feil med basen nå... ny url? les url fra ApHb
+        Lag edit av eksisterene
+	        Hva med events with no end?
+            Hva med ca. date
+            Upload picture
+            Ha som egen siden, men med loggin
+	    -->
 
-Ha som egen siden, men med loggin
-	        -->
-        
-        
+    <script type="text/javascript">
+        $(function () {
+            $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });
+            $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
+            // Loading for edit
+            // postData("WebService/RavenDB.asmx/GetEvent", queryOptions(), populateForm);
 
-	        <script type="text/javascript">
-            $(function () {
-                $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });
-                $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
-                // Loading for edit
-		        // postData("WebService/RavenDB.asmx/GetEvent", queryOptions(), populateForm);
-		    });
-            /* 
-            // The ID of the one to edit (get back)
-		    function queryOptions() {
-		        var myOptions =
-                        {
-                            "eventId": "1"
-                        };
-		        return myOptions;
-		    }
-            */
-		    function saveForm() {
-		        var $form = $("form input:text"); 
-		        postData("WebService/RavenDB.asmx/Save", makeEventJson($form), writeDebug);
-		    }
+            $('#headline').blur(function () {
+                var searchString = $('#headline').val();
+                postXmlData("WebService/Wikipedia.asmx/Search", searchString, showWikiPicture);
+            });
 
-		    function writeDebug(json) {
-		        $("#testdiv").text(json);
-		    }
-		    
-		    function makeEventJson(data) {
-		        var jsonObj =
-		        {
-		            "headline": data[0].value,
-		            "text": data[1].value,
-		            "asset": {
-		                "media": data[2].value,
-		                "credit": data[3].value,
-		                "caption": data[4].value
-		            },
-		            "startDate": data[5].value,
-		            "endDate": data[6].value
-		        };
-		        return jsonObj;
-            }
-	    </script>
+            $('#save').click(function() {
+                var formData = $("form input");
+                var json = makeEventJson(formData);
+                postData("WebService/RavenDB.asmx/Save", json, writeDebug);
+            });
 
-    </head>
+        });
 
-	<body>
+        function showWikiPicture(data) {
+            $("#imgShow").attr('src', data);
+            $("#media").val(data);
+        }
 
-		<form>
-        <div>
-    
-         <table>
-	    <tr>
-		    <td>Headline</td><td><input type="text" name="headline" maxlength="100" style="width:300px" /></td>
-	    </tr><tr>
-		    <td>Text</td><td><input type="text" name="text" maxlength="255" style="width:300px" /></td>
-	    </tr><tr>
-		    <td>Media url</td><td><input type="text" name="media" maxlength="255" style="width:300px" /></td>
-	    </tr><tr>
-		    <td>Credit</td><td><input type="text" name="credit" maxlength="100" style="width:300px" /></td>
-	    </tr><tr>
-		    <td>Caption</td><td><input type="text" name="caption" maxlength="100" style="width:300px" /></td>
-	    </tr><tr>
-		    <td>Start date</td><td><input type="text" name="startDate" id="startDate" /></td>
-	    </tr><tr>
-		    <td>End date</td><td><input type="text" name="endDate" id="endDate" /></td>
-	    </tr></table>
-    
-	        <input type="button" name="save" value="save" onclick="saveForm()">
+        function makeEventJson(formData) {
+            // bruke id og ikke index?
+            var jsonObj =
+            {
+                "headline": formData[0].value,
+                "text": formData[1].value,
+                "asset": {
+                    "media": formData[2].value,
+                    "credit": formData[3].value,
+                    "caption": formData[4].value
+                },
+                "startDate": formData[5].value,
+                "endDate": formData[6].value
+            };
+            return jsonObj;
+        }
 
-		    <div id="testdiv"></div>
+        function writeDebug(json) {
+            $("#output").text(json);
+        }
+
+        /* 
+              // The ID of the one to edit (get back)
+              function queryOptions() {
+                  var myOptions =
+                          {
+                              "eventId": "1"
+                          };
+                  return myOptions;
+              }
+              */
+    </script>
+
+</head>
+
+<body>
+
+    <form>
+        <div style="width: 800px">
+
+            <img src="#" id="imgShow" width="320" style="float: right" alt="Image from Wikipedia" />
+
+            <table>
+                <tr>
+                    <td>
+                        <label for="headline">Headline</label></td>
+                    <td>
+                        <input type="text" id="headline" name="headline" maxlength="100" style="width: 300px" placeholder="Headline..." autofocus required /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="text">Text</label></td>
+                    <td>
+                        <input type="text" id="text" name="text" maxlength="255" style="width: 300px" placeholder="Text..." required /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="media">Media url</label></td>
+                    <td>
+                        <input type="url" id="media" name="media" maxlength="255" style="width: 300px" placeholder="Picture..." required /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="credit">Credit</label></td>
+                    <td>
+                        <input type="text" id="credit" name="credit" maxlength="100" style="width: 300px" placeholder="Credit..." required /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="caption">Caption</label></td>
+                    <td>
+                        <input type="text" id="caption" name="caption" maxlength="100" style="width: 300px" placeholder="Caption..." required /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="startDate">Start date</label></td>
+                    <td>
+                        <input type="text" id="startDate" name="startDate" required /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="endDate">End date</label></td>
+                    <td>
+                        <input type="text" id="endDate" name="endDate" /></td>
+                </tr>
+            </table>
+
+            <button type="button" id="save">Save</button>
+
+            <div id="output"></div>
+
+
+
+
         </div>
     </form>
-	</body>
+</body>
 </html>
-			
+
