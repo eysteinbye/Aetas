@@ -175,6 +175,9 @@
     <Content Include="Dump\InputMsSql.htm" />
     <Content Include="input.htm" />
     <Content Include="Scripts\ajaxWrapper.js" />
+    <Content Include="Scripts\elements.js" />
+    <Content Include="Scripts\events.js" />
+    <Content Include="ToDo.txt" />
     <Content Include="WebService\Wikipedia.asmx" />
     <None Include="Scripts\jquery-1.8.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.3.js" />
@@ -205,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BEO\Assets.vb" />
+    <Compile Include="BEO\Category.vb" />
     <Compile Include="BEO\Events.vb" />
     <Compile Include="BEO\Selection.vb" />
     <Compile Include="Global.asax.vb">
@@ -263,9 +267,7 @@
     </None>
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

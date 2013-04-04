@@ -67,7 +67,7 @@ function filterData(data) {
 
 function errorHandling(res, status) {
     if (status === "error") {
-        if (res.responseText != "") {
+        if (res.responseText == undefined || res.responseText != "") {
             // errorMessage can be an object with 3 string properties: ExceptionType, Message and StackTrace
             var errorMessage = $.parseJSON(res.responseText);
             alert(errorMessage.Message);

@@ -3,3 +3,17 @@
     padding: 0px;
     margin: 0px;
 }
+
+
+  label {
+color: Gray;
+font-weight: bold;
+/*
+display: block;
+width: 150px;
+float: left;
+	*/
+}
+label:after {
+	 content: ": "
+}
