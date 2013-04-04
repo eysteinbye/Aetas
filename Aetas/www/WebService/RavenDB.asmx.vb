@@ -27,7 +27,7 @@ Namespace WebService
             Dim jsonString As String = String.Empty
 
             Using docSession As IDocumentSession = UoW.Raven.Store.OpenSession()
-                Dim items = docSession.Query(Of Events)("Events").ToArray()
+                Dim items = docSession.Query(Of Events)("AllEvents").ToArray()
 
                 For Each historyEvent As Events In items
                     If jsonString = String.Empty Then
@@ -45,7 +45,7 @@ Namespace WebService
         <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
         Public Function GetEventsInCategory(jsonObj As CategoryRequest) As String
 
-            Const indexName As String = "Events"
+            Const indexName As String = "EventsByCategory"
             Dim historyEvents As List(Of Events)
             'unAnswerdCards = CurrentSession.Query(Of Events)(indexName).Where(Function(c) c.category = jsonObj.category).Take(pageSize).Skip(jsonObj.pageIndex * pageSize).OrderByDescending(Function(c) c.answerTotal).ToList()
 

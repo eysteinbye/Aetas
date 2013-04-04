@@ -21,7 +21,7 @@
 
             // Loading for edit
             // getData("WebService/RavenDB.asmx/GetEvents", ShowAllEvents);
-            postData("WebService/RavenDB.asmx/GetEventsInCategory", categoryRequest("Religion"), ShowAllEvents, ShowStatus);
+            postData("WebService/RavenDB.asmx/GetEventsInCategory", categoryRequest("Religion"), ShowAllEvents);
 
 
             $('#headline').blur(function () {
@@ -63,16 +63,16 @@
         });
 
         function DeleteEvent(response) {
-            if (response.WasSuccess && response.title == "Deleted") {
-                RemoveItemToDropDown("DropDownList", response.events.Id);
+            if (response.WasSuccess && response.Title == "Deleted") {
+                RemoveItemToDropDown("DropDownList", response.Events.Id);
                 ClearForm();
             }
             ShowStatus(response);
         }
 
         function AddEvent(response) {
-            if (response.WasSuccess && response.title == "Saved") {
-                AddItemToDropDown("DropDownList", response.events.Headline, response.events.Id);
+            if (response.WasSuccess && response.Title == "Saved") {
+                AddItemToDropDown("DropDownList", response.Events.headline, response.Events.Id);
                 ClearForm();
             }
             ShowStatus(response);
@@ -81,7 +81,7 @@
         function ShowAllEvents(data) {
             var count = data.timeline.date.length;
             for (var i = 0; i < count; i++) {
-                var name = data.timeline.date[i].Headline;
+                var name = data.timeline.date[i].headline;
                 var id = data.timeline.date[i].Id;
                 AddItemToDropDown("DropDownList", name, id);
             }

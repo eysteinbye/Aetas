@@ -2,12 +2,12 @@
 
     Public Class Events
         Public Property Id() As String
-        Public Property Headline() As String
-        Public Property Text() As String
-        Public Property Asset() As Assets
-        Public Property Category() As String
-        Public Property StartDate() As String
-        Public Property EndDate() As String
+        Public Property headline() As String
+        Public Property text() As String
+        Public Property asset() As Assets
+        Public Property category() As String
+        Public Property startDate() As String
+        Public Property endDate() As String
     End Class
 
 End Namespace
