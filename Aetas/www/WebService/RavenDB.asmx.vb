@@ -46,11 +46,17 @@ Namespace WebService
         Public Function GetEventsInCategory(jsonObj As CategoryRequest) As String
 
             Const indexName As String = "EventsByCategory"
-            Dim historyEvents As List(Of Events)
-            'unAnswerdCards = CurrentSession.Query(Of Events)(indexName).Where(Function(c) c.category = jsonObj.category).Take(pageSize).Skip(jsonObj.pageIndex * pageSize).OrderByDescending(Function(c) c.answerTotal).ToList()
+            Dim historyEvents As New List(Of Events)
 
             Using docSession As IDocumentSession = UoW.Raven.Store.OpenSession()
-                historyEvents = docSession.Query(Of Events)(indexName).Where(Function(c) c.Category = jsonObj.Category).ToList()
+
+                Dim categoryList As String() = jsonObj.Category.Split(" ")
+
+                For Each element As String In categoryList
+                    Dim ww As List(Of Events) = docSession.Query(Of Events)(indexName).Where(Function(c) c.category = element).ToList()
+                    historyEvents.AddRange(ww)
+                Next
+
             End Using
 
             Dim serialize As New Script.Serialization.JavaScriptSerializer()
