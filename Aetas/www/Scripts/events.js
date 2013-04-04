@@ -23,6 +23,7 @@ function SerializaFormEventJson(formData) {
         
     }
 
+    // format date?
     return MakeEventJson(id, headline, text, startDate, endDate, media, credit, caption, category);
 }
 
