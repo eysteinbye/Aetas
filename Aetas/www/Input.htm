@@ -69,6 +69,7 @@
         function AddEvent(response) {
             if (response.title == "Saved") {
                 AddItemToDropDown("DropDownList", response.events.headline, response.events.Id);
+                ClearForm();
             }
             ShowStatus(response);
         }
