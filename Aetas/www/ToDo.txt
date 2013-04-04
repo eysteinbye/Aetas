@@ -1,6 +1,21 @@
-﻿        Categorier
+﻿
+
+Vis timeline bare for categoriene: Religion og Empire
+
+
+
+        Categorier
         Hverdan velge event for edit?
 	    Hva med events with no end?
         Hva med ca. date
         Upload picture
         Ha som egen siden, men med loggin
+
+
+
+
+Religion
+Empire
+Sports
+Discoveries
+Science technologi

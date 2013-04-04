@@ -37,7 +37,7 @@ www
  </summary>
 </member><member name="P:www.My.MyWebExtension.Response">
 	<summary>
- Returns Response object.
+ Returns CrudResponse object.
  </summary>
 </member><member name="P:www.My.MyWebExtension.Log">
 	<summary>

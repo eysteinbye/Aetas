@@ -1,9 +1,9 @@
 function getData(url, callback) {
-    ajaxWrapper(url, null, "GET", callback, null);
+    ajaxWrapper(url, null, "GET", callback);
 }
 
-function postData(url, data, callback, callbackFail) {
-    ajaxWrapper(url, data, "POST", callback, callbackFail);
+function postData(url, data, callback) {
+    ajaxWrapper(url, data, "POST", callback);
 }
 function postXmlData(url, data, callback) {
     $.ajax({
@@ -23,7 +23,7 @@ function postXmlData(url, data, callback) {
 
 }
 
-function ajaxWrapper(url, data, type, callback, callbackFail) {
+function ajaxWrapper(url, data, type, callback) {
     $.ajax({
         type: type,
         contentType: "application/json; charset=utf-8",
@@ -35,13 +35,7 @@ function ajaxWrapper(url, data, type, callback, callbackFail) {
         },
         success: function (json) {
             if (!callback) callback = defaultAction;
-            
-            if (json.wasSuccess) {
-                callback(json);
-            } else {
-                if (!callbackFail) callbackFail= callback;
-                callbackFail(json);
-            }
+            callback(json);
         },
         error: function (res, status) {
             errorHandling(res, status);

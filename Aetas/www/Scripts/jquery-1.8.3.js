@@ -7627,7 +7627,7 @@ jQuery.extend({
 
 		var // ifModified key
 			ifModifiedKey,
-			// Response headers
+			// CrudResponse headers
 			responseHeadersString,
 			responseHeaders,
 			// transport

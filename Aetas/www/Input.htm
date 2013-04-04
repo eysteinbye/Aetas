@@ -17,11 +17,13 @@
     <script type="text/javascript">
         $(function () {
           //  $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });
-         //   $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
+          //  $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
 
             // Loading for edit
-             getData("WebService/RavenDB.asmx/GetEvents",ShowAllEvents);
-           
+            // getData("WebService/RavenDB.asmx/GetEvents", ShowAllEvents);
+            postData("WebService/RavenDB.asmx/GetEventsInCategory", categoryRequest("Religion"), ShowAllEvents, ShowStatus);
+
+
             $('#headline').blur(function () {
                 var searchString = $('#headline').val();
                 
@@ -40,11 +42,11 @@
                 var formData = $("form input, textarea"); 
                 var json = SerializaFormEventJson(formData);
 
-                postData("WebService/RavenDB.asmx/Save", json, AddEvent, ShowStatus);
+                postData("WebService/RavenDB.asmx/Save", json, AddEvent);
             });
             $('#delete').click(function() {
                 var id = $("#eventId").val();
-                postData("WebService/RavenDB.asmx/Delete", queryOptions(id), DeleteEvent, ShowStatus);
+                postData("WebService/RavenDB.asmx/Delete", queryOptions(id), DeleteEvent);
             });
 
             $("#DropDownList").change(function() {
@@ -61,14 +63,16 @@
         });
 
         function DeleteEvent(response) {
-            RemoveItemToDropDown("DropDownList", response.events.Id);
-            ClearForm();
+            if (response.WasSuccess && response.title == "Deleted") {
+                RemoveItemToDropDown("DropDownList", response.events.Id);
+                ClearForm();
+            }
             ShowStatus(response);
         }
 
         function AddEvent(response) {
-            if (response.title == "Saved") {
-                AddItemToDropDown("DropDownList", response.events.headline, response.events.Id);
+            if (response.WasSuccess && response.title == "Saved") {
+                AddItemToDropDown("DropDownList", response.events.Headline, response.events.Id);
                 ClearForm();
             }
             ShowStatus(response);
@@ -77,7 +81,7 @@
         function ShowAllEvents(data) {
             var count = data.timeline.date.length;
             for (var i = 0; i < count; i++) {
-                var name = data.timeline.date[i].headline;
+                var name = data.timeline.date[i].Headline;
                 var id = data.timeline.date[i].Id;
                 AddItemToDropDown("DropDownList", name, id);
             }
@@ -89,6 +93,7 @@
         }
 
         function ShowStatus(json) {
+            $('#output').show();
             $("#output").text(json.title);
             $('#output').delay(3000).fadeOut('slow');
         }
@@ -174,7 +179,7 @@
         </div>
         &nbsp;
 
-        <iframe id="eystein" width="900" height="800" frameborder="0" style="margin-left: 20px; float: left"></iframe>
+        <iframe id="eystein" width="900" height="800" style="border:none; margin-left: 20px; float: left"></iframe>
 
 
     </form>

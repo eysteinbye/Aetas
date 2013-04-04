@@ -208,10 +208,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BEO\Assets.vb" />
-    <Compile Include="BEO\Category.vb" />
+    <Compile Include="BEO\Request\CategoryRequest.vb" />
     <Compile Include="BEO\Events.vb" />
-    <Compile Include="BEO\Response.vb" />
-    <Compile Include="BEO\Selection.vb" />
+    <Compile Include="BEO\Response\CrudResponse.vb" />
+    <Compile Include="BEO\Request\EventRequest.vb" />
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

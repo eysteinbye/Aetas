@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="vb" CodeBehind="RavenDB.asmx.vb" Class="www.RavenDB" %>
+﻿<%@ WebService Language="vb" CodeBehind="RavenDB.asmx.vb" Class="www.WebService.RavenDb" %>

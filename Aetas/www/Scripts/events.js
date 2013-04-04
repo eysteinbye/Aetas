@@ -31,31 +31,31 @@ function SerializaFormEventJson(formData) {
 function SerializeTimelineEventJson(data) {
     var event = data.timeline.date[0];
     
-    var headline = event.headline;
-    var text = event.text;
-    var startDate = event.startDate;
-    var endDate = event.endDate;
-    var media = event.asset.media;
-    var credit = event.asset.credit;
-    var caption = event.asset.caption;
-    var category = event.category;
-    var id = event.id;
+    var headline = event.Headline;
+    var text = event.Text;
+    var startDate = event.StartDate;
+    var endDate = event.EndDate;
+    var media = event.Asset.Media;
+    var credit = event.Asset.Credit;
+    var caption = event.Asset.Caption;
+    var category = event.Category;
+    var id = event.Id;
     return MakeEventJson(id, headline, text, startDate, endDate, media, credit, caption, category);
 }
 
 function populateForm(data) {
     var event = SerializeTimelineEventJson(data);
     $("#eventId").val(data.timeline.date[0].Id);
-    $("#headline").val(event.headline);
-    $("#text").val(event.text);
-    $("#startDate").val(event.startDate);
-    $("#endDate").val(event.endDate);
-    $("#media").val(event.asset.media);
-    $("#credit").val(event.asset.credit);
-    $("#caption").val(event.asset.caption);
-    $("#category").val(event.category);
+    $("#headline").val(event.Headline);
+    $("#text").val(event.Text);
+    $("#startDate").val(event.StartDate);
+    $("#endDate").val(event.EndDate);
+    $("#media").val(event.Asset.Media);
+    $("#credit").val(event.Asset.Credit);
+    $("#caption").val(event.Asset.Caption);
+    $("#category").val(event.Category);
     // Load the image
-    $("#imgShow").attr('src', event.asset.media);
+    $("#imgShow").attr('src', event.Asset.media);
 }
 
 function ClearForm() {
@@ -72,16 +72,16 @@ function MakeEventJson(id, headline, text, startDate, endDate, media, credit, ca
     var jsonObj =
     {
         "Id": id,
-        "headline": headline,
-        "text": text,
-        "asset": {
-            "media": media,
-            "credit": credit,
-            "caption": caption
+        "Headline": headline,
+        "Text": text,
+        "Asset": {
+            "Media": media,
+            "Credit": credit,
+            "Caption": caption
         },
-        "category": category,
-        "startDate": startDate,
-        "endDate": endDate
+        "Category": category,
+        "StartDate": startDate,
+        "EndDate": endDate
     };
     return jsonObj;
 }
@@ -90,7 +90,16 @@ function MakeEventJson(id, headline, text, startDate, endDate, media, credit, ca
 function queryOptions(id) {
     var myOptions =
             {
-                "eventId": id
+                "EventId": id
+            };
+    return myOptions;
+}
+
+
+function categoryRequest(cat) {
+    var myOptions =
+            {
+                "Category": cat
             };
     return myOptions;
 }

@@ -56,10 +56,10 @@ Namespace My
             End Get
         End Property
         ''' <summary>
-        ''' Returns Response object.
+        ''' Returns CrudResponse object.
         ''' </summary>
         <Global.System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")> _
-         <Global.System.ComponentModel.Design.HelpKeyword("My.Response")> _
+         <Global.System.ComponentModel.Design.HelpKeyword("My.CrudResponse")> _
          Friend ReadOnly Property Response() As Global.System.Web.HttpResponse
             <Global.System.Diagnostics.DebuggerHidden()> _
             Get

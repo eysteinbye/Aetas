@@ -2,7 +2,7 @@
     Inherits HttpApplication
 
     Sub Application_Start(ByVal sender As Object, ByVal e As EventArgs)
-        Call Raven.Initialize()
+        Call UoW.Raven.Initialize()
     End Sub
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)
