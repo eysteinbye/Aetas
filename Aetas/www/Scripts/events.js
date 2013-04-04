@@ -60,6 +60,7 @@ function populateForm(data) {
 
 function ClearForm() {
     $('form input').val('');
+    $('#text').val('');
 
     // Clear the image
     $("#imgShow").attr('src', null);

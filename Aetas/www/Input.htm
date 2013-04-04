@@ -16,8 +16,8 @@
 
     <script type="text/javascript">
         $(function () {
-            $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });
-            $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
+          //  $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });
+         //   $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
 
             // Loading for edit
              getData("WebService/RavenDB.asmx/GetEvents",ShowAllEvents);
@@ -124,10 +124,7 @@
                     <td>
                         <label for="text">Text</label></td>
                     <td>
-                        
                         <textarea id="text" name="text" placeholder="Description..." required="required" ></textarea>
-
-                        <!-- <input type="text" id="text" name="text" maxlength="255" placeholder="Text..." required /> -->
                     </td>
                 </tr>
                 <tr>
@@ -140,7 +137,7 @@
                     <td>
                         <label for="credit">Credit</label></td>
                     <td>
-                        <input type="text" id="credit" name="credit" maxlength="100" placeholder="Credit..." required /></td>
+                        <input type="text" id="credit" name="credit" maxlength="100" placeholder="Credit..." required value="From Wikipedia" /></td>
                 </tr>
                 <tr>
                     <td>
