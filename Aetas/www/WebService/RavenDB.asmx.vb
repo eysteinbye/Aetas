@@ -54,38 +54,67 @@ Public Class RavenDB
 
     End Function
 
-    '<WebMethod()> _
-    '<ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
-    'Public Function Save(headline As String, text As String, media As String, credit As String, caption As String, startDate As String, endDate As String) As String
+    <WebMethod()> _
+    <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
+    Public Function Delete(jsonObj As Selection) As String
+        Dim status As String
+        Try
+            Dim item As Events
+            Using docSession As IDocumentSession = Raven.Store.OpenSession()
+                item = docSession.Load(Of Events)(jsonObj.eventId)
+                docSession.Delete(Of Events)(item)
+                docSession.SaveChanges()
+            End Using
+            status = MakeResponse("Deleted", "Event " & jsonObj.eventId & " is deleted", item)
+        Catch ex As Exception
+            status = MakeResponse("Not Deleted", ex.Message, Nothing, wasSuccess:=False)
+        End Try
 
-    '    Dim assets As New Assets With {.media = media, .credit = credit, .caption = caption}
-    '    Dim items As New Events With {.headline = headline, .text = text, .asset = assets, .startDate = startDate, .endDate = endDate}
-
-    '    Using docSession As IDocumentSession = Raven.Store.OpenSession()
-    '        docSession.Store(items)
-    '        docSession.SaveChanges()
-    '    End Using
-
-    '    Dim serialize As New Script.Serialization.JavaScriptSerializer()
-    '    Dim resultJs As String = serialize.Serialize(Events)
-    '    Return resultJs
-
-    'End Function
+        Return status
+    End Function
 
     <WebMethod()> _
     <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
     Public Function Save(jsonObj As Events) As String
+        Dim status As String
 
-        Using docSession As IDocumentSession = Raven.Store.OpenSession()
-            docSession.Store(jsonObj)
-            docSession.SaveChanges()
-        End Using
+        Dim wasUpdate As Boolean = False
+        If Not IsNothing(jsonObj.Id) Then
+            wasUpdate = True
+        End If
 
-        Dim serialize As New Script.Serialization.JavaScriptSerializer()
-        Dim resultJs As String = serialize.Serialize(Events)
-        Return resultJs
-        'Return Nothing
+        Try
+            Using docSession As IDocumentSession = Raven.Store.OpenSession()
+                docSession.Store(jsonObj)
+                docSession.SaveChanges()
+                ' Get the obj back
+                jsonObj.Id = docSession.Advanced.GetDocumentId(jsonObj)
+
+                If wasUpdate Then
+                    status = MakeResponse("Updated", "Event " & jsonObj.headline & " is updated", jsonObj)
+                Else
+                    status = MakeResponse("Saved", "Event " & jsonObj.headline & " is saved", jsonObj)
+                End If
+
+            End Using
+
+        Catch ex As Exception
+            status = MakeResponse("Not saved", ex.Message, jsonObj, wasSuccess:=False)
+        End Try
+
+
+
+        Return status
     End Function
 
+    Private Function MakeResponse(ByVal title As String, description As String, obj As Events, Optional wasSuccess As Boolean = True) As String
+        Dim response As New Response
+        response.title = title
+        response.wasSuccess = wasSuccess
+        response.events = obj
+        response.description = description
 
+        Dim serialize As New Script.Serialization.JavaScriptSerializer()
+        Return serialize.Serialize(response)
+    End Function
 End Class

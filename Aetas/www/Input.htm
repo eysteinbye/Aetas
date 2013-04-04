@@ -18,23 +18,61 @@
         $(function () {
             $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });
             $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
+
             // Loading for edit
              getData("WebService/RavenDB.asmx/GetEvents",ShowAllEvents);
            
-
             $('#headline').blur(function () {
                 var searchString = $('#headline').val();
+                
+                document.getElementById("eystein").src = "http://en.wikipedia.org/wiki/" + searchString;
+
                 postXmlData("WebService/Wikipedia.asmx/Search", searchString, showWikiPicture);
             });
 
+            $('#media').blur(function () {
+                $("#imgShow").attr('src', $("#media").val());
+            });
+
+            
+
             $('#save').click(function() {
-                var formData = $("form input");
+                var formData = $("form input, textarea"); 
                 var json = SerializaFormEventJson(formData);
-                postData("WebService/RavenDB.asmx/Save", json, writeDebug);
+
+                postData("WebService/RavenDB.asmx/Save", json, AddEvent, ShowStatus);
+            });
+            $('#delete').click(function() {
+                var id = $("#eventId").val();
+                postData("WebService/RavenDB.asmx/Delete", queryOptions(id), DeleteEvent, ShowStatus);
+            });
+
+            $("#DropDownList").change(function() {
+                var id = GetSelectedIdFromDropdown(this);
+                if (id == "") {
+                    ClearForm();
+                    $("#delete").attr("disabled", "disabled");
+                } else {
+                    postData("WebService/RavenDB.asmx/GetEvent", queryOptions(id), populateForm);
+                    $("#delete").removeAttr("disabled");
+                }
             });
 
         });
 
+        function DeleteEvent(response) {
+            RemoveItemToDropDown("DropDownList", response.events.Id);
+            ClearForm();
+            ShowStatus(response);
+        }
+
+        function AddEvent(response) {
+            if (response.title == "Saved") {
+                AddItemToDropDown("DropDownList", response.events.headline, response.events.Id);
+            }
+            ShowStatus(response);
+        }
+        
         function ShowAllEvents(data) {
             var count = data.timeline.date.length;
             for (var i = 0; i < count; i++) {
@@ -44,18 +82,14 @@
             }
         }
 
-        function ShowEvent(ddl) {
-            var id = GetSelectedIdFromDropdown(ddl);
-            postData("WebService/RavenDB.asmx/GetEvent", queryOptions(id), populateForm);
-        }
-
         function showWikiPicture(data) {
             $("#imgShow").attr('src', data);
             $("#media").val(data);
         }
 
-        function writeDebug(json) {
-            $("#output").text(json);
+        function ShowStatus(json) {
+            $("#output").text(json.title);
+            $('#output').delay(3000).fadeOut('slow');
         }
     </script>
 
@@ -64,71 +98,87 @@
 <body>
 
     <form>
-        <div style="width: 800px">
+        
+      
+        
+        
+        <div style="width: 400px;  float: left ">
+           
+
+              <h1>Timeline input</h1>
+
+                    <select id="DropDownList">
+                <option value="">[Create new]</option>
+            </select>
+        <br/><br/>
             
-            <select id="DropDownList" onchange="ShowEvent(this)"></select>
-
-            <img src="#" id="imgShow" width="320" style="float: right" alt="Image from Wikipedia" />
-
             <table>
                 <tr>
                     <td>
                         <label for="headline">Headline</label></td>
                     <td>
-                        <input type="text" id="headline" name="headline" maxlength="100" style="width: 300px" placeholder="Headline..." autofocus required /></td>
+                        <input type="text" id="headline" name="headline" maxlength="100" placeholder="Headline..." autofocus required /></td>
                 </tr>
                 <tr>
                     <td>
                         <label for="text">Text</label></td>
                     <td>
-                        <input type="text" id="text" name="text" maxlength="255" style="width: 300px" placeholder="Text..." required /></td>
+                        
+                        <textarea id="text" name="text" placeholder="Description..." required="required" ></textarea>
+
+                        <!-- <input type="text" id="text" name="text" maxlength="255" placeholder="Text..." required /> -->
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <label for="media">Media url</label></td>
                     <td>
-                        <input type="url" id="media" name="media" maxlength="255" style="width: 300px" placeholder="Picture..." required /></td>
+                        <input type="url" id="media" name="media" maxlength="255" placeholder="Picture..." required /></td>
                 </tr>
                 <tr>
                     <td>
                         <label for="credit">Credit</label></td>
                     <td>
-                        <input type="text" id="credit" name="credit" maxlength="100" style="width: 300px" placeholder="Credit..." required /></td>
+                        <input type="text" id="credit" name="credit" maxlength="100" placeholder="Credit..." required /></td>
                 </tr>
                 <tr>
                     <td>
                         <label for="category">Category</label></td>
                     <td>
-                        <input type="text" id="category" name="category" maxlength="100" style="width: 300px" placeholder="Category..." required /></td>
+                        <input type="text" id="category" name="category" maxlength="100" placeholder="Category..." required /></td>
                 </tr>
                 <tr>
                     <td>
                         <label for="caption">Caption</label></td>
                     <td>
-                        <input type="text" id="caption" name="caption" maxlength="100" style="width: 300px" placeholder="Caption..." required /></td>
+                        <input type="text" id="caption" name="caption" maxlength="100" placeholder="Caption..." required /></td>
                 </tr>
                 <tr>
                     <td>
                         <label for="startDate">Start date</label></td>
                     <td>
-                        <input type="text" id="startDate" name="startDate" required /></td>
+                        <input type="date" id="startDate" name="startDate" required /></td>
                 </tr>
                 <tr>
                     <td>
                         <label for="endDate">End date</label></td>
                     <td>
-                        <input type="text" id="endDate" name="endDate" /></td>
+                        <input type="date" id="endDate" name="endDate" /></td>
                 </tr>
             </table>
             <input type="hidden" id="eventId" />
             <button type="button" id="save">Save</button>
+            <button type="button" id="delete" disabled="disabled">Delete</button>
 
-            <div id="output"></div>
-
-
-
-
+            <div id="output">&nbsp;</div>
+                        
+<img src="#" id="imgShow" width="320" height="400" alt="Image from Wikipedia" />
         </div>
+        &nbsp;
+
+        <iframe id="eystein" width="900" height="800" frameborder="0" style="margin-left: 20px; float: left"></iframe>
+
+
     </form>
 </body>
 </html>

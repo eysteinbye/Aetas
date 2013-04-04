@@ -1,9 +1,9 @@
 function getData(url, callback) {
-    ajaxWrapper(url, null, "GET", callback);
+    ajaxWrapper(url, null, "GET", callback, null);
 }
 
-function postData(url, data, callback) {
-    ajaxWrapper(url, data, "POST", callback);
+function postData(url, data, callback, callbackFail) {
+    ajaxWrapper(url, data, "POST", callback, callbackFail);
 }
 function postXmlData(url, data, callback) {
     $.ajax({
@@ -23,7 +23,7 @@ function postXmlData(url, data, callback) {
 
 }
 
-function ajaxWrapper(url, data, type, callback) {
+function ajaxWrapper(url, data, type, callback, callbackFail) {
     $.ajax({
         type: type,
         contentType: "application/json; charset=utf-8",
@@ -35,7 +35,13 @@ function ajaxWrapper(url, data, type, callback) {
         },
         success: function (json) {
             if (!callback) callback = defaultAction;
-            callback(json);
+            
+            if (json.wasSuccess) {
+                callback(json);
+            } else {
+                if (!callbackFail) callbackFail= callback;
+                callbackFail(json);
+            }
         },
         error: function (res, status) {
             errorHandling(res, status);
@@ -76,6 +82,9 @@ function errorHandling(res, status) {
         }
     }
     if (status === "systemException") alert(res);
+
+    if (status === "parsererror") alert(res); // Feilt format på respons?
+    
 }
 
 function defaultAction(json) {

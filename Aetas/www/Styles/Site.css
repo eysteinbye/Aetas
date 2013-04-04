@@ -1,6 +1,6 @@
 ﻿  html, body {
     height:100%;
-    padding: 0px;
+    padding: 10px;
     margin: 0px;
 }
 
@@ -16,4 +16,13 @@ float: left;
 }
 label:after {
 	 content: ": "
+}
+
+input[type='text'], input[type='url'], textarea {
+	width: 250px;
+}
+
+textarea {
+	height: 70px;
+
 }

@@ -53,6 +53,15 @@ function populateForm(data) {
     $("#credit").val(event.asset.credit);
     $("#caption").val(event.asset.caption);
     $("#category").val(event.category);
+    // Load the image
+    $("#imgShow").attr('src', event.asset.media);
+}
+
+function ClearForm() {
+    $('form input').val('');
+
+    // Clear the image
+    $("#imgShow").attr('src', null);
 }
 
 function MakeEventJson(id, headline, text, startDate, endDate, media, credit, caption, category) {

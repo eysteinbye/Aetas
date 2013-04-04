@@ -210,6 +210,7 @@
     <Compile Include="BEO\Assets.vb" />
     <Compile Include="BEO\Category.vb" />
     <Compile Include="BEO\Events.vb" />
+    <Compile Include="BEO\Response.vb" />
     <Compile Include="BEO\Selection.vb" />
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>

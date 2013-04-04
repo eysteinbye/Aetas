@@ -1,5 +1,5 @@
 ﻿        Categorier
-        Lag edit av eksisterene.. cat.. date.. søk??
+        Hverdan velge event for edit?
 	    Hva med events with no end?
         Hva med ca. date
         Upload picture

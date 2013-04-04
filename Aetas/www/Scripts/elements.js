@@ -5,6 +5,12 @@ function GetSelectedIdFromDropdown(ddl) {
     return ddl[index].value;
 }
 
+//function GetSelectedTextFromDropdown(ddl) {
+//    var index = ddl.selectedIndex;
+//    return ddl[index].text;
+//}
+
+
 function AddItemToDropDown(ddlName, text, value) {
     // Create an Option object
     var opt = document.createElement("option");
@@ -14,3 +20,10 @@ function AddItemToDropDown(ddlName, text, value) {
     opt.text = text;
     opt.value = value;
 }
+
+
+function RemoveItemToDropDown(ddlName, id) {
+    $("#" +  ddlName +" option[value='" + id +  "']").remove();
+}
+
+
