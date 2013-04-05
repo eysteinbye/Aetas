@@ -13,10 +13,12 @@ Vis timeline bare for categoriene: Religion og Empire
 Ha location?
 
 
-Religion
-Empire
-Sports
-Discoveries
-Science technologi
-Art
-Periods
+ Religion
+ Empire
+ Period 
+ Technology 
+ Discovery
+ Exploration
+ Art
+ Person
+ Fiction

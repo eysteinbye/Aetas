@@ -79,3 +79,7 @@ function errorHandling(res, status) {
 function defaultAction(json) {
 	alert("You need to send a callback");
 }
+
+function AllCategories() {
+    return ["Religion", "Empire", "Period", "Technology", "Discovery", "Exploration", "Art", "Person", "Fiction"];
+}

@@ -16,7 +16,7 @@ Namespace WebService
     Public Class RavenDb
         Inherits Services.WebService
         'todo : Ikke statis json.. og bruk bedre forside
-        Private Const JsonHead As String = "{""timeline"":{""headline"":""Aetas Timeline"",""text"":""<p>The first demo</p>"",""asset"":{""media"":""Styles/History.jpg"",""credit"":""Eystein Bye"",""caption"":""Lets get started""},""startDate"":""1978"",""type"":""default"",""date"":["
+        Private Const JsonHead As String = "{""timeline"":{""headline"":""Aetas Timeline"",""text"":""<p>Lets you discover connections between historical events.</p>"",""asset"":{""media"":""Styles/History.jpg"",""credit"":""Aetas Timeline"",""caption"":""History will be kind to me for I intend to write it.<br />― Winston Churchill""},""startDate"":""1978"",""type"":""default"",""date"":["
         Private Const JsonFotter As String = "]}}"
 
         <WebMethod()> _

@@ -15,6 +15,9 @@
     <link rel="stylesheet" type="text/css" href="Styles/Input.css" />
 
     <script type="text/javascript">
+
+       
+
         $(function () {
             $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });
             $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
@@ -22,6 +25,11 @@
             // Loading for edit
             postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": "All" }, ShowAllEvents);
 
+            
+            
+            $("#category").autocomplete({
+                source: AllCategories()
+            });
 
             $('#headline').blur(function () {
                 var searchString = $('#headline').val();
@@ -96,7 +104,8 @@
             $('#output').show();
             $("#output").text(json.title);
             $('#output').delay(3000).fadeOut('slow');
-        }
+        }       
+
     </script>
 
 </head>

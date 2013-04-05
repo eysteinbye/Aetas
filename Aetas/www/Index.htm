@@ -6,12 +6,12 @@
 	    <meta name="description" content="Aetas Timeline Description">
 
 	    <script type='text/javascript' src="Scripts/jquery-1.8.3.min.js"></script>
-
+        <script src="Scripts/jquery-ui-1.9.2.min.js"></script>
 	    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 	    <!--[if lt IE 9]>
 	        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	    <![endif]-->
-        
+        <link rel="stylesheet" type="text/css" href="Styles/jquery-ui.css" />
 	    <link rel="stylesheet" href="Styles/timeline.css" />
 	    <link rel="stylesheet" href="Styles/Site.css" />
 
@@ -22,6 +22,11 @@
         <script type="text/javascript">
     	    $(function () {
     	        postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": "All" }, loadTimeline);
+
+    	        $("#category").autocomplete({
+    	            source: AllCategories()
+    	        });
+
 
     	        $('#category').blur(function () {
     	            postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": $("#category").val() }, loadTimeline);
@@ -43,8 +48,8 @@
 	<body>
 	    
 	    <div id="timeline"></div>
-	    <div style="display: block; position: absolute; left: 200px; top:10px; z-index: 110">
-    	    Category: <input id="category" type="text" />
+	    <div style="font-family: 'Georgia'; display: block; position: absolute; left: 50px; top:10px; z-index: 110">
+    	    Category: <input id="category" type="text" placeholder="Filter catgeories" />
         </div>
         
 	</body>
