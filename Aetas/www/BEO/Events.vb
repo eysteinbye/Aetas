@@ -9,6 +9,14 @@
         Public Property startDate() As String
         Public Property endDate() As String
 
+
+        'country
+        'MadeByUser
+        'Link to source
+        'Releance
+        'Private for user
+        'Approved for public
+
         Public Overloads Function ToString() As String
             Return headline
         End Function

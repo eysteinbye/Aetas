@@ -6,7 +6,6 @@
 	    <meta name="description" content="Aetas Timeline Description">
 
 	    <script type='text/javascript' src="Scripts/jquery-1.8.3.min.js"></script>
-	    
 
 	    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 	    <!--[if lt IE 9]>
@@ -22,29 +21,32 @@
 	    
         <script type="text/javascript">
     	    $(function () {
-    	        //getData("WebService/RavenDB.asmx/GetEvents", loadTimeline);
     	        postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": "All" }, loadTimeline);
+
+    	        $('#category').blur(function () {
+    	            postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": $("#category").val() }, loadTimeline);
+    	            
+    	        });
     	    });
 
     	    function loadTimeline(js) {
-
     	        var timeline = new VMM.Timeline();
     	        try {
-                    timeline.init(js);
+    	            timeline.init(js);
     	        } catch(e) {
     	            alert(e);
-    	        } 
-
-    	       
+    	        }
     	    }
-    	    
-   	    
-
     	</script>
 	</head>
 
 	<body>
-		<div id="timeline"></div>
+	    
+	    <div id="timeline"></div>
+	    <div style="display: block; position: absolute; left: 200px; top:10px; z-index: 110">
+    	    Category: <input id="category" type="text" />
+        </div>
+        
 	</body>
 </html>
 			

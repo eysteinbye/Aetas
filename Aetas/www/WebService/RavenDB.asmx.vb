@@ -23,7 +23,7 @@ Namespace WebService
         <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
         Public Function GetEventsInCategory(jsonObj As CategoryRequest) As String
             Dim historyEvents As List(Of Events)
-            If jsonObj.Category = "All" Then
+            If jsonObj.Category = "All" Or jsonObj.Category = "" Then
                 historyEvents = GetAll()
             Else
                 historyEvents = GetAllFromCategory(jsonObj)
@@ -66,7 +66,7 @@ Namespace WebService
                     From element In categoryList
                     From e In docSession.Query(Of Events)(indexName)
                     From category In e.category
-                    Where category.name = element
+                    Where category.name.ToLower() = element.ToLower()
                            Select e)
             End Using
             Return historyEvents
