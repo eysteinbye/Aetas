@@ -1,6 +1,7 @@
 ﻿Imports System.Web.Services
 Imports System.ComponentModel
 Imports System.Web.Script.Services
+Imports Raven.Client.Linq
 Imports www.BEO
 Imports Raven.Client
 Imports www.BEO.Response
@@ -14,53 +15,22 @@ Namespace WebService
     <ToolboxItem(False)> _
     Public Class RavenDb
         Inherits Services.WebService
-
-        Private Const JsonHead As String = "{""timeline"":{""headline"":""Aetas Timeline"",""text"":""<p>The first demo</p>"",""asset"":{""media"":""http://www.exprosoft.com/Staff/EysteinBye.jpg"",""credit"":""Eystein Bye"",""caption"":""Lets get started""},""startDate"":""1978"",""type"":""default"",""date"":["
+        'todo : Ikke statis json.. og bruk bedre forside
+        Private Const JsonHead As String = "{""timeline"":{""headline"":""Aetas Timeline"",""text"":""<p>The first demo</p>"",""asset"":{""media"":""Styles/History.jpg"",""credit"":""Eystein Bye"",""caption"":""Lets get started""},""startDate"":""1978"",""type"":""default"",""date"":["
         Private Const JsonFotter As String = "]}}"
 
         <WebMethod()> _
-        <ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
-        Public Function GetEvents() As String
-
-            Dim serialize As New Script.Serialization.JavaScriptSerializer()
-
-            Dim jsonString As String = String.Empty
-
-            Using docSession As IDocumentSession = UoW.Raven.Store.OpenSession()
-                Dim items = docSession.Query(Of Events)("AllEvents").ToArray()
-
-                For Each historyEvent As Events In items
-                    If jsonString = String.Empty Then
-                        jsonString = serialize.Serialize(historyEvent)
-                    Else
-                        jsonString &= "," & serialize.Serialize(historyEvent)
-                    End If
-                Next
-            End Using
-
-            Return JsonHead & jsonString & JsonFotter
-
-        End Function
-        <WebMethod()> _
         <ScriptMethod(ResponseFormat:=ResponseFormat.Json)>
         Public Function GetEventsInCategory(jsonObj As CategoryRequest) As String
+            Dim historyEvents As List(Of Events)
+            If jsonObj.Category = "All" Then
+                historyEvents = GetAll()
+            Else
+                historyEvents = GetAllFromCategory(jsonObj)
+            End If
 
-            Const indexName As String = "EventsByCategory"
-            Dim historyEvents As New List(Of Events)
-
-            Using docSession As IDocumentSession = UoW.Raven.Store.OpenSession()
-
-                Dim categoryList As String() = jsonObj.Category.Split(" ")
-
-                For Each element As String In categoryList
-                    Dim ww As List(Of Events) = docSession.Query(Of Events)(indexName).Where(Function(c) c.category = element).ToList()
-                    historyEvents.AddRange(ww)
-                Next
-
-            End Using
 
             Dim serialize As New Script.Serialization.JavaScriptSerializer()
-
             Dim jsonString As String = String.Empty
 
             For Each historyEvent As Events In historyEvents
@@ -73,6 +43,33 @@ Namespace WebService
 
             Return JsonHead & jsonString & JsonFotter
 
+        End Function
+
+        Private Function GetAll() As List(Of Events)
+            Dim historyEvents As List(Of Events)
+
+            Using docSession As IDocumentSession = UoW.Raven.Store.OpenSession()
+                historyEvents = docSession.Query(Of Events)("AllEvents").ToList()
+            End Using
+            Return historyEvents
+        End Function
+
+        Private Function GetAllFromCategory(jsonObj As CategoryRequest) As List(Of Events)
+            Const indexName As String = "EventsByCategory"
+            Dim historyEvents As New List(Of Events)
+
+            Using docSession As IDocumentSession = UoW.Raven.Store.OpenSession()
+
+                Dim categoryList As String() = jsonObj.Category.Split(" ")
+                ' Find all events that contains this category in its array
+                historyEvents.AddRange(
+                    From element In categoryList
+                    From e In docSession.Query(Of Events)(indexName)
+                    From category In e.category
+                    Where category.name = element
+                           Select e)
+            End Using
+            Return historyEvents
         End Function
 
         <WebMethod()> _
@@ -153,5 +150,14 @@ Namespace WebService
             Dim serialize As New Script.Serialization.JavaScriptSerializer()
             Return serialize.Serialize(response)
         End Function
+
+        '<WebMethod()> _
+        '<ScriptMethod(ResponseFormat:=ResponseFormat.Json, UseHttpGet:=True)>
+        'Public Function GetEvents() As String
+        '    'Called in js by
+        '    'getData("WebService/RavenDB.asmx/GetEvents", ShowAllEvents);
+        '    Return "Some serialized string"
+        'End Function
+
     End Class
 End Namespace

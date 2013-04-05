@@ -1,4 +1,4 @@
-﻿// Fra form to save
+﻿// Fra form to db
 function SerializaFormEventJson(formData) {
     var headline;
     var text;
@@ -10,7 +10,7 @@ function SerializaFormEventJson(formData) {
     var category;
     var id;
     for (var i = 0; i < formData.length; i++) {
-
+        if (formData[i].id == "eventId") id = formData[i].value;
         if (formData[i].id == "headline") headline = formData[i].value;
         if (formData[i].id == "text") text = formData[i].value;
         if (formData[i].id == "startDate") startDate = formData[i].value;
@@ -19,56 +19,9 @@ function SerializaFormEventJson(formData) {
         if (formData[i].id == "credit") credit = formData[i].value;
         if (formData[i].id == "caption") caption = formData[i].value;
         if (formData[i].id == "category") category = formData[i].value;
-        if (formData[i].id == "eventId") id = formData[i].value;
-        
     }
-
-    // format date?
-    return MakeEventJson(id, headline, text, startDate, endDate, media, credit, caption, category);
-}
-
-// Fra db to show
-function SerializeTimelineEventJson(data) {
-    var event = data.timeline.date[0];
     
-    var headline = event.headline;
-    var text = event.text;
-    var startDate = event.startDate;
-    var endDate = event.endDate;
-    var media = event.asset.media;
-    var credit = event.asset.credit;
-    var caption = event.asset.caption;
-    var category = event.category;
-    var id = event.Id;
-    return MakeEventJson(id, headline, text, startDate, endDate, media, credit, caption, category);
-}
-
-function populateForm(data) {
-    var event = SerializeTimelineEventJson(data);
-    $("#eventId").val(data.timeline.date[0].Id);
-    $("#headline").val(event.headline);
-    $("#text").val(event.text);
-    $("#startDate").val(event.startDate);
-    $("#endDate").val(event.endDate);
-    $("#media").val(event.asset.media);
-    $("#credit").val(event.asset.credit);
-    $("#caption").val(event.asset.caption);
-    $("#category").val(event.category);
-    // Load the image
-    $("#imgShow").attr('src', event.asset.media);
-}
-
-function ClearForm() {
-    $('form input').val('');
-    $('#text').val('');
-
-    // Clear the image
-    $("#imgShow").attr('src', null);
-}
-
-function MakeEventJson(id, headline, text, startDate, endDate, media, credit, caption, category) {
-
-    if (id == "") id = null;
+    if (id == "") id = null; // For new events Raven will create the id if it is null
     var jsonObj =
     {
         "id": id,
@@ -79,27 +32,64 @@ function MakeEventJson(id, headline, text, startDate, endDate, media, credit, ca
             "credit": credit,
             "caption": caption
         },
-        "category": category,
+        
+        "category": MakeArrayOfCategoryObjects(category),
         "startDate": startDate,
         "endDate": endDate
     };
     return jsonObj;
 }
 
-// The ID of the one to edit (get back)
-function queryOptions(id) {
-    var myOptions =
-            {
-                "EventId": id
-            };
-    return myOptions;
+function MakeArrayOfCategoryObjects(cats) {
+    cats = $.trim(cats);
+    var arr = cats.split(" ");
+    for (var i = 0; i < arr.length; i++) {
+        arr[i] = { "name": $.trim(arr[i]) };
+    }
+    
+    return arr;
+}
+
+function SplitArrayOfCategoryObjects(cats) {
+    var str = "";
+    for (var i = 0; i < cats.length; i++) {
+        str += cats[i].name + " ";
+    }
+    return str;
 }
 
 
-function categoryRequest(cat) {
-    var myOptions =
-            {
-                "Category": cat
-            };
-    return myOptions;
+// From db to form
+function populateForm(data) {
+
+    var event = data.timeline.date[0];
+    $("#eventId").val(event.Id);
+    $("#headline").val(event.headline);
+    $("#text").val(event.text);
+    $("#startDate").val(event.startDate);
+    $("#endDate").val(event.endDate);
+    $("#media").val(event.asset.media);
+    $("#credit").val(event.asset.credit);
+    $("#caption").val(event.asset.caption);
+
+    var cats = SplitArrayOfCategoryObjects(event.category);
+    $("#category").val(cats);
+
+    // Load the image
+    $("#imgShow").attr('src', event.asset.media);
+
+    document.getElementById("eystein").src = "http://en.wikipedia.org/wiki/" + event.headline;
+
 }
+
+
+function ClearForm() {
+    $('form input').val('');
+    $('#text').val('');
+
+    // Clear the image
+    $("#imgShow").attr('src', null);
+    
+    document.getElementById("eystein").src = "http://en.wikipedia.org/wiki/";
+}
+

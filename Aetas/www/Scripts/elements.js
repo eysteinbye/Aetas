@@ -22,8 +22,12 @@ function AddItemToDropDown(ddlName, text, value) {
 }
 
 
-function RemoveItemToDropDown(ddlName, id) {
+function RemoveItemFromDropDown(ddlName, id) {
     $("#" +  ddlName +" option[value='" + id +  "']").remove();
 }
 
+
+function RenameItemInDropDown(ddlName, newName, id) {
+    $("#" + ddlName + " option[value='" + id + "']").text(newName);
+}
 

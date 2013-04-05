@@ -177,6 +177,8 @@
     <Content Include="Scripts\ajaxWrapper.js" />
     <Content Include="Scripts\elements.js" />
     <Content Include="Scripts\events.js" />
+    <Content Include="Styles\History.jpg" />
+    <Content Include="Styles\Input.css" />
     <Content Include="ToDo.txt" />
     <Content Include="WebService\Wikipedia.asmx" />
     <None Include="Scripts\jquery-1.8.3.intellisense.js" />
@@ -208,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BEO\Assets.vb" />
+    <Compile Include="BEO\Category.vb" />
     <Compile Include="BEO\Request\CategoryRequest.vb" />
     <Compile Include="BEO\Events.vb" />
     <Compile Include="BEO\Response\CrudResponse.vb" />

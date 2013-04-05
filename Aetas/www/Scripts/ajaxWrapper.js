@@ -43,14 +43,9 @@ function ajaxWrapper(url, data, type, callback) {
     });
 }
 
+// All WebService methods expect a paramater called jsonObj containg....JSON
 function makeJSONString(data) {
-    // All WebService methods expect a paramater called jsonObj containg....JSON
-    var jsonObj =
-	{
-	    "jsonObj": data
-	};
-    
-    return JSON.stringify(jsonObj);
+    return JSON.stringify({ "jsonObj": data });
 }
     
 function filterData(data) {

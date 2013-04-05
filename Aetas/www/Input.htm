@@ -12,16 +12,15 @@
     <script src="Scripts/elements.js"></script>
 
     <link rel="stylesheet" type="text/css" href="Styles/jquery-ui.css" />
-    <link rel="stylesheet" type="text/css" href="Styles/Site.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/Input.css" />
 
     <script type="text/javascript">
         $(function () {
-          //  $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });
-          //  $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
+            $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });
+            $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
 
             // Loading for edit
-            // getData("WebService/RavenDB.asmx/GetEvents", ShowAllEvents);
-            postData("WebService/RavenDB.asmx/GetEventsInCategory", categoryRequest("Religion"), ShowAllEvents);
+            postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": "All" }, ShowAllEvents);
 
 
             $('#headline').blur(function () {
@@ -36,8 +35,6 @@
                 $("#imgShow").attr('src', $("#media").val());
             });
 
-            
-
             $('#save').click(function() {
                 var formData = $("form input, textarea"); 
                 var json = SerializaFormEventJson(formData);
@@ -46,7 +43,7 @@
             });
             $('#delete').click(function() {
                 var id = $("#eventId").val();
-                postData("WebService/RavenDB.asmx/Delete", queryOptions(id), DeleteEvent);
+                postData("WebService/RavenDB.asmx/Delete", { "EventId": id }, DeleteEvent);
             });
 
             $("#DropDownList").change(function() {
@@ -55,7 +52,7 @@
                     ClearForm();
                     $("#delete").attr("disabled", "disabled");
                 } else {
-                    postData("WebService/RavenDB.asmx/GetEvent", queryOptions(id), populateForm);
+                    postData("WebService/RavenDB.asmx/GetEvent", { "EventId": id }, populateForm);
                     $("#delete").removeAttr("disabled");
                 }
             });
@@ -64,7 +61,7 @@
 
         function DeleteEvent(response) {
             if (response.WasSuccess && response.Title == "Deleted") {
-                RemoveItemToDropDown("DropDownList", response.Events.Id);
+                RemoveItemFromDropDown("DropDownList", response.Events.Id);
                 ClearForm();
             }
             ShowStatus(response);
@@ -74,6 +71,9 @@
             if (response.WasSuccess && response.Title == "Saved") {
                 AddItemToDropDown("DropDownList", response.Events.headline, response.Events.Id);
                 ClearForm();
+            }
+            if (response.WasSuccess && response.Title == "Updated") {
+                RenameItemInDropDown("DropDownList", response.Events.headline, response.Events.Id);
             }
             ShowStatus(response);
         }

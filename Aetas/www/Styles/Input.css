@@ -1,0 +1,28 @@
+﻿  html, body {
+    height:100%;
+    padding: 10px;
+    margin: 0px;
+}
+
+
+  label {
+color: Gray;
+font-weight: bold;
+/*
+display: block;
+width: 150px;
+float: left;
+	*/
+}
+label:after {
+	 content: ": "
+}
+
+input[type='text'], input[type='url'], textarea {
+	width: 250px;
+}
+
+textarea {
+	height: 70px;
+
+}
