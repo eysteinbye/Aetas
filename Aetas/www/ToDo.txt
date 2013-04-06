@@ -11,3 +11,19 @@ Vis timeline bare for categoriene: Religion og Empire
         Ha som egen siden, men med loggin
 
 Ha location?
+
+
+
+
+            /*
+            Ikke bruk post data mer enn man trenger
+            Ved delete... bare slett fra VM om mulig.. ellers så new Timeline
+
+            Fra WS bare hent siste cat.. resten er i VM
+
+            Timeline til global slik at vi kan init med ny.. dette er vår vm
+
+            Noen default dates? markers?
+
+            */
+

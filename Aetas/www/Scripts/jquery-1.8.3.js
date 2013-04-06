@@ -2808,7 +2808,7 @@ jQuery.event = {
 			// (avoids potential for endless recursion during removal of special event handlers)
 			if ( eventType.length === 0 && origCount !== eventType.length ) {
 				if ( !special.teardown || special.teardown.call( elem, namespaces, elemData.handle ) === false ) {
-					jQuery.removeEvent( elem, type, elemData.handle );
+					jQuery.removeCategory( elem, type, elemData.handle );
 				}
 
 				delete events[ type ];
@@ -3217,7 +3217,7 @@ jQuery.event = {
 // The 1.7 special event interface should provide all the hooks needed now.
 jQuery.event.handle = jQuery.event.dispatch;
 
-jQuery.removeEvent = document.removeEventListener ?
+jQuery.removeCategory = document.removeEventListener ?
 	function( elem, type, handle ) {
 		if ( elem.removeEventListener ) {
 			elem.removeEventListener( type, handle, false );
@@ -6442,7 +6442,7 @@ jQuery.extend({
 
 							// This is a shortcut to avoid jQuery.event.remove's overhead
 							} else {
-								jQuery.removeEvent( elem, type, data.handle );
+								jQuery.removeCategory( elem, type, data.handle );
 							}
 						}
 					}
