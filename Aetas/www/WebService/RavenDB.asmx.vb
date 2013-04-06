@@ -62,12 +62,16 @@ Namespace WebService
 
                 Dim categoryList As String() = jsonObj.Category.Split(" ")
                 ' Find all events that contains this category in its array
-                historyEvents.AddRange(
-                    From element In categoryList
-                    From e In docSession.Query(Of Events)(indexName)
-                    From category In e.category
-                    Where category.name.ToLower() = element.ToLower()
-                           Select e)
+
+                Dim ff =
+                From element In categoryList
+                                   From e In docSession.Query(Of Events)(indexName)
+                                   From category In e.category
+                                   Where category.name.ToLower() = element.ToLower() Select e Distinct
+
+
+                historyEvents.AddRange(ff)
+                   
             End Using
             Return historyEvents
         End Function

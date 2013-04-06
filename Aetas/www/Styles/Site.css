@@ -4,3 +4,51 @@
     margin: 0px;
 }
 
+    .category_button {
+            padding: 3px; 
+            border:solid 1px silver ; 
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            background-color: gray; 
+            display:inline-block;
+            height: 15px;
+            line-height: 15px;
+            -webkit-box-shadow: 3px 3px 8px rgba(50, 50, 50, 0.75);
+            -moz-box-shadow:    3px 3px 8px rgba(50, 50, 50, 0.75);
+            box-shadow:         3px 3px 8px rgba(50, 50, 50, 0.75);
+        }
+
+       
+        
+        .category_button_text {
+             color:darkslategrey; 
+             font-family: Georgia;
+            font-size: 12px;
+            float: left;
+            cursor: pointer;
+        }
+        
+        .category_button_text:hover {
+             color:black; 
+        }
+
+
+        .category_button_space {
+            float: left; 
+            min-width: 10px; 
+            width: 10px
+
+        }
+
+
+         .category_button_close {
+            float: left; 
+            width:10px;
+            background-image: url(Icons/Close.png);
+            background-repeat: no-repeat;
+            background-position: center right;
+             cursor: pointer;
+        }
+
+ .category_button_close:hover {
+        }

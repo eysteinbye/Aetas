@@ -178,6 +178,7 @@
     <Content Include="Scripts\elements.js" />
     <Content Include="Scripts\events.js" />
     <Content Include="Styles\History.jpg" />
+    <Content Include="Styles\Icons\Close.png" />
     <Content Include="Styles\Input.css" />
     <Content Include="ToDo.txt" />
     <Content Include="WebService\Wikipedia.asmx" />

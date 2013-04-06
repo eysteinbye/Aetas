@@ -11,14 +11,3 @@ Vis timeline bare for categoriene: Religion og Empire
         Ha som egen siden, men med loggin
 
 Ha location?
-
-
- Religion
- Empire
- Period 
- Technology 
- Discovery
- Exploration
- Art
- Person
- Fiction

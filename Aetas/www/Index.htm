@@ -1,62 +1,266 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-	<head>
-       	<meta charset="utf-8">
-	    <title>Timeline</title>
-	    <meta name="description" content="Aetas Timeline Description">
+<head>
+    <meta charset="utf-8">
+    <title>Timeline</title>
+    <meta name="description" content="Aetas Timeline Description">
 
-	    <script type='text/javascript' src="Scripts/jquery-1.8.3.min.js"></script>
-        <script src="Scripts/jquery-ui-1.9.2.min.js"></script>
-	    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-	    <!--[if lt IE 9]>
+    <script type='text/javascript' src="Scripts/jquery-1.8.3.min.js"></script>
+    <script src="Scripts/jquery-ui-1.9.2.min.js"></script>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
 	        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	    <![endif]-->
-        <link rel="stylesheet" type="text/css" href="Styles/jquery-ui.css" />
-	    <link rel="stylesheet" href="Styles/timeline.css" />
-	    <link rel="stylesheet" href="Styles/Site.css" />
+    <link rel="stylesheet" type="text/css" href="Styles/jquery-ui.css" />
+    <link rel="stylesheet" href="Styles/timeline.css" />
+    <link rel="stylesheet" href="Styles/Site.css" />
 
-	    <!-- <script src="Scripts/timeline-min.js"></script> -->
-        <script src="Scripts/timeline.js"></script>
-        <script src="Scripts/ajaxWrapper.js"></script>
-	    
-        <script type="text/javascript">
-    	    $(function () {
-    	        postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": "All" }, loadTimeline);
+    <!-- <script src="Scripts/timeline-min.js"></script> -->
+    <script src="Scripts/timeline.js"></script>
+    <script src="Scripts/ajaxWrapper.js"></script>
 
-    	        $("#category").autocomplete({
-    	            source: AllCategories()
-    	        });
+    <script type="text/javascript">
+        $(function () {
 
 
-    	        $('#category').blur(function () {
-    	            postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": $("#category").val() }, loadTimeline);
-    	            
-    	        });
-    	        $('#filter').click(function () {
-    	            postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": $("#category").val() }, loadTimeline);
-    	            
-    	        });
-    	    });
+            /*
+            Ikke bruk post data mer enn man trenger
+            Ved delete... bare slett fra VM
 
-    	    function loadTimeline(js) {
-    	        var timeline = new VMM.Timeline();
-    	        try {
-    	            timeline.init(js);
-    	        } catch(e) {
-    	            alert(e);
-    	        }
-    	    }
-    	</script>
-	</head>
+            Noen default dates? markers?
 
-	<body>
-	    
-	    <div id="timeline"></div>
-	    <div style="font-family: 'Georgia'; display: block; position: absolute; left: 50px; top:10px; z-index: 110">
-	        Category: <input id="category" type="text" placeholder="Filter catgeories" />
-            <button id="filter">Filter</button>
-        </div>
+            */
+
+            AddButton('Period');
+
+            postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": $("#categories").val() }, loadTimeline);
+
+            $("#search").autocomplete({
+                source: AllCategories()
+            });
+
+            $('#search').blur(function () {
+                searchCat();
+            });
+            $('#filter').click(function () {
+                searchCat();
+            });
+
+            loadButtonEvents();
+            
+            $('.category_button_text').click(function () {
+                var nameToShow = this.textContent.toLowerCase();
+                $("#categories").val(nameToShow);
+                postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": nameToShow }, loadTimeline);
+            });
+        });
+
+        function loadButtonEvents() {
+            $('.category_button_close').click(function () {
+                var nameToRemove = this.parentNode.childNodes[0].textContent.toLowerCase();
+
+
+
+                var existing = $("#categories").val();
+                if (existing.indexOf(nameToRemove) === -1) {
+                    return; // Allerede slettet  
+                } 
+
+
+                var remainder = $("#categories").val().replace(nameToRemove, "");
+                $("#categories").val(remainder);
+
+
+                var toDelete = false;
+
+
+                for (var i = 0; i < ee.timeline.date.length; i++) {
+
+                    for (var j = 0; j < ee.timeline.date[i].category.length; j++) {
+
+                        if (ee.timeline.date[i].category[j].name.toLowerCase() == nameToRemove.toLowerCase()) {
+
+                            toDelete = true;
+                            break;
+                        }
+
+                    }
+
+                    if (toDelete) {
+                        
+                        ee.timeline.date.splice(i, 1);
+                        i--; //decrement
+                        toDelete = false;
+                    }
+                    
+
+                }
+
+                loadTimeline(ee);
+               // postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": remainder }, loadTimeline);
+
+                document.getElementById('catButtons').removeChild(this.parentNode);
+                loadButtonEvents();
+            });
+
+            
+        }
+
+        function searchCat() {
+            var ff = $("#search").val();
+            $("#search").val("");
+
+            AddButton(ff);
+
+            postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": $("#categories").val() }, loadTimeline);
+
+        }
+
+        var ee;
         
-	</body>
+        function loadTimeline(js) {
+            ee = js;
+            if (js.timeline.date.length > 0) {
+                var timeline = new VMM.Timeline();
+                try {
+                    timeline.init(js);
+                } catch (e) {
+                    alert(e);
+                }
+            }
+
+
+        }
+
+
+        function AddButton(name) {
+
+            name = name.toLowerCase();
+
+            if (name == "") return;
+
+            var existing = $("#categories").val();
+            if (existing.indexOf(name) !== -1) return;
+
+
+            var all = existing + " " + name.toLowerCase();
+            $("#categories").val(all);
+
+            var div = document.createElement('div');
+            div.className = "category_button";
+
+
+            var div1 = document.createElement('div');
+            div1.className = "category_button_text";
+            div1.textContent = name[0].toUpperCase() + name.slice(1);
+            div.appendChild(div1);
+
+
+            var div2 = document.createElement('div');
+            div2.className = "category_button_space";
+            div2.innerHTML = "&nbsp;";
+            div.appendChild(div2);
+
+
+            var div3 = document.createElement('div');
+            div3.className = "category_button_close";
+            div3.innerHTML = "&nbsp;";
+            div.appendChild(div3);
+
+            document.getElementById('catButtons').appendChild(div);
+        }
+
+
+    </script>
+</head>
+
+<body>
+
+    <div id="timeline"></div>
+    <div style="font-family: 'Georgia'; display: block; position: absolute; left: 50px; top: 10px; z-index: 110">
+        Search:
+        <input id="search" type="text" placeholder="Filter catgeories" />
+        <button id="filter">Filter</button>
+
+        <input type="hidden" id="categories" value="" />
+
+
+        <div id="catButtons"></div>
+        <!--
+                
+	            religion empire period technology exploration art invention science war
+
+	            <div class="category_button">
+          <div class="category_button_text">Religion</div>
+          <div class="category_button_space">&nbsp;</div>
+          <div class="category_button_close">&nbsp;</div>
+        </div>
+            
+        <div class="category_button">
+          <div class="category_button_text">War</div>
+          <div class="category_button_space">&nbsp;</div>
+          <div class="category_button_close">&nbsp;</div>
+        </div>
+            
+        <div class="category_button">
+          <div class="category_button_text">Art</div>
+          <div class="category_button_space">&nbsp;</div>
+          <div class="category_button_close">&nbsp;</div>
+        </div>
+
+        <div class="category_button">
+          <div class="category_button_text">Empire</div>
+          <div class="category_button_space">&nbsp;</div>
+          <div class="category_button_close">&nbsp;</div>
+        </div>
+
+        <div class="category_button">
+          <div class="category_button_text">Science</div>
+          <div class="category_button_space">&nbsp;</div>
+          <div class="category_button_close">&nbsp;</div>
+        </div>
+
+        <div class="category_button">
+          <div class="category_button_text">Period</div>
+          <div class="category_button_space">&nbsp;</div>
+          <div class="category_button_close">&nbsp;</div>
+        </div>
+
+        <div class="category_button">
+          <div class="category_button_text">Technology</div>
+          <div class="category_button_space">&nbsp;</div>
+          <div class="category_button_close">&nbsp;</div>
+        </div>
+
+
+                    <div class="category_button">
+          <div class="category_button_text">Exploration</div>
+          <div class="category_button_space">&nbsp;</div>
+          <div class="category_button_close">&nbsp;</div>
+        </div>
+            
+                    <div class="category_button">
+          <div class="category_button_text">Invention</div>
+          <div class="category_button_space">&nbsp;</div>
+          <div class="category_button_close">&nbsp;</div>
+        </div>
+
+
+
+            
+            
+	        -->
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+</body>
 </html>
-			
