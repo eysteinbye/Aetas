@@ -25,7 +25,11 @@
 
             /*
             Ikke bruk post data mer enn man trenger
-            Ved delete... bare slett fra VM
+            Ved delete... bare slett fra VM om mulig.. ellers så new Timeline
+
+            Fra WS bare hent siste cat.. resten er i VM
+
+            Timeline til global slik at vi kan init med ny.. dette er vår vm
 
             Noen default dates? markers?
 
@@ -107,13 +111,12 @@
         }
 
         function searchCat() {
-            var ff = $("#search").val();
+            var searchQuery = $("#search").val();
+            AddButton(searchQuery);
+
             $("#search").val("");
 
-            AddButton(ff);
-
             postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": $("#categories").val() }, loadTimeline);
-
         }
 
         var ee;
@@ -142,7 +145,6 @@
             var existing = $("#categories").val();
             if (existing.indexOf(name) !== -1) return;
 
-
             var all = existing + " " + name.toLowerCase();
             $("#categories").val(all);
 
@@ -169,8 +171,6 @@
 
             document.getElementById('catButtons').appendChild(div);
         }
-
-
     </script>
 </head>
 
@@ -181,85 +181,8 @@
         Search:
         <input id="search" type="text" placeholder="Filter catgeories" />
         <button id="filter">Filter</button>
-
         <input type="hidden" id="categories" value="" />
-
-
         <div id="catButtons"></div>
-        <!--
-                
-	            religion empire period technology exploration art invention science war
-
-	            <div class="category_button">
-          <div class="category_button_text">Religion</div>
-          <div class="category_button_space">&nbsp;</div>
-          <div class="category_button_close">&nbsp;</div>
-        </div>
-            
-        <div class="category_button">
-          <div class="category_button_text">War</div>
-          <div class="category_button_space">&nbsp;</div>
-          <div class="category_button_close">&nbsp;</div>
-        </div>
-            
-        <div class="category_button">
-          <div class="category_button_text">Art</div>
-          <div class="category_button_space">&nbsp;</div>
-          <div class="category_button_close">&nbsp;</div>
-        </div>
-
-        <div class="category_button">
-          <div class="category_button_text">Empire</div>
-          <div class="category_button_space">&nbsp;</div>
-          <div class="category_button_close">&nbsp;</div>
-        </div>
-
-        <div class="category_button">
-          <div class="category_button_text">Science</div>
-          <div class="category_button_space">&nbsp;</div>
-          <div class="category_button_close">&nbsp;</div>
-        </div>
-
-        <div class="category_button">
-          <div class="category_button_text">Period</div>
-          <div class="category_button_space">&nbsp;</div>
-          <div class="category_button_close">&nbsp;</div>
-        </div>
-
-        <div class="category_button">
-          <div class="category_button_text">Technology</div>
-          <div class="category_button_space">&nbsp;</div>
-          <div class="category_button_close">&nbsp;</div>
-        </div>
-
-
-                    <div class="category_button">
-          <div class="category_button_text">Exploration</div>
-          <div class="category_button_space">&nbsp;</div>
-          <div class="category_button_close">&nbsp;</div>
-        </div>
-            
-                    <div class="category_button">
-          <div class="category_button_text">Invention</div>
-          <div class="category_button_space">&nbsp;</div>
-          <div class="category_button_close">&nbsp;</div>
-        </div>
-
-
-
-            
-            
-	        -->
-
-
-
-
-
-
-
-
-
-
     </div>
 
 </body>
