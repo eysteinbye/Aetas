@@ -75,18 +75,13 @@
         }
 
         function removeCategoryFromVM(nameToRemove) {
-            var toDelete = false;
             for (var i = 0; i < historyEvents.timeline.date.length; i++) {
                 for (var j = 0; j < historyEvents.timeline.date[i].category.length; j++) {
                     if (historyEvents.timeline.date[i].category[j].name.toLowerCase() == nameToRemove.toLowerCase()) {
-                        toDelete = true;
+                        historyEvents.timeline.date.splice(i, 1);
+                        i--; //decrement
                         break;
                     }
-                }
-                if (toDelete) {
-                    historyEvents.timeline.date.splice(i, 1);
-                    i--; //decrement
-                    toDelete = false;
                 }
             }
         }
@@ -97,7 +92,6 @@
             for (var i = 0; i < node.childNodes.length; i++) {
                 categories += node.childNodes[i].textContent.trim() + " ";
             }
-            
             postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": categories.trim() }, loadTimeline);
         }
 
@@ -155,8 +149,6 @@
 </head>
 
 <body>
-    
-    
     <div id="timeline"></div>
     <div style="font-family: 'Georgia'; display: block; position: absolute; left: 50px; top: 10px; z-index: 110">
         Search:
@@ -164,6 +156,5 @@
         <button id="filter">Add</button>
         <div id="catButtons"></div>
     </div>
-
 </body>
 </html>
