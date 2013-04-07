@@ -47,7 +47,7 @@
                 var el = event.target;
                 // Remove one selected category
                 if (el.className == "category_button_close" && el.nodeName == "DIV") {
-                    var nameToRemove = el.parentNode.childNodes[0].textContent.toLowerCase();
+                    var nameToRemove = el.parentNode.childNodes[0].textContent;
                     removeCategory(nameToRemove);
                     loadTimeline(historyEvents);
                     document.getElementById('catButtons').removeChild(el.parentNode);
@@ -72,12 +72,14 @@
         function removeAllCategories() {
             var node = document.getElementById('catButtons');
             while (node.hasChildNodes()) {
-                removeCategory(node.lastChild.textContent.toLowerCase());
+                removeCategory(node.lastChild.textContent);
                 node.removeChild(node.lastChild);
             }
         }
 
         function removeCategory(nameToRemove) {
+            nameToRemove = nameToRemove.trim().toLowerCase();
+
             if (selectedCategories.indexOf(nameToRemove) === -1) {
                 return; // Allerede slettet  
             }
