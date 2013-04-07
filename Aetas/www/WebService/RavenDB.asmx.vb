@@ -59,7 +59,6 @@ Namespace WebService
             Dim historyEvents As New List(Of Events)
 
             Using docSession As IDocumentSession = UoW.Raven.Store.OpenSession()
-
                 Dim categoryList As String() = jsonObj.Category.Split(" ")
                 ' Find all events that contains this category in its array
 
