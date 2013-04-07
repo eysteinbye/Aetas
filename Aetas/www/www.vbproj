@@ -259,9 +259,7 @@
     <Content Include="Styles\jquery-ui.css" />
     <Content Include="Styles\Site.css" />
     <Content Include="Global.asax" />
-    <Content Include="Styles\timeline.css" />
     <Content Include="Index.htm" />
-    <Content Include="Styles\timeline.png" />
     <Content Include="Dump\test.htm" />
     <Content Include="Dump\test.txt" />
     <Content Include="Web.config">

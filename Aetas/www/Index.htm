@@ -101,6 +101,9 @@
                     toDelete = false;
                 }
             }
+            
+
+
         }
 
         function loadAllSelectedCategories() {
@@ -117,11 +120,18 @@
 
             if (data.timeline.date.length > 0) {
                 try {
+
+                 //   var tot = data.timeline.date.length;
+                  //  var start = Math.floor(tot / 2);
+
                     createStoryJS({
                         type: 'timeline',
                         width: '100%',
                         height: '100%',
                         source: data,
+                        //start_at_slide: start,
+                        start_at_end: false,
+                        hash_bookmark : false,
                         embed_id: 'timeline',
                         debug: true
                     });
