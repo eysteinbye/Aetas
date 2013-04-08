@@ -22,33 +22,49 @@ function SerializaFormEventJson(formData) {
     }
     
     if (id == "") id = null; // For new events Raven will create the id if it is null
-    var jsonObj =
-    {
-        "id": id,
-        "headline": headline,
-        "text": text,
-        "asset": {
-            "media": media,
-            "credit": credit,
-            "caption": caption
-        },
-        
-        "category": MakeArrayOfCategoryObjects(category),
-        "startDate": startDate,
-        "endDate": endDate
-    };
-    return jsonObj;
+
+    var event = new EventModel();
+    event.id = id;
+    event.headline = headline;
+    event.text = text;
+    event.asset.media = media;
+    event.asset.credit= credit;
+    event.asset.caption = caption;
+    event.category = event.makeArrayOfCategoryObjects(category);
+    event.startDate = startDate;
+    event.endDate = endDate;
+    
+    return event;
 }
 
-function MakeArrayOfCategoryObjects(cats) {
-    cats = $.trim(cats);
-    var arr = cats.split(" ");
-    for (var i = 0; i < arr.length; i++) {
-        arr[i] = { "name": $.trim(arr[i]) };
-    }
-    
-    return arr;
-}
+var EventModel = function() {
+    this.id = "";
+    this.headline = "";
+    this.text = "";
+    this.asset = {
+        media: "",
+        credit: "",
+        caption:""
+    };
+    this.category = [];
+    this.startDate = "";
+    this.endDate = "";
+
+    this.makeArrayOfCategoryObjects = function(cats) {
+        cats = $.trim(cats);
+        var arr = cats.split(" ");
+        for (var i = 0; i < arr.length; i++) {
+            //arr[i] = { "name": $.trim(arr[i]) };
+            arr[i] = new EventCategoryModel($.trim(arr[i]));
+        }
+        return arr;
+    };
+};
+
+var EventCategoryModel = function (name) {
+    this.name = name;
+};
+
 
 function SplitArrayOfCategoryObjects(cats) {
     var str = "";

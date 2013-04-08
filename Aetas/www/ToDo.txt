@@ -1,5 +1,41 @@
 ﻿
 
+Ha 3 main types: Person, Event, Period.. alle andre må ligge under an av dem
+
+Ha noen hoved-kategorier: Political, Intellectual, Geographic, Cultural, Economic, Social, Religious, Legal
+
+---- FORSLAG
+Political -- Having to do with seeking and exercising power in government.
+ War, Revolutions, Invitations
+
+Intellectual (Science)-- Having to do with people's philosophy, values, beliefs and attitudes
+ Philosophy, Technology, Math, Space, physics.....
+
+Economic -- Having to do with the production, distibution, and consumption of goods and services
+ Invention, production
+
+Geographic -- Having to do with the environment in which people live and interact
+ Exploration, natual disasters, (vulcanos...)
+
+Cultural -- Having to do with the characteristics that make a group of people unique (arts, music, customs, etc.)
+ Music, Painting, Writing, Movies, Photografy
+
+Social -- Having to do with people in groups and their relations with one another
+ Migrations, settlements, language, 
+ 
+Religious -- Having to do with religion (beliefs and institutions)
+
+Legal -- Having to do with the law, its creation and implementation
+ Laws, 
+
+Fiction
+ TV-show, books, movies (Men Star Trek er jo alt dette?)              
+
+-------
+    
+
+
+
 Hverdan velge event for edit?
 Hva med events with no end?
 Hva med ca. date
@@ -12,4 +48,5 @@ thumb
 Noen default dates? markers?
 
          
-Click rett til edit?
+Click rett til edit? Ved bruk av egen class på slides?
+
