@@ -1,7 +1,7 @@
 ﻿Namespace BEO.Request
     Public Class EventRequest
 
-        Public Property EventId() As String
+        Public Property Id() As String
 
     End Class
 End Namespace

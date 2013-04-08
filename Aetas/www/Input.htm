@@ -45,13 +45,13 @@
 
             $('#save').click(function() {
                 var formData = $("form input, textarea"); 
-                var json = SerializaFormEventJson(formData);
+                var json = mapFormToModel(formData);
 
                 postData("WebService/RavenDB.asmx/Save", json, AddEvent);
             });
             $('#delete').click(function() {
-                var id = $("#eventId").val();
-                postData("WebService/RavenDB.asmx/Delete", { "EventId": id }, DeleteEvent);
+                var id = $("#Id").val();
+                postData("WebService/RavenDB.asmx/Delete", { "Id": id }, DeleteEvent);
             });
 
             $("#DropDownList").change(function() {
@@ -60,7 +60,7 @@
                     ClearForm();
                     $("#delete").attr("disabled", "disabled");
                 } else {
-                    postData("WebService/RavenDB.asmx/GetEvent", { "EventId": id }, populateForm);
+                    postData("WebService/RavenDB.asmx/GetEvent", { "Id": id }, populateForm);
                     $("#delete").removeAttr("disabled");
                 }
             });
@@ -106,6 +106,54 @@
             $('#output').delay(3000).fadeOut('slow');
         }       
 
+
+
+
+        function SplitArrayOfCategoryObjects(cats) {
+            var str = "";
+            for (var i = 0; i < cats.length; i++) {
+                str += cats[i].name + " ";
+            }
+            return str;
+        }
+
+
+        // From db to form
+        function populateForm(data) {
+            // todo: auto bind back via framwork.. dynamic
+            var event = data.timeline.date[0];
+            $("#id").val(event.Id);
+            $("#headline").val(event.headline);
+            $("#text").val(event.text);
+            $("#startDate").val(event.startDate);
+            $("#endDate").val(event.endDate);
+            $("#media").val(event.asset.media);
+            $("#credit").val(event.asset.credit);
+            $("#caption").val(event.asset.caption);
+
+            var cats = SplitArrayOfCategoryObjects(event.category);
+            $("#category").val(cats);
+
+            // Load the image
+            $("#imgShow").attr('src', event.asset.media);
+
+            document.getElementById("eystein").src = "http://en.wikipedia.org/wiki/" + event.headline;
+
+        }
+
+
+        function ClearForm() {
+            $('form input').val('');
+            $('#text').val('');
+
+            // Clear the image
+            $("#imgShow").attr('src', null);
+
+            document.getElementById("eystein").src = "http://en.wikipedia.org/wiki/";
+        }
+
+
+
     </script>
 
 </head>
@@ -146,25 +194,25 @@
                     <td>
                         <label for="media">Media url</label></td>
                     <td>
-                        <input type="url" id="media" name="media" maxlength="255" placeholder="Picture..." required /></td>
+                        <input type="url" data-object="asset" id="media" name="media" maxlength="255" placeholder="Picture..." required /></td>
                 </tr>
                 <tr>
                     <td>
                         <label for="credit">Credit</label></td>
                     <td>
-                        <input type="text" id="credit" name="credit" maxlength="100" placeholder="Credit..." required value="From Wikipedia" /></td>
+                        <input type="text" data-object="asset" id="credit" name="credit" maxlength="100" placeholder="Credit..." required value="From Wikipedia" /></td>
                 </tr>
                 <tr>
                     <td>
                         <label for="category">Category</label></td>
                     <td>
-                        <input type="text" id="category" name="category" maxlength="100" placeholder="Category..." required /></td>
+                        <input type="text" data-array="name" id="category" name="category" maxlength="100" placeholder="Category..." required /></td>
                 </tr>
                 <tr>
                     <td>
                         <label for="caption">Caption</label></td>
                     <td>
-                        <input type="text" id="caption" name="caption" maxlength="100" placeholder="Caption..." required /></td>
+                        <input type="text" data-object="asset" id="caption" name="caption" maxlength="100" placeholder="Caption..." required /></td>
                 </tr>
                 <tr>
                     <td>
@@ -179,13 +227,13 @@
                         <input type="text" id="endDate" name="endDate" /></td>
                 </tr>
             </table>
-            <input type="hidden" id="eventId" />
+            <input type="hidden" id="id" />
             <button type="button" id="save">Save</button>
             <button type="button" id="delete" disabled="disabled">Delete</button>
 
             <div id="output">&nbsp;</div>
                         
-<img src="#" id="imgShow" width="320" height="400" alt="Image from Wikipedia" />
+            <img src="#" id="imgShow" width="320" height="400" alt="Image from Wikipedia" />
         </div>
         &nbsp;
 

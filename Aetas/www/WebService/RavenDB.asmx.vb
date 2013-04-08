@@ -84,7 +84,7 @@ Namespace WebService
             Dim jsonString As String = String.Empty
 
             Using docSession As IDocumentSession = UoW.Raven.Store.OpenSession()
-                Dim item As Events = docSession.Load(Of Events)(jsonObj.EventId)
+                Dim item As Events = docSession.Load(Of Events)(jsonObj.Id)
                 jsonString = serialize.Serialize(item)
             End Using
 
@@ -99,11 +99,11 @@ Namespace WebService
             Try
                 Dim item As Events
                 Using docSession As IDocumentSession = UoW.Raven.Store.OpenSession()
-                    item = docSession.Load(Of Events)(jsonObj.EventId)
+                    item = docSession.Load(Of Events)(jsonObj.Id)
                     docSession.Delete(Of Events)(item)
                     docSession.SaveChanges()
                 End Using
-                status = MakeResponse("Deleted", "Event " & jsonObj.EventId & " is deleted", item)
+                status = MakeResponse("Deleted", "Event " & jsonObj.Id & " is deleted", item)
             Catch ex As Exception
                 status = MakeResponse("Not Deleted", ex.Message, Nothing, wasSuccess:=False)
             End Try

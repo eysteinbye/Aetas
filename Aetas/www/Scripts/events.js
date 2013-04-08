@@ -1,111 +1,91 @@
 ﻿// Fra form to db
-function SerializaFormEventJson(formData) {
-    var headline;
-    var text;
-    var startDate;
-    var endDate;
-    var media;
-    var credit;
-    var caption;
-    var category;
-    var id;
-    for (var i = 0; i < formData.length; i++) {
-        if (formData[i].id == "eventId") id = formData[i].value;
-        if (formData[i].id == "headline") headline = formData[i].value;
-        if (formData[i].id == "text") text = formData[i].value;
-        if (formData[i].id == "startDate") startDate = formData[i].value;
-        if (formData[i].id == "endDate") endDate = formData[i].value;
-        if (formData[i].id == "media") media = formData[i].value;
-        if (formData[i].id == "credit") credit = formData[i].value;
-        if (formData[i].id == "caption") caption = formData[i].value;
-        if (formData[i].id == "category") category = formData[i].value;
-    }
-    
-    if (id == "") id = null; // For new events Raven will create the id if it is null
 
+// Dette er starten på et binding- rammeverk.
+
+// Lag et name.space av dette
+
+
+
+function mapFormToModel(formData) {
     var event = new EventModel();
-    event.id = id;
-    event.headline = headline;
-    event.text = text;
-    event.asset.media = media;
-    event.asset.credit= credit;
-    event.asset.caption = caption;
-    event.category = event.makeArrayOfCategoryObjects(category);
-    event.startDate = startDate;
-    event.endDate = endDate;
-    
+
+    for (var i = 0; i < formData.length; i++) {
+        var elem = formData[i];
+
+        var value = elem.value;
+        if (value === "") value = null;
+        
+
+        var arrDescriptor = getDataArrayDescripto(elem);
+        if (arrDescriptor !== null) {
+            value = event.makeObjectArrayFromString(value, arrDescriptor);
+        }
+
+        var obj = getDataObject(elem);
+        if (obj !== null) {
+            if (typeof (event[obj]) === "undefined") {
+                event[obj] = {};
+            }
+            event[obj][elem.id] = value;
+        } else {
+            event[elem.id] = value;
+        }
+    }
     return event;
 }
 
-var EventModel = function() {
-    this.id = "";
-    this.headline = "";
-    this.text = "";
-    this.asset = {
-        media: "",
-        credit: "",
-        caption:""
-    };
-    this.category = [];
-    this.startDate = "";
-    this.endDate = "";
+var EventModel = function () {
 
-    this.makeArrayOfCategoryObjects = function(cats) {
-        cats = $.trim(cats);
-        var arr = cats.split(" ");
+    this.makeObjectArrayFromString = function(str, descriptor) {
+        str = $.trim(str);
+        var arr = str.split(" ");
         for (var i = 0; i < arr.length; i++) {
-            //arr[i] = { "name": $.trim(arr[i]) };
-            arr[i] = new EventCategoryModel($.trim(arr[i]));
+            var value = $.trim(arr[i]);
+            arr[i] = {};
+            arr[i][descriptor] = value;
         }
         return arr;
     };
 };
 
-var EventCategoryModel = function (name) {
-    this.name = name;
-};
+// Gets value of attribute data-object, used for sub-objects like asset
+function getDataObject(elem) {
+    var dataObject = null;
 
-
-function SplitArrayOfCategoryObjects(cats) {
-    var str = "";
-    for (var i = 0; i < cats.length; i++) {
-        str += cats[i].name + " ";
+    for (var i = 0; i < elem.attributes.length; i++) {
+        if (elem.attributes[i].nodeName === "data-object") {
+            dataObject = elem.attributes[i].nodeValue;
+            break;
+        }
     }
-    return str;
+    return dataObject;
 }
 
 
-// From db to form
-function populateForm(data) {
+function getDataArrayDescripto(elem) {
+    var dataArrayDescriptor = null;
 
-    var event = data.timeline.date[0];
-    $("#eventId").val(event.Id);
-    $("#headline").val(event.headline);
-    $("#text").val(event.text);
-    $("#startDate").val(event.startDate);
-    $("#endDate").val(event.endDate);
-    $("#media").val(event.asset.media);
-    $("#credit").val(event.asset.credit);
-    $("#caption").val(event.asset.caption);
-
-    var cats = SplitArrayOfCategoryObjects(event.category);
-    $("#category").val(cats);
-
-    // Load the image
-    $("#imgShow").attr('src', event.asset.media);
-
-    document.getElementById("eystein").src = "http://en.wikipedia.org/wiki/" + event.headline;
-
+    for (var i = 0; i < elem.attributes.length; i++) {
+        if (elem.attributes[i].nodeName === "data-array") {
+            dataArrayDescriptor = elem.attributes[i].nodeValue;
+            break;
+        }
+    }
+    return dataArrayDescriptor;
 }
 
 
-function ClearForm() {
-    $('form input').val('');
-    $('#text').val('');
 
-    // Clear the image
-    $("#imgShow").attr('src', null);
-    
-    document.getElementById("eystein").src = "http://en.wikipedia.org/wiki/";
-}
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -62,7 +62,7 @@ function filterData(data) {
 
 function errorHandling(res, status) {
     if (status === "error") {
-        if (res.responseText === "undefined" || res.responseText == "") {
+        if (typeof (res.responseText) === "undefined" || res.responseText == "") {
             // errorMessage can be an object with 3 string properties: ExceptionType, Message and StackTrace
             var errorMessage = $.parseJSON(res.responseText);
             alert(errorMessage.Message);
@@ -82,18 +82,4 @@ function defaultAction(json) {
 
 function AllCategories() {
     return ["Religion", "Empire", "Period", "Technology", "Exploration", "Art", "Person", "Fiction", "Invention", "Science", "War"];
-    // Wonder of the world?
-    // Events
-    
-
-    /*
-    Events Periods Persons
-    War    Empire
-              
-              Technology
-
-    //Religion   Exploration Art Invention Science
-    
-    //Fiction
-    */
 }
