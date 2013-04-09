@@ -176,7 +176,7 @@
     <Content Include="input.htm" />
     <Content Include="Scripts\ajaxWrapper.js" />
     <Content Include="Scripts\elements.js" />
-    <Content Include="Scripts\events.js" />
+    <Content Include="Scripts\transFormer.js" />
     <Content Include="Scripts\TimeLine\css\loading.gif" />
     <Content Include="Scripts\TimeLine\css\themes\dark.css" />
     <Content Include="Scripts\TimeLine\css\themes\font\AbrilFatface-Average.css" />
