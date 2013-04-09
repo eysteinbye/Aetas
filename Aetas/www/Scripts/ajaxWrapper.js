@@ -63,16 +63,16 @@ function filterData(data) {
 function errorHandling(res, status) {
     if (status === "error") {
         if (typeof (res.responseText) === "undefined" || res.responseText == "") {
+            alert(res.statusText);
+        } else {
             // errorMessage can be an object with 3 string properties: ExceptionType, Message and StackTrace
             var errorMessage = $.parseJSON(res.responseText);
             alert(errorMessage.Message);
-        } else {
-            alert(res.statusText);
         }
     }
     if (status === "systemException") alert(res);
 
-    if (status === "parsererror") alert(res); // Feilt format på respons?
+    if (status === "parsererror") alert(res); // Feil format på respons?
     
 }
 

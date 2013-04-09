@@ -22,10 +22,8 @@
             $("#startDate").datepicker({ dateFormat: "yy,mm,dd" });
             $("#endDate").datepicker({ dateFormat: "yy,mm,dd" });
 
-            // Loading for edit
+            // Loading dropdown for edit
             postData("WebService/RavenDB.asmx/GetEventsInCategory", { "Category": "All" }, ShowAllEvents);
-
-            
             
             $("#category").autocomplete({
                 source: AllCategories()
@@ -33,9 +31,7 @@
 
             $('#headline').blur(function () {
                 var searchString = $('#headline').val();
-                
                 document.getElementById("eystein").src = "http://en.wikipedia.org/wiki/" + searchString;
-
                 postXmlData("WebService/Wikipedia.asmx/Search", searchString, showWikiPicture);
             });
 
@@ -43,8 +39,8 @@
                 $("#imgShow").attr('src', $("#media").val());
             });
 
-            $('#save').click(function() {
-                var formData = $("form input, textarea"); 
+            $('#save').click(function () {
+                var formData = $("form input, textarea");
                 var json = mapFormToModel(formData);
 
                 postData("WebService/RavenDB.asmx/Save", json, AddEvent);
@@ -106,41 +102,15 @@
             $('#output').delay(3000).fadeOut('slow');
         }       
 
-
-
-
-        function SplitArrayOfCategoryObjects(cats) {
-            var str = "";
-            for (var i = 0; i < cats.length; i++) {
-                str += cats[i].name + " ";
-            }
-            return str;
-        }
-
-
-        // From db to form
         function populateForm(data) {
-            // todo: auto bind back via framwork.. dynamic
             var event = data.timeline.date[0];
-            $("#id").val(event.Id);
-            $("#headline").val(event.headline);
-            $("#text").val(event.text);
-            $("#startDate").val(event.startDate);
-            $("#endDate").val(event.endDate);
-            $("#media").val(event.asset.media);
-            $("#credit").val(event.asset.credit);
-            $("#caption").val(event.asset.caption);
 
-            var cats = SplitArrayOfCategoryObjects(event.category);
-            $("#category").val(cats);
+            mapModelToForm(event);
 
             // Load the image
             $("#imgShow").attr('src', event.asset.media);
-
             document.getElementById("eystein").src = "http://en.wikipedia.org/wiki/" + event.headline;
-
         }
-
 
         function ClearForm() {
             $('form input').val('');
@@ -152,8 +122,6 @@
             document.getElementById("eystein").src = "http://en.wikipedia.org/wiki/";
         }
 
-
-
     </script>
 
 </head>
@@ -162,11 +130,7 @@
 
     <form>
         
-      
-        
-        
         <div style="width: 400px;  float: left ">
-           
 
               <h1>Timeline input</h1>
             

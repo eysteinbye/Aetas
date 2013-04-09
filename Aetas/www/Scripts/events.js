@@ -5,6 +5,9 @@
 // Lag et name.space av dette
 
 
+var TransFormer = function() {};
+
+
 
 function mapFormToModel(formData) {
     var event = new EventModel();
@@ -16,7 +19,7 @@ function mapFormToModel(formData) {
         if (value === "") value = null;
         
 
-        var arrDescriptor = getDataArrayDescripto(elem);
+        var arrDescriptor = getDataArrayDescriptor(elem);
         if (arrDescriptor !== null) {
             value = event.makeObjectArrayFromString(value, arrDescriptor);
         }
@@ -62,7 +65,7 @@ function getDataObject(elem) {
 }
 
 
-function getDataArrayDescripto(elem) {
+function getDataArrayDescriptor(elem) {
     var dataArrayDescriptor = null;
 
     for (var i = 0; i < elem.attributes.length; i++) {
@@ -75,11 +78,46 @@ function getDataArrayDescripto(elem) {
 }
 
 
+function mapModelToForm(data) {
+
+    for (var i = 0; i < document.forms[0].elements.length; i++) {
+
+        var elem = document.forms[0].elements[i];
+
+        var propName = elem.id;
+        if (propName === "id") propName = "Id";
 
 
+        if (elem.tagName === "INPUT" || elem.tagName === "TEXTAREA") {
+
+            var verdi = data[propName];
+
+            if (typeof(verdi) === "undefined") {
+                // Sub object
+                var objName = getDataObject(elem);
+                verdi = data[objName][propName];
+            }
+
+            if (typeof(verdi) === "object") {
+                // Array of objects
+                var str = "";
+                var descriptor = getDataArrayDescriptor(elem);
+                for (var j = 0; j < verdi.length; j++) {
+                    str += verdi[j][descriptor] + " ";
+                }
+                verdi = str;
+
+            }
+            document.forms[0].elements[i].value = verdi;
+        }
+
+        if (elem.tagName === "SELECT") {
+        }
 
 
+    }
 
+}
 
 
 
