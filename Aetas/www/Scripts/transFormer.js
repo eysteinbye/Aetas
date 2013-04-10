@@ -5,6 +5,8 @@ transFormer.js Framwork - Easy binding of form-data
 
 var transFormer = {
 
+    separator : " ",
+
     // Gets value of attribute data-object, used for sub-objects like asset
     getDataObject: function (elem) {
         var dataObject = null;
@@ -37,7 +39,7 @@ var transFormer = {
 
             this.makeObjectArrayFromString = function (str, descriptor) {
                 str = $.trim(str);
-                var arr = str.split(" ");
+                var arr = str.split(this.separator);
                 for (var x = 0; x < arr.length; x++) {
                     var qq = $.trim(arr[x]);
                     arr[x] = {};
@@ -109,7 +111,7 @@ var transFormer = {
                 var str = "";
                 var descriptor = this.getDataArrayDescriptor(elem);
                 for (var j = 0; j < verdi.length; j++) {
-                    str += verdi[j][descriptor] + " ";
+                    str += verdi[j][descriptor] + this.separator;
                 }
                 verdi = str;
             }
