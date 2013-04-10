@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>transFormer Example</title>
+
+    <script src="Scripts/jquery-1.8.3.min.js"></script>
+    <script src="Scripts/ajaxWrapper.js"></script>
+    <script src="Scripts/transFormer.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            getCrossDomainData("http://search.twitter.com/search.json?q=styringsrenta&rpp=50", bind);
+        });
+
+        function bind(data) {
+            transFormer.bind(data.results[0]);
+        }
+    </script>
+</head>
+
+<body>
+    <h1>transFormer Example</h1>
+                   
+    <div id="from_user"></div>
+    <div id="from_user_name"></div>
+    <div id="text"></div>
+    <div id="created_at"></div>
+    <img id="profile_image_url" />
+    
+</body>
+</html>

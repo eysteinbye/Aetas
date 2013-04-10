@@ -172,6 +172,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="TwitterDemo.html" />
     <Content Include="Dump\InputMsSql.htm" />
     <Content Include="input.htm" />
     <Content Include="Scripts\ajaxWrapper.js" />

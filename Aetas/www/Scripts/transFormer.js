@@ -74,40 +74,65 @@ var transFormer = {
         return event;
     },
 
-    populateForm: function (data) {
-        for (var i = 0; i < document.forms[0].elements.length; i++) {
+    bind: function (data) {
+        /*
+        This binds value (to show)
+        */
 
-            var elem = document.forms[0].elements[i];
+        var allTags = document.getElementsByTagName('*');
+        for (var i = 0; i < allTags.length; i++) {
+            var elem = allTags[i];
+
+            // for test
+            var vartype = typeof (elem);
 
             var propName = elem.id;
+
             if (propName === "id") propName = "Id";
 
+            var verdi = data[propName];
 
-            if (elem.tagName === "INPUT" || elem.tagName === "TEXTAREA") {
+            if (typeof (verdi) === "undefined") {
+                // Sub object
+                var objName = this.getDataObject(elem);
 
-                var verdi = data[propName];
-
-                if (typeof (verdi) === "undefined") {
-                    // Sub object
-                    var objName = this.getDataObject(elem);
+                try {
                     verdi = data[objName][propName];
+                } catch (e) {
+                    // html-element not found in data model
+                    continue;
                 }
+            }
 
-                if (typeof (verdi) === "object") {
-                    // Array of objects
-                    var str = "";
-                    var descriptor = this.getDataArrayDescriptor(elem);
-                    for (var j = 0; j < verdi.length; j++) {
-                        str += verdi[j][descriptor] + " ";
-                    }
-                    verdi = str;
-
+            if (typeof (verdi) === "object") {
+                // Array of objects
+                var str = "";
+                var descriptor = this.getDataArrayDescriptor(elem);
+                for (var j = 0; j < verdi.length; j++) {
+                    str += verdi[j][descriptor] + " ";
                 }
-                document.forms[0].elements[i].value = verdi;
+                verdi = str;
+            }
+
+            if (elem.tagName === "DIV" || elem.tagName === "P") {
+                elem.innerHTML = verdi;
+            }
+            if (elem.tagName === "IMG") {
+                elem.src = verdi;
+            }
+            if (elem.tagName === "INPUT" || elem.tagName === "TEXTAREA") {
+                if (elem.type == 'checkbox') {
+                    elem.checked = verdi; // true false
+                }else if (elem.type == 'radio') {
+                    elem.checked = verdi; // true false
+                } else {
+                    elem.value = verdi;
+                }
             }
 
             if (elem.tagName === "SELECT") {
-                // todo : Add populate for select
+                //var strUser = elem.options[elem.selectedIndex].value;
+                elem.value = verdi;
             }
         }
     }

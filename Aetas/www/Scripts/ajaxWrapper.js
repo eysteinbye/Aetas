@@ -2,6 +2,27 @@ function getData(url, callback) {
     ajaxWrapper(url, null, "GET", callback);
 }
 
+function getCrossDomainData(url, callback) {
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        url: url,
+        data: null,
+        dataType: "jsonp",
+        success: function (json) {
+            if (!callback) callback = defaultAction;
+            callback(json);
+        },
+        error: function (res, status) {
+            errorHandling(res, status);
+        }
+    });
+    
+
+}
+
+
+
 function postData(url, data, callback) {
     ajaxWrapper(url, data, "POST", callback);
 }

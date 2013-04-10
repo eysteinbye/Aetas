@@ -56,7 +56,7 @@
                     ClearForm();
                     $("#delete").attr("disabled", "disabled");
                 } else {
-                    postData("WebService/RavenDB.asmx/GetEvent", { "Id": id }, populateForm);
+                    postData("WebService/RavenDB.asmx/GetEvent", { "Id": id }, bind);
                     $("#delete").removeAttr("disabled");
                 }
             });
@@ -102,10 +102,10 @@
             $('#output').delay(3000).fadeOut('slow');
         }       
 
-        function populateForm(data) {
+        function bind(data) {
             var event = data.timeline.date[0];
 
-            transFormer.populateForm(event);
+            transFormer.bind(event);
 
             // Load the image
             $("#imgShow").attr('src', event.asset.media);
